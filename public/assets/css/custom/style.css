@@ -7,6 +7,52 @@
     font-family: 'Poppins', sans-serif;
 }
 
+.c-image-text{
+    display: flex;
+    align-items: center;
+}
+.c-logo-text{
+    display: flex;
+    flex-direction: column;
+}
+.c-image-text .name {
+    margin-top: 2px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #ccc;
+}
+
+.c-image-text .profession{
+    font-size: 16px;
+    margin-top: -2px;
+    display: block;
+}
+
+.c-image{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.c-image img{
+    margin-right: 20px;
+    width: 50px;
+    border-radius: 50%;
+}
+
+.p-image img{
+    margin-right: 20px;
+    width: 100px;
+    border-radius: 50%;
+}
+
+.p-image{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 :root{
     /* ===== Colors ===== */
     --body-color: #E4E9F7;
@@ -132,8 +178,9 @@ header .image-text .profession{
 }
 
 .sidebar header .image img{
-    width: 40px;
-    border-radius: 6px;
+    margin-right: 20px;
+    width: 60px;
+    border-radius: 50%;
 }
 
 .sidebar header .toggle{
@@ -307,3 +354,4 @@ body.dark .switch::before{
 body.dark .home .text{
     color: var(--text-color);
 }
+

@@ -13,13 +13,9 @@ module.exports.RelationShips = ()=>{
 
     Posts.belongsTo(Users, { constraint: true, onDelete: "CASCADE", as: 'author'},);
     Users.hasMany(Posts, {foreignKey: 'authorId'});
-    Posts.belongsTo(Users, { constraint: true, onDelete: "CASCADE", as: 'receptor'},);
-    Users.hasMany(Posts, {foreignKey: 'receptorId'});
 
     PostImages.belongsTo(Users, { constraint: true, onDelete: "CASCADE", as: 'author'},);
     Users.hasMany(PostImages, {foreignKey: 'authorId'});
-    PostImages.belongsTo(Users, { constraint: true, onDelete: "CASCADE", as: 'receptor'},);
-    Users.hasMany(PostImages, {foreignKey: 'receptorId'});
 
     Comments.belongsTo(Users, { constraint: true, onDelete: "CASCADE", as: 'author'},);
     Users.hasMany(Comments, {foreignKey: 'authorId'});
