@@ -53,6 +53,23 @@
     justify-content: center;
 }
 
+.d-image img{
+    width: 50px;
+    border-radius: 50%;
+}
+
+.r-image img{
+    width: 30px;
+    border-radius: 50%;
+}
+
+.image-post{
+    width: 31rem;
+    max-height: 35rem ;
+    border-radius: 1%;
+}
+
+
 :root{
     /* ===== Colors ===== */
     --body-color: #E4E9F7;
