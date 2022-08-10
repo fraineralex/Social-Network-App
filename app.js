@@ -9,6 +9,7 @@ const { v4: uuidv4 } = require("uuid");
 const app = express();
 
 const getDataHelpers = require("./util/helpers/GetData");
+const getConfirmation = require("./util/helpers/friendConfirmation");
 
 app.engine(
   "hbs",
@@ -20,6 +21,7 @@ app.engine(
       findName: getDataHelpers.FindName,
       findImageProfile: getDataHelpers.FindImageProfile,
       getDate: getDataHelpers.GetDate,
+      getConfirmationF: getConfirmation.friendConfirmation,
     },
   })
 );

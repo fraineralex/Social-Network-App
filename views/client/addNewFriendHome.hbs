@@ -1,0 +1,44 @@
+<div class="container">
+
+    <div class="row">
+
+        <div class="row">
+            <form action="/searchNewFriend" method="post">
+                <label for="search">New friend</label>
+                <input type="text" id="search" name="userName" placeholder="User name..." required> <!--upgrade later-->
+                <input type="hidden" name="userId" value="{{userId}}">
+                <button type="submit">search</button>
+            </form>
+        </div>
+
+        <div class="col-12 p-5">
+            {{#if us}}
+            <div class="row">
+                {{#each us as |us key|}}
+                <a href="" class="bg-dark">
+                    <div class="box">
+                        <div class="card bg-dark">
+                            <div class="card-header">
+                                <img src="{{us.imageProfile}}" alt="{{us.name}} profile image" class="card-img">
+                            </div>
+                            <div class="card-body">
+                                <h1>{{us.name}}</h1>
+                                <h3>{{us.lastName}}</h3>
+                                <h3>{{us.user}}</h3>
+                            </div>
+                            <div class="card-header">
+                                {{#if (getConfirmationF ../ac key)}}
+                                    <a href="" class="btn btn-outline-success disabled">My friend :)</a>
+                                {{else}}
+                                    <a href="/solicitude/friend/{{../userId}}/{{us.id}}" class="btn btn-success">send</a>
+                                {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {{/each}}
+            </div>
+            {{/if}}
+        </div>
+    </div>
+</div>
