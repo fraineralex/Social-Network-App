@@ -1,8 +1,7 @@
 module.exports.RelationShips = ()=>{
     
     const Users = require("../models/Users");
-    const Posts = require("../models/Posts");
-    const PostImages = require("../models/PostImages");
+    const Posts = require("./Posts");
     const Events = require("../models/Events");
     const Comments = require("../models/Comments");
     const Notifications = require("../models/Notifications");
@@ -13,9 +12,6 @@ module.exports.RelationShips = ()=>{
 
     Posts.belongsTo(Users, { constraint: true, onDelete: "CASCADE", as: 'author'},);
     Users.hasMany(Posts, {foreignKey: 'authorId'});
-
-    PostImages.belongsTo(Users, { constraint: true, onDelete: "CASCADE", as: 'author'},);
-    Users.hasMany(PostImages, {foreignKey: 'authorId'});
 
     Comments.belongsTo(Users, { constraint: true, onDelete: "CASCADE", as: 'author'},);
     Users.hasMany(Comments, {foreignKey: 'authorId'});
@@ -41,10 +37,6 @@ module.exports.RelationShips = ()=>{
     // Post relationships
     Comments.belongsTo(Posts, { constraint: true, onDelete: "CASCADE", as: 'post'},);
     Posts.hasMany(Comments, {foreignKey: 'postId'});
-
-    // PostImage relationships
-    Comments.belongsTo(PostImages, { constraint: true, onDelete: "CASCADE", as: 'postImage'},);
-    PostImages.hasMany(Comments, {foreignKey: 'postImageId'});
 
     // comment relationships
     Comments.belongsTo(Comments, { constraint: true, onDelete: "CASCADE", as: 'comment'},);

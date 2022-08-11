@@ -22,6 +22,7 @@ app.engine(
       findImageProfile: getDataHelpers.FindImageProfile,
       getDate: getDataHelpers.GetDate,
       getConfirmationF: getConfirmation.friendConfirmation,
+      findReply: getDataHelpers.FindReply,
     },
   })
 );

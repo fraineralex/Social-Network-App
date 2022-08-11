@@ -1,7 +1,6 @@
 const Users = require("../models/Users");
-const Posts = require("../models/Posts");
 const Comments = require("../models/Comments");
-const PostImages = require("../models/PostImages");
+const Posts = require("../models/Posts");
 
 exports.GetHome = (req, res, next) => {
   Posts.findAll({
@@ -9,26 +8,24 @@ exports.GetHome = (req, res, next) => {
   })
     .then((result) => {
       const posts = result.map((result) => result.dataValues);
-      PostImages.findAll({
-        include: [{ model: Users, as: "author" }, { model: Comments }],
-      })
+      Users.findAll()
         .then((result) => {
-          const postImages = result.map((result) => result.dataValues);
-          Users.findAll()
+          const users = result.map((result) => result.dataValues);
+          Users.findOne()
             .then((result) => {
-              const users = result.map((result) => result.dataValues);
-              Users.findOne().then((result) => {
-                const user = result.dataValues;
-                res.render("client/home", {
-                  pageTitle: "Home",
-                  homeActive: true,
-                  posts: posts,
-                  user: user,
-                  users: users,
-                  postImages: postImages,
-                  hasPost: posts.length > 0,
-                  search: true,
-                });
+              let user;
+              if (result) {
+                user = result.dataValues;
+              }
+
+              res.render("client/home", {
+                pageTitle: "Home",
+                homeActive: true,
+                posts: posts,
+                user: user,
+                users: users,
+                hasPost: posts.length > 0,
+                search: true,
               });
             })
             .catch((err) => {
@@ -46,7 +43,7 @@ exports.GetHome = (req, res, next) => {
 
 exports.GetNewPostImage = (req, res, next) => {
   Users.findOne({
-    where: id = 1
+    where: { id: 1 },
   })
     .then((result) => {
       const user = result.dataValues;
@@ -55,7 +52,7 @@ exports.GetNewPostImage = (req, res, next) => {
         pageTitle: "Home",
         homeActive: true,
         postImage: true,
-        user: user
+        user: user,
       });
     })
     .catch((err) => {
@@ -64,80 +61,34 @@ exports.GetNewPostImage = (req, res, next) => {
 };
 
 exports.GetNewComment = (req, res, next) => {
-  const comment = req.query.comment;
   const postId = req.params.PostId;
 
-  if (comment === "post") {
-    Posts.findOne({
-      where: {
-        id: postId,
-      },
-      include: [{ model: Users, as: "author" }, { model: Comments }],
-    })
-      .then((result) => {
-        const post = result.dataValues;
-        Users.findOne()
-          .then((result) => {
-            const user = result.dataValues;
-
-            res.render("client/home", {
-              pageTitle: "Home",
-              homeActive: true,
-              post: post,
-              user: user,
-              search: true,
-              comment: true,
-            });
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  } else if (comment === "postImage") {
-    PostImages.findOne({
-      where: {
-        id: postId,
-      },
-      include: [{ model: Users, as: "author" }, { model: Comments }],
-    })
-      .then((result) => {
-        const post = result.dataValues;
-        Users.findOne()
-          .then((result) => {
-            console.log(result);
-            const user = result.dataValues;
-
-            res.render("client/home", {
-              pageTitle: "Home",
-              homeActive: true,
-              post: post,
-              user: user,
-              search: true,
-              comment: true,
-              postImage: true,
-            });
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  } else {
-    return res.redirect("/");
-  }
-};
-
-exports.PostNewPost = (req, res, next) => {
-  const authorId = req.body.AuthorId;
-  const content = req.body.Content;
-  Posts.create({ content: content, authorId: authorId })
+  Posts.findOne({
+    where: {
+      id: postId,
+    },
+    include: [{ model: Users, as: "author" }, { model: Comments }],
+  })
     .then((result) => {
-      res.redirect("/");
+      const post = result.dataValues;
+      Users.findOne()
+        .then((result) => {
+          console.log(result);
+          const user = result.dataValues;
+
+          res.render("client/home", {
+            pageTitle: "Home",
+            homeActive: true,
+            post: post,
+            user: user,
+            search: true,
+            comment: true,
+            postImage: true,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     })
     .catch((err) => {
       console.log(err);
@@ -147,30 +98,19 @@ exports.PostNewPost = (req, res, next) => {
 exports.PostNewComment = (req, res, next) => {
   const content = req.body.Content;
   const postId = req.body.PostId;
-  const postImageId = req.body.PostImageId;
   const authorId = req.body.AuthorId;
 
-  if (!postId) {
-    Comments.create({
-      content: content,
-      authorId: authorId,
-      postImageId: postImageId,
+  Comments.create({
+    content: content,
+    authorId: authorId,
+    postId: postId,
+  })
+    .then(() => {
+      res.redirect("/");
     })
-      .then(() => {
-        res.redirect("/");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  } else {
-    Comments.create({ content: content, authorId: authorId, postId: postId })
-      .then(() => {
-        res.redirect("/");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 exports.GetNewReply = (req, res, next) => {
@@ -209,7 +149,7 @@ exports.GetNewReply = (req, res, next) => {
         console.log(err);
       });
   } else if (comment === "postImage") {
-    PostImages.findOne({
+    Posts.findOne({
       where: {
         id: postId,
       },
@@ -248,54 +188,51 @@ exports.PostNewReply = (req, res, next) => {
   const content = req.body.Content;
   const postId = req.body.PostId;
   const commentId = req.body.CommentId;
-  const postImageId = req.body.PostImageId;
   const authorId = req.body.AuthorId;
-  console.log(commentId);
 
-  if (!postId) {
-    Comments.create({
-      content: content,
-      authorId: authorId,
-      postImageId: postImageId,
-      commentId: commentId,
+  Comments.create({
+    content: content,
+    authorId: authorId,
+    postId: postId,
+    commentId: commentId,
+  })
+    .then(() => {
+      res.redirect("/");
     })
-      .then(() => {
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+exports.PostNewPost = (req, res, next) => {
+  const authorId = req.body.AuthorId;
+  const imageUrl = req.file;
+  const content = req.body.Content;
+
+  if (imageUrl) {
+    Posts.create({
+      src: "/" + imageUrl.path,
+      authorId: authorId,
+      content: content,
+    })
+      .then((result) => {
         res.redirect("/");
       })
       .catch((err) => {
         console.log(err);
       });
   } else {
-    Comments.create({
-      content: content,
+    Posts.create({
       authorId: authorId,
-      postId: postId,
-      commentId: commentId,
+      content: content,
     })
-      .then(() => {
+      .then((result) => {
         res.redirect("/");
       })
       .catch((err) => {
         console.log(err);
       });
   }
-};
-
-exports.PostNewPostImage = (req, res, next) => {
-  const authorId = req.body.AuthorId;
-  const imageUrl = req.file;
-  const caption = req.body.Caption;
-  PostImages.create({
-    src: "/" + imageUrl.path,
-    authorId: authorId,
-    caption: caption,
-  })
-    .then((result) => {
-      res.redirect("/");
-    })
-    .catch((err) => {
-      console.log(err);
-    });
 };
 
 exports.GetEditPost = (req, res, next) => {
@@ -307,7 +244,7 @@ exports.GetEditPost = (req, res, next) => {
   }
   Posts.findOne({
     where: {
-      id: postId
+      id: postId,
     },
     include: [{ model: Users, as: "author" }, { model: Comments }],
   })
@@ -316,7 +253,7 @@ exports.GetEditPost = (req, res, next) => {
       Users.findOne({
         where: {
           id: 1,
-        }
+        },
       })
         .then((result) => {
           const user = result.dataValues;
@@ -326,12 +263,59 @@ exports.GetEditPost = (req, res, next) => {
             homeActive: true,
             post: post,
             user: user,
-            editMode: true
+            editMode: true,
           });
         })
         .catch((err) => {
           console.log(err);
         });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+exports.PostEditPost = (req, res, next) => {
+  const postId = req.body.PostId;
+  const imageUrl = req.file;
+  const content = req.body.Content;
+
+  if (imageUrl) {
+    Posts.update({
+      where:{
+        id: postId
+      },
+      src: "/" + imageUrl.path,
+      content: content,
+    })
+      .then((result) => {
+        res.redirect("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  } else {
+    Posts.update(
+    {
+      content: content,
+    },
+    {where: {id: postId}}
+    )
+      .then((result) => {
+        res.redirect("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+};
+
+exports.PostDeletePost = (req, res, next) => {
+  const postId = req.body.PostId;
+
+  Posts.destroy({ where: { id: postId } })
+    .then((result) => {
+      return res.redirect("/");
     })
     .catch((err) => {
       console.log(err);
