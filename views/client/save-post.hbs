@@ -1,0 +1,111 @@
+<main class="row mt-4" style="margin-left: 400px">
+    {{#if post.src}}
+    <form enctype="multipart/form-data" method="POST" class="row g-3 needs-validation"
+        action="{{#if editMode}}/edit-post{{else}}/new-post{{/if}}">
+        <div class="col-md-8 me-5 mt-0">
+            <div class="card bg-dark" style="width: 35rem;">
+                <div class="card-body">
+                    <header>
+                        <div class="c-image-text">
+                            <span class="c-image">
+                                <img src="{{user.imageProfile}}" alt="profile">
+                            </span>
+
+                            <div class="c-text c-logo-text">
+                                <span class="name">{{user.name}}</span>
+                            </div>
+                        </div>
+                    </header>
+
+                    <div class="mb-2">
+                        <label for="post" class="form-label text-white text-white"></label>
+                        <textarea type="text" class="form-control bg-dark text-white border-dark" id="post"
+                            name="Content" placeholder="Escribe una descripción..."
+                            rows="{{#if editMode}}1{{else}}4{{/if}}">{{#if editMode}}{{post.content}}{{/if}}</textarea>
+                    </div>
+
+                    {{#if editMode}}
+                    <div class="text-center mt-4 mb-4">
+                        <img src="{{post.src}}" class="image-post" alt="image">
+                    </div>
+                    {{/if}}
+
+                    <div class="mb-2">
+                        <label for="image" class="form-label text-white">{{#if editMode}}Actualizar{{else}}Agregar{{/if}} fotografía</label>
+                        <input type="file" class="form-control bg-dark text-white border-primary" id="image"
+                            name="ImageFile">
+                    </div>
+
+
+                    <input type="hidden" name="AuthorId" value="{{user.id}}">
+
+                    {{#if editMode}}
+                    <input type="hidden" name="PostId" value="{{post.id}}">
+                    {{/if}}
+
+                    <button type="submit" class="btn btn-sm btn-primary float-end mt-2 ms-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-send-plus" viewBox="0 0 16 16">
+                            <path
+                                d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855a.75.75 0 0 0-.124 1.329l4.995 3.178 1.531 2.406a.5.5 0 0 0 .844-.536L6.637 10.07l7.494-7.494-1.895 4.738a.5.5 0 1 0 .928.372l2.8-7Zm-2.54 1.183L5.93 9.363 1.591 6.602l11.833-4.733Z">
+                            </path>
+                            <path
+                                d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-3.5-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 1 0v-1h1a.5.5 0 0 0 0-1h-1v-1a.5.5 0 0 0-.5-.5Z">
+                            </path>
+                        </svg>
+                        {{#if editMode}}Actualizar{{else}}Publicar{{/if}}
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </form>
+    {{else}}
+    <form method="POST" class="row g-3 needs-validation mx-auto"
+        action="{{#if editMode}}/edit-post{{else}}/new-post{{/if}}">
+        <div class="col-md-8 mt-0 ms-4 px-5">
+            <div class="card bg-dark" style="width: 25rem;">
+                <div class="card-body">
+                    <header>
+                        <div class="c-image-text">
+                            <span class="c-image">
+                                <img src="/assets/images/profile-11.jpg" alt="profile">
+                            </span>
+
+                            <div class="c-text c-logo-text">
+                                <span class="name">{{post.author.dataValues.name}}</span>
+                            </div>
+                        </div>
+                    </header>
+
+                    <div class="mb-4">
+                        <label for="post" class="form-label text-white text-white"></label>
+                        <textarea type="text" class="form-control bg-dark text-white border-primary" id="post"
+                            name="Content" placeholder="¿Qué estás pensando?" rows="3"
+                            required>{{#if editMode}}{{post.content}}{{/if}}</textarea>
+                    </div>
+
+                    <input type="hidden" name="AuthorId" value="{{user.id}}">
+
+                    {{#if editMode}}
+                    <input type="hidden" name="PostId" value="{{post.id}}">
+                    {{/if}}
+
+                    <button type="submit" class="btn btn-sm btn-primary float-end mt-2 ms-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-send-plus" viewBox="0 0 16 16">
+                            <path
+                                d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855a.75.75 0 0 0-.124 1.329l4.995 3.178 1.531 2.406a.5.5 0 0 0 .844-.536L6.637 10.07l7.494-7.494-1.895 4.738a.5.5 0 1 0 .928.372l2.8-7Zm-2.54 1.183L5.93 9.363 1.591 6.602l11.833-4.733Z">
+                            </path>
+                            <path
+                                d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-3.5-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 1 0v-1h1a.5.5 0 0 0 0-1h-1v-1a.5.5 0 0 0-.5-.5Z">
+                            </path>
+                        </svg>
+                        {{#if editMode}}Actualizar{{else}}Publicar{{/if}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+    {{/if}}
+</main>

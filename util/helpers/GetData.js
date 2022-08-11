@@ -16,3 +16,9 @@ exports.FindImageProfile = (commentId, users) => {
   const user = users.find((user) => user.id == commentId);
   return user.imageProfile;
 };
+
+exports.FindReply = (commentId, comments) => {
+  console.log(commentId, comments)
+  const reply = comments.find((comment) => comment.commentId == commentId);
+  return comments
+};
