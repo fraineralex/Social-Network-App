@@ -3,4 +3,7 @@ package-lock.json
 /context
 /views/client/test.hbs
 /views/client/examples.hbs
-/images
+*png
+*jpg
+*jpeg
+*gif

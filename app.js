@@ -9,6 +9,7 @@ const { v4: uuidv4 } = require("uuid");
 const app = express();
 
 const getDataHelpers = require("./util/helpers/GetData");
+const getConfirmation = require("./util/helpers/friendConfirmation");
 
 app.engine(
   "hbs",
@@ -20,6 +21,7 @@ app.engine(
       findName: getDataHelpers.FindName,
       findImageProfile: getDataHelpers.FindImageProfile,
       getDate: getDataHelpers.GetDate,
+      getConfirmationF: getConfirmation.friendConfirmation,
     },
   })
 );
@@ -45,9 +47,10 @@ app.use(multer({ storage: imageStorage }).single("ImageFile"));
 
 const errorController = require("./controllers/ErrorController");
 const homeRouter = require("./routes/Home");
+const friendRouter = require("./routes/FriendRoutes");
 
 app.use(homeRouter);
-
+app.use(friendRouter);
 app.use(errorController.Get404);
 
 relationships.RelationShips();

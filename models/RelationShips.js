@@ -26,15 +26,12 @@ module.exports.RelationShips = ()=>{
     Notifications.belongsTo(Users, { constraint: true, onDelete: "CASCADE", as: 'author'},);
     Users.hasMany(Notifications, {foreignKey: 'authorId'});
 
-    Friends.belongsTo(Users, { constraint: true, onDelete: "CASCADE", as: 'sender'},);
+    /*
     Users.hasMany(Friends, {foreignKey: 'senderId'});
+    Friends.belongsTo(Users, { constraint: true, onDelete: "CASCADE", as: 'sender'},);
     Friends.belongsTo(Users, { constraint: true, onDelete: "CASCADE", as: 'receptor'},);
-
-
-
-
-
     Users.hasMany(Friends, {foreignKey: 'receptorId'});
+    */
 
     EventRequests.belongsTo(Users, { constraint: true, onDelete: "CASCADE", as: 'author'},);
     Users.hasMany(EventRequests, {foreignKey: 'authorId'});

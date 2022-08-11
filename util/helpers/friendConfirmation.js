@@ -1,0 +1,1 @@
+exports.friendConfirmation = (ac, key) =>ac[key]

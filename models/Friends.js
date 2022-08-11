@@ -12,6 +12,14 @@ const Friends = sequelize.define("friends",{
   isAccepted:{
   type: Sequelize.BOOLEAN,
   defaultValue: false,
+  },
+  senderID:{
+      type: Sequelize.INTEGER,
+      allowNull: false,
+  },
+  receptorID:{
+      type: Sequelize.INTEGER,
+      allowNull: false,
   }
 
 })
