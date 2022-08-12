@@ -215,7 +215,6 @@ exports.PostNewPost = (req, res, next) => {
   const authorId = req.body.AuthorId;
   const imageUrl = req.file;
   const content = req.body.Content;
-  console.log(imageUrl);
 
   if (imageUrl) {
     Posts.create({
@@ -287,7 +286,6 @@ exports.PostEditPost = (req, res, next) => {
   const postId = req.body.PostId;
   const imageUrl = req.file;
   const content = req.body.Content;
-  console.log(imageUrl);
 
   if (imageUrl) {
     Posts.update(
