@@ -41,7 +41,7 @@ exports.GetHome = (req, res, next) => {
     });
 };
 
-exports.GetNewPostImage = (req, res, next) => {
+exports.GetNewPost = (req, res, next) => {
   Users.findOne({
     where: { id: 1 },
   })
@@ -51,7 +51,7 @@ exports.GetNewPostImage = (req, res, next) => {
       res.render("client/save-post", {
         pageTitle: "Home",
         homeActive: true,
-        postImage: true,
+        post: { src: true },
         user: user,
       });
     })
@@ -73,18 +73,25 @@ exports.GetNewComment = (req, res, next) => {
       const post = result.dataValues;
       Users.findOne()
         .then((result) => {
-          console.log(result);
           const user = result.dataValues;
+          Users.findAll()
+            .then((result) => {
+              const users = result.map((result) => result.dataValues);
 
-          res.render("client/home", {
-            pageTitle: "Home",
-            homeActive: true,
-            post: post,
-            user: user,
-            search: true,
-            comment: true,
-            postImage: true,
-          });
+              res.render("client/home", {
+                pageTitle: "Home",
+                homeActive: true,
+                post: post,
+                user: user,
+                users: users,
+                search: true,
+                comment: true,
+                postImage: true,
+              });
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         })
         .catch((err) => {
           console.log(err);
@@ -208,6 +215,7 @@ exports.PostNewPost = (req, res, next) => {
   const authorId = req.body.AuthorId;
   const imageUrl = req.file;
   const content = req.body.Content;
+  console.log(imageUrl);
 
   if (imageUrl) {
     Posts.create({
@@ -279,15 +287,16 @@ exports.PostEditPost = (req, res, next) => {
   const postId = req.body.PostId;
   const imageUrl = req.file;
   const content = req.body.Content;
+  console.log(imageUrl);
 
   if (imageUrl) {
-    Posts.update({
-      where:{
-        id: postId
+    Posts.update(
+      {
+        src: "/" + imageUrl.path,
+        content: content,
       },
-      src: "/" + imageUrl.path,
-      content: content,
-    })
+      { where: { id: postId } }
+    )
       .then((result) => {
         res.redirect("/");
       })
@@ -296,10 +305,10 @@ exports.PostEditPost = (req, res, next) => {
       });
   } else {
     Posts.update(
-    {
-      content: content,
-    },
-    {where: {id: postId}}
+      {
+        content: content,
+      },
+      { where: { id: postId } }
     )
       .then((result) => {
         res.redirect("/");

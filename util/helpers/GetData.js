@@ -1,8 +1,8 @@
 const moment = require("moment");
 moment.locale('es-do')
 
-exports.FindName = (commentId, users) => {
-  const user = users.find((user) => user.id == commentId);
+exports.FindName = (authorId, users) => {
+  const user = users.find((user) => user.id == authorId);
   return user.name;
 };
 
@@ -12,13 +12,19 @@ exports.GetDate = (date) => {
   return time;
 };
 
-exports.FindImageProfile = (commentId, users) => {
-  const user = users.find((user) => user.id == commentId);
+exports.FindImageProfile = (authorId, users) => {
+  console.log(users)
+  const user = users.find((user) => user.id == authorId);
   return user.imageProfile;
 };
 
-exports.FindReply = (commentId, comments) => {
-  console.log(commentId, comments)
-  const reply = comments.find((comment) => comment.commentId == commentId);
-  return comments
+exports.FindCommentsWithoutReplies = (comments) => {
+  const commentsWithoutReplies = comments.filter(comment => comment.dataValues.commentId == null)
+  return commentsWithoutReplies
 };
+
+exports.FindReply = (commentId, comments) => {
+  const reply = comments.filter(comment => comment.dataValues.commentId == commentId)
+  return reply
+};
+ 

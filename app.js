@@ -21,8 +21,9 @@ app.engine(
       findName: getDataHelpers.FindName,
       findImageProfile: getDataHelpers.FindImageProfile,
       getDate: getDataHelpers.GetDate,
-      getConfirmationF: getConfirmation.friendConfirmation,
+      findCommentsWithoutReplies: getDataHelpers.FindCommentsWithoutReplies,
       findReply: getDataHelpers.FindReply,
+      getConfirmationF: getConfirmation.friendConfirmation,
     },
   })
 );
