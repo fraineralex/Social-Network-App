@@ -1,7 +1,7 @@
 <main>
     {{#if user}}
     {{!-- New Post section --}}
-    <section class="row" style="margin-left: 400px">
+    <section class="row mb-5" style="margin-left: 400px">
         {{#if comment}}
         {{else}}
         <form method="POST" class="row g-3 needs-validation mx-auto" action="/new-post">
@@ -76,7 +76,7 @@
 
             {{#if post.comments}}
             <hr class="text-white mt-4" />
-            {{#each post.comments as | comment |}}
+            {{#each ( findCommentsWithoutReplies post.comments) as | comment |}}
             <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true"
                 style="width: 24rem;">
                 <div class="card-header " style="height: 40px;">
@@ -89,10 +89,106 @@
                 </div>
                 <div class="card-body">
                     <small class="fw-light">{{comment.dataValues.content}}</small>
-                    <a href="/new-reply/{{../post.id}}/{{comment.dataValues.id}}"
+                    <a href="/new-reply/{{../post.id}}/{{comment.dataValues.id}}?comment=postImage"
                         class="float-end text-white-50"><small>Responder</small></a>
                 </div>
             </div>
+            {{!-- Comments of reply --}}
+            {{#each (findReply comment.dataValues.id ../post.comments) as | reply |}}
+            {{#if reply}}
+            <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true"
+                style="width: 23rem;  margin-left: 18px;">
+                <div class="card-header " style="height: 40px;">
+                    <span class="r-image">
+                        <img src="{{findImageProfile reply.dataValues.authorId ../../users}}" class=" me-2"
+                            alt="profile">
+                    </span>
+                    <small class="me-auto fw-light">{{findName reply.dataValues.authorId
+                        ../../users}}<i class="me-auto fw-light text-primary"> -> @{{findName
+                            comment.dataValues.authorId ../../users}}</i></small>
+                    <small class="float-end fw-light text-muted"><small>{{getDate
+                            reply.dataValues.createdAt}}</small></small>
+                </div>
+                <div class="card-body">
+                    <small class="fw-light">{{reply.dataValues.content}}</small>
+                    <a href="/new-reply/{{post.id}}/{{reply.dataValues.id}}?comment=postImage"
+                        class="float-end text-white-50"><small>Responder</small></a>
+                </div>
+            </div>
+            {{!-- Comments of reply #1 --}}
+            {{#each (findReply reply.dataValues.id ../../post.comments) as | reply2 |}}
+            {{#if reply2}}
+            <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true"
+                style="width: 22rem; margin-left: 33px;">
+                <div class="card-header " style="height: 40px;">
+                    <span class="r-image">
+                        <img src="{{findImageProfile reply2.dataValues.authorId ../../../users}}" class=" me-2"
+                            alt="profile">
+                    </span>
+                    <small class="me-auto fw-light"><small>{{findName reply2.dataValues.authorId
+                            ../../../users}}<i class="me-auto fw-light text-primary"> -> @{{findName
+                                reply.dataValues.authorId ../../../users}}</i></small></small>
+                    <small class="float-end fw-light text-muted"><small>{{getDate
+                            reply2.dataValues.createdAt}}</small></small>
+                </div>
+                <div class="card-body">
+                    <small class="fw-light">{{reply2.dataValues.content}}</small>
+                    <a href="/new-reply/{{post.id}}/{{reply2.dataValues.id}}?comment=postImage"
+                        class="float-end text-white-50"><small>Responder</small></a>
+                </div>
+            </div>
+            {{!-- Comments of reply #2 --}}
+            {{#each (findReply reply2.dataValues.id ../../../post.comments) as | reply3 |}}
+            {{#if reply3}}
+            <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true"
+                style="width: 21rem; margin-left: 50px;">
+                <div class="card-header " style="height: 40px;">
+                    <span class="r-image">
+                        <img src="{{findImageProfile reply3.dataValues.authorId ../../../../users}}" class=" me-2"
+                            alt="profile">
+                    </span>
+                    <small class="me-auto fw-light"><small>{{findName reply2.dataValues.authorId
+                            ../../../../users}}<i class="me-auto fw-light text-primary"> -> @{{findName
+                                reply2.dataValues.authorId ../../../../users}}</i></small></small>
+                    <small class="float-end fw-light text-muted"><small>{{getDate
+                            reply3.dataValues.createdAt}}</small></small>
+                </div>
+                <div class="card-body">
+                    <small class="fw-light">{{reply3.dataValues.content}}</small>
+                    <a href="/new-reply/{{post.id}}/{{reply3.dataValues.id}}?comment=postImage"
+                        class="float-end text-white-50"><small>Responder</small></a>
+                </div>
+            </div>
+            {{!-- Comments of reply #3 --}}
+            {{#each (findReply reply3.dataValues.id ../../../../post.comments) as | reply4 |}}
+            {{#if reply4}}
+            <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true"
+                style="width: 20rem; margin-left: 60px;">
+                <div class="card-header " style="height: 40px;">
+                    <span class="r-image">
+                        <img src="{{findImageProfile reply4.dataValues.authorId ../../../../../users}}" class=" me-2"
+                            alt="profile">
+                    </span>
+                    <small class="me-auto fw-light"><small>{{findName reply4.dataValues.authorId
+                            ../../../../../users}}<i class="me-auto fw-light text-primary">->@{{findName
+                                reply4.dataValues.authorId ../../../../../users}}</i></small></small>
+                    <small class="float-end fw-light text-muted"><small><small>{{getDate
+                                reply4.dataValues.createdAt}}</small></small></small>
+                </div>
+                <div class="card-body">
+                    <small class="fw-light">{{reply4.dataValues.content}}</small>
+                    <a href="/new-reply/{{post.id}}/{{reply4.dataValues.id}}?comment=postImage"
+                        class="float-end text-white-50"><small>Responder</small></a>
+                </div>
+            </div>
+            {{/if}}
+            {{/each}}
+            {{/if}}
+            {{/each}}
+            {{/if}}
+            {{/each}}
+            {{/if}}
+            {{/each}}
             {{/each}}
             {{/if}}
             <div class="mt-4">
@@ -144,7 +240,7 @@
 
                 {{#if post.comments}}
                 <hr class="text-white mb-4" />
-                {{#each post.comments as | comment |}}
+                {{#each (findCommentsWithoutReplies post.comments) as | comment |}}
 
                 <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true"
                     style="width: 24rem;">
@@ -158,12 +254,108 @@
                     </div>
                     <div class="card-body">
                         <small class="fw-light">{{comment.dataValues.content}}</small>
-                        <a href="/new-reply/{{../post.id}}/{{comment.dataValues.id}}"
+                        <a href="/new-reply/{{../post.id}}/{{comment.dataValues.id}}?comment=post"
                             class="float-end text-white-50"><small>Responder</small></a>
                     </div>
                 </div>
+                {{!-- Comments of reply --}}
+                {{#each (findReply comment.dataValues.id ../post.comments) as | reply |}}
+                {{#if reply}}
+                <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true"
+                    style="width: 23rem;  margin-left: 18px;">
+                    <div class="card-header " style="height: 40px;">
+                        <span class="r-image">
+                            <img src="{{findImageProfile reply.dataValues.authorId ../../users}}" class=" me-2"
+                                alt="profile">
+                        </span>
+                        <small class="me-auto fw-light">{{findName reply.dataValues.authorId
+                            ../../users}}<i class="me-auto fw-light text-primary"> -> @{{findName
+                                comment.dataValues.authorId ../../users}}</i></small>
+                        <small class="float-end fw-light text-muted"><small>{{getDate
+                                reply.dataValues.createdAt}}</small></small>
+                    </div>
+                    <div class="card-body">
+                        <small class="fw-light">{{reply.dataValues.content}}</small>
+                        <a href="/new-reply/{{post.id}}/{{reply.dataValues.id}}?comment=post"
+                            class="float-end text-white-50"><small>Responder</small></a>
+                    </div>
+                </div>
+                {{!-- Comments of reply #1 --}}
+                {{#each (findReply reply.dataValues.id ../../post.comments) as | reply2 |}}
+                {{#if reply2}}
+                <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true"
+                    style="width: 22rem; margin-left: 33px;">
+                    <div class="card-header " style="height: 40px;">
+                        <span class="r-image">
+                            <img src="{{findImageProfile reply2.dataValues.authorId ../../../users}}" class=" me-2"
+                                alt="profile">
+                        </span>
+                        <small class="me-auto fw-light"><small>{{findName reply2.dataValues.authorId
+                                ../../../users}}<i class="me-auto fw-light text-primary"> -> @{{findName
+                                    reply.dataValues.authorId ../../../users}}</i></small></small>
+                        <small class="float-end fw-light text-muted"><small>{{getDate
+                                reply2.dataValues.createdAt}}</small></small>
+                    </div>
+                    <div class="card-body">
+                        <small class="fw-light">{{reply2.dataValues.content}}</small>
+                        <a href="/new-reply/{{post.id}}/{{reply2.dataValues.id}}?comment=post"
+                            class="float-end text-white-50"><small>Responder</small></a>
+                    </div>
+                </div>
+                {{!-- Comments of reply #2 --}}
+                {{#each (findReply reply2.dataValues.id ../../../post.comments) as | reply3 |}}
+                {{#if reply3}}
+                <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true"
+                    style="width: 21rem; margin-left: 50px;">
+                    <div class="card-header " style="height: 40px;">
+                        <span class="r-image">
+                            <img src="{{findImageProfile reply3.dataValues.authorId ../../../../users}}" class=" me-2"
+                                alt="profile">
+                        </span>
+                        <small class="me-auto fw-light"><small>{{findName reply2.dataValues.authorId
+                                ../../../../users}}<i class="me-auto fw-light text-primary"> -> @{{findName
+                                    reply2.dataValues.authorId ../../../../users}}</i></small></small>
+                        <small class="float-end fw-light text-muted"><small>{{getDate
+                                reply3.dataValues.createdAt}}</small></small>
+                    </div>
+                    <div class="card-body">
+                        <small class="fw-light">{{reply3.dataValues.content}}</small>
+                        <a href="/new-reply/{{post.id}}/{{reply3.dataValues.id}}?comment=post"
+                            class="float-end text-white-50"><small>Responder</small></a>
+                    </div>
+                </div>
+                {{!-- Comments of reply #3 --}}
+                {{#each (findReply reply3.dataValues.id ../../../../post.comments) as | reply4 |}}
+                {{#if reply4}}
+                <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true"
+                    style="width: 20rem; margin-left: 60px;">
+                    <div class="card-header " style="height: 40px;">
+                        <span class="r-image">
+                            <img src="{{findImageProfile reply4.dataValues.authorId ../../../../../users}}"
+                                class=" me-2" alt="profile">
+                        </span>
+                        <small class="me-auto fw-light"><small>{{findName reply4.dataValues.authorId
+                                ../../../../../users}}<i class="me-auto fw-light text-primary">->@{{findName
+                                    reply4.dataValues.authorId ../../../../../users}}</i></small></small>
+                        <small class="float-end fw-light text-muted"><small><small>{{getDate
+                                    reply4.dataValues.createdAt}}</small></small></small>
+                    </div>
+                    <div class="card-body">
+                        <small class="fw-light">{{reply4.dataValues.content}}</small>
+                        <a href="/new-reply/{{post.id}}/{{reply4.dataValues.id}}?comment=post"
+                            class="float-end text-white-50"><small>Responder</small></a>
+                    </div>
+                </div>
+                {{/if}}
                 {{/each}}
-                {{else}}
+                {{/if}}
+                {{/each}}
+                {{/if}}
+                {{/each}}
+                {{/if}}
+                {{/each}}
+                {{/each}}
+                
                 <div class="mt-5"></div>
                 {{/if}}
                 <div class="mt-4">
@@ -204,12 +396,12 @@
 
     {{else}}
     <div style="margin-left: 400px">
-        <hr class="col-7 text-white bg-secondary mt-5 ms-0" />
+        <hr class="col-7 text-white bg-secondary mt-5 mb-5 ms-0" />
     </div>
     {{#each posts as | post |}}
     {{#if post.src}}
     <section class="row " style="margin-left: 400px">
-        <div class="ms-3 card bg-dark text-white mt-4" aria-live="assertive" aria-atomic="true" style="width: 35rem;">
+        <div class="ms-3 card bg-dark text-white mb-4" aria-live="assertive" aria-atomic="true" style="width: 35rem;">
             <div class="card-header border-dark" style="height: 55px;">
                 <span class="d-image">
                     <img src="{{post.author.dataValues.imageProfile}}" class=" me-2" alt="profile">
@@ -249,8 +441,7 @@
                         </button>
                     </form>
 
-                    <a type="button" class="btn btn-primary float-end"
-                        href="/new-comment/{{post.id}}">
+                    <a type="button" class="btn btn-primary float-end" href="/new-comment/{{post.id}}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-chat" viewBox="0 0 16 16">
                             <path
@@ -262,12 +453,12 @@
                 </div>
                 {{#if post.comments}}
                 <hr class="text-white mt-4" />
-                {{#each post.comments as | comment |}}
+                {{#each (findCommentsWithoutReplies post.comments) as | comment |}}
                 <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true"
                     style="width: 24rem;">
                     <div class="card-header " style="height: 40px;">
                         <span class="r-image">
-                            <img src={{findImageProfile comment.dataValues.authorId ../../users}} class=" me-2"
+                            <img src="{{findImageProfile comment.dataValues.authorId ../../users}}" class=" me-2"
                                 alt="profile">
                         </span>
                         <small class="me-auto fw-light">{{findName comment.dataValues.authorId
@@ -277,30 +468,105 @@
                     </div>
                     <div class="card-body">
                         <small class="fw-light">{{comment.dataValues.content}}</small>
-                        <a href="/new-reply/{{post.id}}/{{comment.dataValues.id}}"
+                        <a href="/new-reply/{{post.id}}/{{comment.dataValues.id}}?comment=postImage"
                             class="float-end text-white-50"><small>Responder</small></a>
                     </div>
                 </div>
                 {{!-- Comments of reply --}}
-                {{#each ../post.comments as | reply |}}
-                <div class="card bg-secondary bg-opacity-25 text-white mt-2 ms-5" aria-live="assertive" aria-atomic="true"
-                    style="width: 20rem;">
+                {{#each (findReply comment.dataValues.id post.comments) as | reply |}}
+                {{#if reply}}
+                <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true"
+                    style="width: 23rem;  margin-left: 18px;">
                     <div class="card-header " style="height: 40px;">
                         <span class="r-image">
-                            <img src={{findImageProfile reply.dataValues.authorId ../../users}} class=" me-2"
+                            <img src="{{findImageProfile reply.dataValues.authorId ../../../users}}" class=" me-2"
                                 alt="profile">
                         </span>
                         <small class="me-auto fw-light">{{findName reply.dataValues.authorId
-                            ../../users}}</small>
-                        <small class="float-end fw-light text-muted">{{getDate
-                            reply.dataValues.createdAt}}</small>
+                            ../../../users}}<i class="me-auto fw-light text-primary"> -> @{{findName
+                                comment.dataValues.authorId ../../../users}}</i></small>
+                        <small class="float-end fw-light text-muted"><small>{{getDate
+                                reply.dataValues.createdAt}}</small></small>
                     </div>
                     <div class="card-body">
                         <small class="fw-light">{{reply.dataValues.content}}</small>
-                        <a href="/new-reply/{{post.id}}/{{reply.dataValues.id}}"
+                        <a href="/new-reply/{{post.id}}/{{reply.dataValues.id}}?comment=postImage"
                             class="float-end text-white-50"><small>Responder</small></a>
                     </div>
                 </div>
+                {{!-- Comments of reply #1 --}}
+                {{#each (findReply reply.dataValues.id post.comments) as | reply2 |}}
+                {{#if reply2}}
+                <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true"
+                    style="width: 22rem; margin-left: 33px;">
+                    <div class="card-header " style="height: 40px;">
+                        <span class="r-image">
+                            <img src="{{findImageProfile reply2.dataValues.authorId ../../../../users}}" class=" me-2"
+                                alt="profile">
+                        </span>
+                        <small class="me-auto fw-light"><small>{{findName reply2.dataValues.authorId
+                                ../../../../users}}<i class="me-auto fw-light text-primary"> -> @{{findName
+                                    reply.dataValues.authorId ../../../../users}}</i></small></small>
+                        <small class="float-end fw-light text-muted"><small>{{getDate
+                                reply2.dataValues.createdAt}}</small></small>
+                    </div>
+                    <div class="card-body">
+                        <small class="fw-light">{{reply2.dataValues.content}}</small>
+                        <a href="/new-reply/{{post.id}}/{{reply2.dataValues.id}}?comment=postImage"
+                            class="float-end text-white-50"><small>Responder</small></a>
+                    </div>
+                </div>
+                {{!-- Comments of reply #2 --}}
+                {{#each (findReply reply2.dataValues.id post.comments) as | reply3 |}}
+                {{#if reply3}}
+                <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true"
+                    style="width: 21rem; margin-left: 50px;">
+                    <div class="card-header " style="height: 40px;">
+                        <span class="r-image">
+                            <img src="{{findImageProfile reply3.dataValues.authorId ../../../../../users}}"
+                                class=" me-2" alt="profile">
+                        </span>
+                        <small class="me-auto fw-light"><small>{{findName reply2.dataValues.authorId
+                                ../../../../../users}}<i class="me-auto fw-light text-primary"> -> @{{findName
+                                    reply2.dataValues.authorId ../../../../../users}}</i></small></small>
+                        <small class="float-end fw-light text-muted"><small>{{getDate
+                                reply3.dataValues.createdAt}}</small></small>
+                    </div>
+                    <div class="card-body">
+                        <small class="fw-light">{{reply3.dataValues.content}}</small>
+                        <a href="/new-reply/{{post.id}}/{{reply3.dataValues.id}}?comment=postImage"
+                            class="float-end text-white-50"><small>Responder</small></a>
+                    </div>
+                </div>
+                {{!-- Comments of reply #3 --}}
+                {{#each (findReply reply3.dataValues.id post.comments) as | reply4 |}}
+                {{#if reply4}}
+                <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true"
+                    style="width: 20rem; margin-left: 60px;">
+                    <div class="card-header " style="height: 40px;">
+                        <span class="r-image">
+                            <img src="{{findImageProfile reply4.dataValues.authorId ../../../../../../users}}"
+                                class=" me-2" alt="profile">
+                        </span>
+                        <small class="me-auto fw-light"><small>{{findName reply4.dataValues.authorId
+                                ../../../../../../users}}<i class="me-auto fw-light text-primary">->@{{findName
+                                    reply4.dataValues.authorId ../../../../../../users}}</i></small></small>
+                        <small class="float-end fw-light text-muted"><small><small>{{getDate
+                                    reply4.dataValues.createdAt}}</small></small></small>
+                    </div>
+                    <div class="card-body">
+                        <small class="fw-light">{{reply4.dataValues.content}}</small>
+                        <a href="/new-reply/{{post.id}}/{{reply4.dataValues.id}}?comment=postImage"
+                            class="float-end text-white-50"><small>Responder</small></a>
+                    </div>
+                </div>
+                {{/if}}
+                {{/each}}
+                {{/if}}
+                {{/each}}
+                {{/if}}
+                {{/each}}
+                {{/if}}
                 {{/each}}
                 {{/each}}
                 {{/if}}
@@ -310,7 +576,7 @@
     </section>
     {{else}}
     <section class="row" style="margin-left: 400px">
-        <div class=" col-md-8 mt-4">
+        <div class=" col-md-8 mb-4">
             <div class="card bg-dark" style="width: 35rem;">
                 <div class="card-body">
                     <small class="text-muted">{{getDate post.createdAt}}</small>
@@ -364,7 +630,7 @@
                     </div>
                     {{#if post.comments}}
                     <hr class="text-white mt-4 mb-1" />
-                    {{#each post.comments as | comment |}}
+                    {{#each (findCommentsWithoutReplies post.comments) as | comment |}}
                     <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive"
                         aria-atomic="true" style="width: 24rem;">
                         <div class="card-header " style="height: 40px;">
@@ -379,12 +645,109 @@
                         </div>
                         <div class="card-body">
                             <small class="fw-light">{{comment.dataValues.content}}</small>
-                            <a href="/new-reply/{{post.id}}/{{comment.dataValues.id}}"
+                            <a href="/new-reply/{{post.id}}/{{comment.dataValues.id}}?comment=post"
                                 class="float-end text-white-50"><small>Responder</small></a>
                         </div>
                     </div>
+                    {{!-- Comments of reply --}}
+                    {{#each (findReply comment.dataValues.id post.comments) as | reply |}}
+                    {{#if reply}}
+                    <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive"
+                        aria-atomic="true" style="width: 23rem;  margin-left: 18px;">
+                        <div class="card-header " style="height: 40px;">
+                            <span class="r-image">
+                                <img src="{{findImageProfile reply.dataValues.authorId ../../../users}}" class=" me-2"
+                                    alt="profile">
+                            </span>
+                            <small class="me-auto fw-light">{{findName reply.dataValues.authorId
+                                ../../../users}}<i class="me-auto fw-light text-primary"> -> @{{findName
+                                    comment.dataValues.authorId ../../../users}}</i></small>
+                            <small class="float-end fw-light text-muted"><small>{{getDate
+                                    reply.dataValues.createdAt}}</small></small>
+                        </div>
+                        <div class="card-body">
+                            <small class="fw-light">{{reply.dataValues.content}}</small>
+                            <a href="/new-reply/{{post.id}}/{{reply.dataValues.id}}?comment=post"
+                                class="float-end text-white-50"><small>Responder</small></a>
+                        </div>
+                    </div>
+                    {{!-- Comments of reply #1 --}}
+                    {{#each (findReply reply.dataValues.id post.comments) as | reply2 |}}
+                    {{#if reply2}}
+                    <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive"
+                        aria-atomic="true" style="width: 22rem; margin-left: 33px;">
+                        <div class="card-header " style="height: 40px;">
+                            <span class="r-image">
+                                <img src="{{findImageProfile reply2.dataValues.authorId ../../../../users}}"
+                                    class=" me-2" alt="profile">
+                            </span>
+                            <small class="me-auto fw-light"><small>{{findName reply2.dataValues.authorId
+                                    ../../../../users}}<i class="me-auto fw-light text-primary"> -> @{{findName
+                                        reply.dataValues.authorId ../../../../users}}</i></small></small>
+                            <small class="float-end fw-light text-muted"><small>{{getDate
+                                    reply2.dataValues.createdAt}}</small></small>
+                        </div>
+                        <div class="card-body">
+                            <small class="fw-light">{{reply2.dataValues.content}}</small>
+                            <a href="/new-reply/{{post.id}}/{{reply2.dataValues.id}}?comment=post"
+                                class="float-end text-white-50"><small>Responder</small></a>
+                        </div>
+                    </div>
+                    {{!-- Comments of reply #2 --}}
+                    {{#each (findReply reply2.dataValues.id post.comments) as | reply3 |}}
+                    {{#if reply3}}
+                    <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive"
+                        aria-atomic="true" style="width: 21rem; margin-left: 50px;">
+                        <div class="card-header " style="height: 40px;">
+                            <span class="r-image">
+                                <img src="{{findImageProfile reply3.dataValues.authorId ../../../../../users}}"
+                                    class=" me-2" alt="profile">
+                            </span>
+                            <small class="me-auto fw-light"><small>{{findName reply2.dataValues.authorId
+                                    ../../../../../users}}<i class="me-auto fw-light text-primary"> -> @{{findName
+                                        reply2.dataValues.authorId ../../../../../users}}</i></small></small>
+                            <small class="float-end fw-light text-muted"><small>{{getDate
+                                    reply3.dataValues.createdAt}}</small></small>
+                        </div>
+                        <div class="card-body">
+                            <small class="fw-light">{{reply3.dataValues.content}}</small>
+                            <a href="/new-reply/{{post.id}}/{{reply3.dataValues.id}}?comment=post"
+                                class="float-end text-white-50"><small>Responder</small></a>
+                        </div>
+                    </div>
+                    {{!-- Comments of reply #3 --}}
+                    {{#each (findReply reply3.dataValues.id post.comments) as | reply4 |}}
+                    {{#if reply4}}
+                    <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive"
+                        aria-atomic="true" style="width: 20rem; margin-left: 60px;">
+                        <div class="card-header " style="height: 40px;">
+                            <span class="r-image">
+                                <img src="{{findImageProfile reply4.dataValues.authorId ../../../../../../users}}"
+                                    class=" me-2" alt="profile">
+                            </span>
+                            <small class="me-auto fw-light"><small>{{findName reply4.dataValues.authorId
+                                    ../../../../../../users}}<i class="me-auto fw-light text-primary">->@{{findName
+                                        reply4.dataValues.authorId ../../../../../../users}}</i></small></small>
+                            <small class="float-end fw-light text-muted"><small><small>{{getDate
+                                        reply4.dataValues.createdAt}}</small></small></small>
+                        </div>
+                        <div class="card-body">
+                            <small class="fw-light">{{reply4.dataValues.content}}</small>
+                            <a href="/new-reply/{{post.id}}/{{reply4.dataValues.id}}?comment=post"
+                                class="float-end text-white-50"><small>Responder</small></a>
+                        </div>
+                    </div>
+                    {{/if}}
                     {{/each}}
                     {{/if}}
+                    {{/each}}
+                    {{/if}}
+                    {{/each}}
+                    {{/if}}
+                    {{/each}}
+                    {{/each}}
+                    {{/if}}
+
                 </div>
             </div>
         </div>
