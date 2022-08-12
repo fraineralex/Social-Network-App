@@ -5,6 +5,9 @@ const Posts = require("../models/Posts");
 exports.GetHome = (req, res, next) => {
   Posts.findAll({
     include: [{ model: Users, as: "author" }, { model: Comments }],
+    order: [
+      ['createdAt', 'DESC']
+    ]
   })
     .then((result) => {
       const posts = result.map((result) => result.dataValues);
