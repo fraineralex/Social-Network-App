@@ -1,12 +1,12 @@
-<main>
+<main class="container ">
     {{#if user}}
     {{!-- New Post section --}}
-    <section class="row" >
+    <div class="row d-flex justify-contend-center">
         {{#if comment}}
         {{else}}
-        <form method="POST" class="row g-3 needs-validation mx-auto" action="/new-post">
-            <div class="col-md-8 mt-0 ms-4 px-5">
-                <div class="card bg-dark" style="width: 25rem;">
+        <form method="POST" class="needs-validation" action="/new-post">
+            <div class="col-12 mt-0 ms-4 px-5">
+                <div class="card bg-dark">
                     <div class="card-body">
                         <header>
                             <div class="c-image-text">
@@ -50,18 +50,17 @@
                             </svg>
                             Foto
                         </a>
-
                     </div>
                 </div>
             </div>
         </form>
-    </section>
+    </div>
     {{/if}}
     {{!-- Publications section --}}
     {{#if comment}}
     {{#if post.src}}
-    <div class="ms-3 card bg-dark text-white mt-3 mb-5" aria-live="assertive" aria-atomic="true" style="width: 35rem;">
-        <div class="card-header border-dark" style="height: 55px;">
+    <div class="ms-3 card bg-dark text-white mt-3 mb-5" aria-live="assertive" aria-atomic="true">
+        <div class="card-header border-dark" >
             <span class="d-image">
                 <img src="{{post.author.dataValues.imageProfile}}" class=" me-2" alt="profile">
             </span>
@@ -77,9 +76,8 @@
             {{#if post.comments}}
             <hr class="text-white mt-4" />
             {{#each ( findCommentsWithoutReplies post.comments) as | comment |}}
-            <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true"
-                style="width: 24rem;">
-                <div class="card-header " style="height: 40px;">
+            <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true">
+                <div class="card-header " >
                     <span class="r-image">
                         <img src={{../post.author.dataValues.imageProfile}} class=" me-2" alt="profile">
                     </span>
@@ -96,9 +94,8 @@
             {{!-- Comments of reply --}}
             {{#each (findReply comment.dataValues.id ../post.comments) as | reply |}}
             {{#if reply}}
-            <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true"
-                style="width: 23rem;  margin-left: 18px;">
-                <div class="card-header " style="height: 40px;">
+            <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true">
+                <div class="card-header ">
                     <span class="r-image">
                         <img src="{{findImageProfile reply.dataValues.authorId ../../users}}" class=" me-2"
                             alt="profile">
@@ -118,9 +115,8 @@
             {{!-- Comments of reply #1 --}}
             {{#each (findReply reply.dataValues.id ../../post.comments) as | reply2 |}}
             {{#if reply2}}
-            <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true"
-                style="width: 22rem; margin-left: 33px;">
-                <div class="card-header " style="height: 40px;">
+            <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true">
+                <div class="card-header ">
                     <span class="r-image">
                         <img src="{{findImageProfile reply2.dataValues.authorId ../../../users}}" class=" me-2"
                             alt="profile">
@@ -140,9 +136,8 @@
             {{!-- Comments of reply #2 --}}
             {{#each (findReply reply2.dataValues.id ../../../post.comments) as | reply3 |}}
             {{#if reply3}}
-            <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true"
-                style="width: 21rem; margin-left: 50px;">
-                <div class="card-header " style="height: 40px;">
+            <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true">
+                <div class="card-header ">
                     <span class="r-image">
                         <img src="{{findImageProfile reply3.dataValues.authorId ../../../../users}}" class=" me-2"
                             alt="profile">
@@ -162,9 +157,8 @@
             {{!-- Comments of reply #3 --}}
             {{#each (findReply reply3.dataValues.id ../../../../post.comments) as | reply4 |}}
             {{#if reply4}}
-            <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true"
-                style="width: 20rem; margin-left: 60px;">
-                <div class="card-header " style="height: 40px;">
+            <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true">
+                <div class="card-header ">
                     <span class="r-image">
                         <img src="{{findImageProfile reply4.dataValues.authorId ../../../../../users}}" class=" me-2"
                             alt="profile">
@@ -223,7 +217,7 @@
     </div>
     {{else}}
     <div class=" col-md-8 mt-4">
-        <div class="card bg-dark mb-5" style="width: 35rem;">
+        <div class="card bg-dark mb-5">
             <div class="card-body">
                 <small class="text-muted">{{getDate post.createdAt}}</small>
                 <header>
@@ -242,9 +236,8 @@
                 <hr class="text-white mb-4" />
                 {{#each (findCommentsWithoutReplies post.comments) as | comment |}}
 
-                <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true"
-                    style="width: 24rem;">
-                    <div class="card-header " style="height: 40px;">
+                <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true">
+                    <div class="card-header ">
                         <span class="r-image">
                             <img src="{{../post.author.dataValues.imageProfile}}" class=" me-2" alt="profile">
                         </span>
@@ -261,9 +254,8 @@
                 {{!-- Comments of reply --}}
                 {{#each (findReply comment.dataValues.id ../post.comments) as | reply |}}
                 {{#if reply}}
-                <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true"
-                    style="width: 23rem;  margin-left: 18px;">
-                    <div class="card-header " style="height: 40px;">
+                <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true">
+                    <div class="card-header ">
                         <span class="r-image">
                             <img src="{{findImageProfile reply.dataValues.authorId ../../users}}" class=" me-2"
                                 alt="profile">
@@ -283,9 +275,8 @@
                 {{!-- Comments of reply #1 --}}
                 {{#each (findReply reply.dataValues.id ../../post.comments) as | reply2 |}}
                 {{#if reply2}}
-                <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true"
-                    style="width: 22rem; margin-left: 33px;">
-                    <div class="card-header " style="height: 40px;">
+                <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true">
+                    <div class="card-header " >
                         <span class="r-image">
                             <img src="{{findImageProfile reply2.dataValues.authorId ../../../users}}" class=" me-2"
                                 alt="profile">
@@ -305,9 +296,8 @@
                 {{!-- Comments of reply #2 --}}
                 {{#each (findReply reply2.dataValues.id ../../../post.comments) as | reply3 |}}
                 {{#if reply3}}
-                <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true"
-                    style="width: 21rem; margin-left: 50px;">
-                    <div class="card-header " style="height: 40px;">
+                <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true">
+                    <div class="card-header ">
                         <span class="r-image">
                             <img src="{{findImageProfile reply3.dataValues.authorId ../../../../users}}" class=" me-2"
                                 alt="profile">
@@ -327,9 +317,8 @@
                 {{!-- Comments of reply #3 --}}
                 {{#each (findReply reply3.dataValues.id ../../../../post.comments) as | reply4 |}}
                 {{#if reply4}}
-                <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true"
-                    style="width: 20rem; margin-left: 60px;">
-                    <div class="card-header " style="height: 40px;">
+                <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true">
+                    <div class="card-header " >
                         <span class="r-image">
                             <img src="{{findImageProfile reply4.dataValues.authorId ../../../../../users}}"
                                 class=" me-2" alt="profile">
@@ -395,14 +384,14 @@
     </section>
 
     {{else}}
-    <div style="margin-left: 400px">
-        <hr class="col-7 text-white bg-secondary mt-5 mb-5 ms-0" />
+    <div class="mt-4 mb-4 row">
+        <hr class="text-white bg-secondary col-12" />
     </div>
     {{#each posts as | post |}}
     {{#if post.src}}
-    <section class="row " style="margin-left: 400px">
-        <div class="ms-3 card bg-dark text-white mb-4" aria-live="assertive" aria-atomic="true" style="width: 35rem;">
-            <div class="card-header border-dark" style="height: 55px;">
+    <section class="row " >
+        <div class="ms-3 card bg-dark text-white mb-4" aria-live="assertive" aria-atomic="true">
+            <div class="card-header border-dark">
                 <span class="d-image">
                     <img src="{{post.author.dataValues.imageProfile}}" class=" me-2" alt="profile">
                 </span>
@@ -454,9 +443,8 @@
                 {{#if post.comments}}
                 <hr class="text-white mt-4" />
                 {{#each (findCommentsWithoutReplies post.comments) as | comment |}}
-                <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true"
-                    style="width: 24rem;">
-                    <div class="card-header " style="height: 40px;">
+                <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true">
+                    <div class="card-header ">
                         <span class="r-image">
                             <img src="{{findImageProfile comment.dataValues.authorId ../../users}}" class=" me-2"
                                 alt="profile">
@@ -475,9 +463,8 @@
                 {{!-- Comments of reply --}}
                 {{#each (findReply comment.dataValues.id post.comments) as | reply |}}
                 {{#if reply}}
-                <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true"
-                    style="width: 23rem;  margin-left: 18px;">
-                    <div class="card-header " style="height: 40px;">
+                <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true">
+                    <div class="card-header " >
                         <span class="r-image">
                             <img src="{{findImageProfile reply.dataValues.authorId ../../../users}}" class=" me-2"
                                 alt="profile">
@@ -497,9 +484,8 @@
                 {{!-- Comments of reply #1 --}}
                 {{#each (findReply reply.dataValues.id post.comments) as | reply2 |}}
                 {{#if reply2}}
-                <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true"
-                    style="width: 22rem; margin-left: 33px;">
-                    <div class="card-header " style="height: 40px;">
+                <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true">
+                    <div class="card-header ">
                         <span class="r-image">
                             <img src="{{findImageProfile reply2.dataValues.authorId ../../../../users}}" class=" me-2"
                                 alt="profile">
@@ -519,9 +505,8 @@
                 {{!-- Comments of reply #2 --}}
                 {{#each (findReply reply2.dataValues.id post.comments) as | reply3 |}}
                 {{#if reply3}}
-                <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true"
-                    style="width: 21rem; margin-left: 50px;">
-                    <div class="card-header " style="height: 40px;">
+                <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true">
+                    <div class="card-header ">
                         <span class="r-image">
                             <img src="{{findImageProfile reply3.dataValues.authorId ../../../../../users}}"
                                 class=" me-2" alt="profile">
@@ -541,9 +526,8 @@
                 {{!-- Comments of reply #3 --}}
                 {{#each (findReply reply3.dataValues.id post.comments) as | reply4 |}}
                 {{#if reply4}}
-                <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true"
-                    style="width: 20rem; margin-left: 60px;">
-                    <div class="card-header " style="height: 40px;">
+                <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true">
+                    <div class="card-header ">
                         <span class="r-image">
                             <img src="{{findImageProfile reply4.dataValues.authorId ../../../../../../users}}"
                                 class=" me-2" alt="profile">
@@ -575,9 +559,9 @@
 
     </section>
     {{else}}
-    <section class="row" style="margin-left: 400px">
+    <section class="row">
         <div class=" col-md-8 mb-4">
-            <div class="card bg-dark" style="width: 35rem;">
+            <div class="card bg-dark">
                 <div class="card-body">
                     <small class="text-muted">{{getDate post.createdAt}}</small>
                     <header>
@@ -632,8 +616,8 @@
                     <hr class="text-white mt-4 mb-1" />
                     {{#each (findCommentsWithoutReplies post.comments) as | comment |}}
                     <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive"
-                        aria-atomic="true" style="width: 24rem;">
-                        <div class="card-header " style="height: 40px;">
+                        aria-atomic="true">
+                        <div class="card-header ">
                             <span class="r-image">
                                 <img src={{findImageProfile comment.dataValues.authorId ../../users}} class=" me-2"
                                     alt="profile">
@@ -653,8 +637,8 @@
                     {{#each (findReply comment.dataValues.id post.comments) as | reply |}}
                     {{#if reply}}
                     <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive"
-                        aria-atomic="true" style="width: 23rem;  margin-left: 18px;">
-                        <div class="card-header " style="height: 40px;">
+                        aria-atomic="true">
+                        <div class="card-header ">
                             <span class="r-image">
                                 <img src="{{findImageProfile reply.dataValues.authorId ../../../users}}" class=" me-2"
                                     alt="profile">
@@ -675,8 +659,8 @@
                     {{#each (findReply reply.dataValues.id post.comments) as | reply2 |}}
                     {{#if reply2}}
                     <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive"
-                        aria-atomic="true" style="width: 22rem; margin-left: 33px;">
-                        <div class="card-header " style="height: 40px;">
+                        aria-atomic="true">
+                        <div class="card-header ">
                             <span class="r-image">
                                 <img src="{{findImageProfile reply2.dataValues.authorId ../../../../users}}"
                                     class=" me-2" alt="profile">
@@ -697,8 +681,8 @@
                     {{#each (findReply reply2.dataValues.id post.comments) as | reply3 |}}
                     {{#if reply3}}
                     <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive"
-                        aria-atomic="true" style="width: 21rem; margin-left: 50px;">
-                        <div class="card-header " style="height: 40px;">
+                        aria-atomic="true" >
+                        <div class="card-header ">
                             <span class="r-image">
                                 <img src="{{findImageProfile reply3.dataValues.authorId ../../../../../users}}"
                                     class=" me-2" alt="profile">
@@ -719,8 +703,8 @@
                     {{#each (findReply reply3.dataValues.id post.comments) as | reply4 |}}
                     {{#if reply4}}
                     <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive"
-                        aria-atomic="true" style="width: 20rem; margin-left: 60px;">
-                        <div class="card-header " style="height: 40px;">
+                        aria-atomic="true">
+                        <div class="card-header ">
                             <span class="r-image">
                                 <img src="{{findImageProfile reply4.dataValues.authorId ../../../../../../users}}"
                                     class=" me-2" alt="profile">
