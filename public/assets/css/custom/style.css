@@ -147,19 +147,19 @@ body.dark{
     font-size: 20px;
 }
 
-.sidebar .text,
+.sidebar .textDesign,
 .sidebar .icon{
     color: var(--text-color);
     transition: var(--tran-03);
 }
 
-.sidebar .text{
+.sidebar .textDesign{
     font-size: 17px;
     font-weight: 500;
     white-space: nowrap;
     opacity: 1;
 }
-.sidebar.close .text{
+.sidebar.close .textDesign{
     opacity: 0;
 }
 /* =========================== */
@@ -266,11 +266,11 @@ body.dark .sidebar header .toggle{
     background-color: var(--primary-color);
 }
 .sidebar li a:hover .icon,
-.sidebar li a:hover .text{
+.sidebar li a:hover .textDesign{
     color: var(--sidebar-color);
 }
 body.dark .sidebar li a:hover .icon,
-body.dark .sidebar li a:hover .text{
+body.dark .sidebar li a:hover .textDesign{
     color: var(--text-color);
 }
 
@@ -356,7 +356,7 @@ body.dark .switch::before{
     background-color: var(--body-color);
     transition: var(--tran-05);
 }
-.home .text{
+.home .textDesign{
     font-size: 30px;
     font-weight: 500;
     color: var(--text-color);
@@ -368,7 +368,7 @@ body.dark .switch::before{
     height: 100vh;
     width: calc(100% - 78px);
 }
-body.dark .home .text{
+body.dark .home .textDesign{
     color: var(--text-color);
 }
 

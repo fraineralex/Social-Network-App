@@ -1,37 +1,29 @@
-<!-- Coding by CodingLab | www.codinglabweb.com -->
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!----===== BOOTSTRAP CSS ===== -->
-    <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css' rel='stylesheet'>
-
-    <!----======== CSS CUSTOM ======== -->
-    <link rel="stylesheet" href="/assets/css/custom/style.css">
-    <link rel="stylesheet" href="/assets/css/custom/new-post.css">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <!----======== CSS ======== -->
+       <link rel="stylesheet" href="/assets/css/custom/style.css">
     <!----===== Boxicons CSS ===== -->
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
-
-    <title>{{pageTitle}}</title>
-
+    
+    <title>{{pageTitle}}</title> 
 </head>
-
-<body class="dark">
+<body>
     <nav class="sidebar close">
         <header>
             <div class="image-text">
                 <span class="image">
-                    <img src="{{user.imageProfile}}" alt="profile">
+                    <img src="logo.png" alt="">
                 </span>
 
-                <div class="text logo-text">
-                    <span class="name">{{user.name}}</span>
-                    <span class="profession text-center">{{user.user}}</span>
+                <div class="textDesign logo-text">
+                    <span class="name">Codinglab</span>
+                    <span class="profession">Web developer</span>
                 </div>
             </div>
 
@@ -39,49 +31,50 @@
         </header>
 
         <div class="menu-bar">
-            <div class="menu">
+            <div class="menu pe-0">
 
                 <li class="search-box">
                     <i class='bx bx-search icon'></i>
-                    <input type="text" placeholder="Buscar...">
+                    <input type="text" placeholder="Search...">
                 </li>
 
+                <ul class="p-0">
+                    <li class="">
+                        <a href="/">
+                            <i class='bx bx-home-alt icon'></i>
+                            <span class="textDesign nav-text">Inicio</span>
+                        </a>
+                    </li>
 
-                <li class="nav-link">
-                    <a href="/">
-                        <i class='bx bx-home-alt icon'></i>
-                        <span class="text nav-text">Inicio</span>
-                    </a>
-                </li>
+                    <li class="">
+                        <a href="/friend">
+                            <i class='bx bx-bar-chart-alt-2 icon' ></i>
+                            <span class="textDesign nav-text">Amigos</span>
+                        </a>
+                    </li>
 
-                <li class="nav-link">
-                    <a href="/friend">
-                        <i class='bx bx-bar-chart-alt-2 icon'></i>
-                        <span class="text nav-text">Amigos</span>
-                    </a>
-                </li>
+                    <li class="">
+                        <a href="#">
+                            <i class='bx bx-bell icon'></i>
+                            <span class="textDesign nav-text">Notificaciones</span>
+                        </a>
+                    </li>
 
-                <li class="nav-link">
-                    <a href="#">
-                        <i class='bx bx-bell icon'></i>
-                        <span class="text nav-text">Notificaciones</span>
-                    </a>
-                </li>
+                    <li class="">
+                        <a href="#">
+                            <i class='bx bx-wallet icon' ></i>
+                            <span class="textDesign nav-text">Eventos</span>
+                        </a>
+                    </li>
 
-                <li class="nav-link">
-                    <a href="#">
-                        <i class='bx bx-pie-chart-alt icon'></i>
-                        <span class="text nav-text">Eventos</span>
-                    </a>
-                </li>
-
+                </ul>
             </div>
 
             <div class="bottom-content">
                 <li class="">
                     <a href="#">
-                        <i class='bx bx-log-out icon'></i>
-                        <span class="text nav-text">Logout</span>
+                        <i class='bx bx-log-out icon' ></i>
+                        <span class="textDesign nav-text">Logout</span>
                     </a>
                 </li>
 
@@ -90,29 +83,27 @@
                         <i class='bx bx-moon icon moon'></i>
                         <i class='bx bx-sun icon sun'></i>
                     </div>
-                    <span class="mode-text text">Dark mode</span>
+                    <span class="mode-text textDesign">Dark mode</span>
 
                     <div class="toggle-switch">
                         <span class="switch"></span>
                     </div>
                 </li>
-
             </div>
         </div>
-
     </nav>
 
     <section class="home">
-
         {{{body}}}
-
     </section>
 
+
+    <!-- JavaScript Bundle with Popper -->
+    {{!-- <script src="../../assets/js//lib/bootstrap/bootstrap.min.js"></script>  --}}
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="/assets/js/custom/script.js"></script>
-        <script src="/assets/js/custom/prueba.js"></script>
-    <script src="/assets/js//lib/bootstrap/bootstrap.min.js"></script>
-
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 </body>
-
 </html>
