@@ -14,7 +14,4 @@ friendRouter.get('/delete/friend/:userID/:friendID',friendController.deleteFrien
 friendRouter.get('/searchNewFriendHome/:userID',friendController.searchNewFriendHome);
 friendRouter.post('/searchNewFriend',friendController.searchNewFriend);
 
-//solicitude friend
-friendRouter.get('/solicitude/friend/:userID/:friendID',friendController.solicitudeFriend);
-
 module.exports = friendRouter;

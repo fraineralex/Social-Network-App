@@ -50,9 +50,11 @@ app.use(multer({ storage: imageStorage }).single("ImageFile"));
 const errorController = require("./controllers/ErrorController");
 const homeRouter = require("./routes/Home");
 const friendRouter = require("./routes/FriendRoutes");
+const notificationRouter = require("./routes/NotificationRoutes");
 
 app.use(homeRouter);
 app.use(friendRouter);
+app.use(notificationRouter);
 app.use(errorController.Get404);
 
 relationships.RelationShips();
