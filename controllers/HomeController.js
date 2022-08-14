@@ -5,6 +5,9 @@ const Posts = require("../models/Posts");
 exports.GetHome = (req, res, next) => {
   Posts.findAll({
     include: [{ model: Users, as: "author" }, { model: Comments }],
+    order: [
+      ['createdAt', 'DESC']
+    ]
   })
     .then((result) => {
       const posts = result.map((result) => result.dataValues);
@@ -84,6 +87,7 @@ exports.GetNewComment = (req, res, next) => {
                 post: post,
                 user: user,
                 users: users,
+                search: true,
                 comment: true,
                 postImage: true,
               });
@@ -136,25 +140,16 @@ exports.GetNewReply = (req, res, next) => {
         Users.findOne()
           .then((result) => {
             const user = result.dataValues;
-            Users.findAll()
-              .then((result) => {
-                const users = result.map((result) => result.dataValues);
-                console.log(users);
 
-                res.render("client/home", {
-                  pageTitle: "Home",
-                  homeActive: true,
-                  post: post,
-                  user: user,
-                  users: users,
-                  search: true,
-                  comment: true,
-                  commentId: commentId,
-                });
-              })
-              .catch((err) => {
-                console.log(err);
-              });
+            res.render("client/home", {
+              pageTitle: "Home",
+              homeActive: true,
+              post: post,
+              user: user,
+              search: true,
+              comment: true,
+              commentId: commentId,
+            });
           })
           .catch((err) => {
             console.log(err);
@@ -175,25 +170,17 @@ exports.GetNewReply = (req, res, next) => {
         Users.findOne()
           .then((result) => {
             const user = result.dataValues;
-            Users.findAll()
-              .then((result) => {
-                const users = result.map((result) => result.dataValues);
-                console.log(users);
 
-                res.render("client/home", {
-                  pageTitle: "Home",
-                  homeActive: true,
-                  post: post,
-                  user: user,
-                  search: true,
-                  comment: true,
-                  postImage: true,
-                  commentId: commentId,
-                });
-              })
-              .catch((err) => {
-                console.log(err);
-              });
+            res.render("client/home", {
+              pageTitle: "Home",
+              homeActive: true,
+              post: post,
+              user: user,
+              search: true,
+              comment: true,
+              postImage: true,
+              commentId: commentId,
+            });
           })
           .catch((err) => {
             console.log(err);
@@ -231,7 +218,6 @@ exports.PostNewPost = (req, res, next) => {
   const authorId = req.body.AuthorId;
   const imageUrl = req.file;
   const content = req.body.Content;
-  console.log(imageUrl);
 
   if (imageUrl) {
     Posts.create({
@@ -303,7 +289,6 @@ exports.PostEditPost = (req, res, next) => {
   const postId = req.body.PostId;
   const imageUrl = req.file;
   const content = req.body.Content;
-  console.log(imageUrl);
 
   if (imageUrl) {
     Posts.update(

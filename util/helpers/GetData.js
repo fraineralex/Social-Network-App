@@ -15,7 +15,6 @@ exports.GetDate = (date) => {
 exports.FindImageProfile = (authorId, users) => {
   const user = users.find((user) => user.id == authorId);
   return user.imageProfile;
-  console.log(users)
 };
 
 exports.FindCommentsWithoutReplies = (comments) => {

@@ -1,34 +1,28 @@
-<main>
+<main class="box-center">
     {{#if user}}
     {{!-- New Post section --}}
-    <section class="row mb-5" style="margin-left: 400px">
         {{#if comment}}
         {{else}}
-        <form method="POST" class="row g-3 needs-validation mx-auto" action="/new-post">
-            <div class="col-md-8 mt-0 ms-4 px-5">
-                <div class="card bg-dark" style="width: 25rem;">
-                    <div class="card-body">
-                        <header>
-                            <div class="c-image-text">
-                                <span class="c-image">
-                                    <img src="{{user.imageProfile}}" alt="profile">
-                                </span>
-
-                                <div class="c-text c-logo-text">
-                                    <span class="name">{{user.name}}</span>
-                                </div>
-                            </div>
-                        </header>
-
-                        <div class="mb-4">
-                            <label for="post" class="form-label text-white text-white"></label>
-                            <textarea type="text" class="form-control bg-dark text-white border-primary" id="post"
-                                name="Content" placeholder="¿Qué estás pensando?" rows="3" required></textarea>
-                        </div>
-
+        {{!-- 15 lineas menos de html xd practicamente si bootstrap  --}}
+        {{!-- algo esta mal con el container que lo ajusta al 100% como en amigos --}}
+       
+        <div class="post-box" aria-live="assertive" aria-atomic="true" style="max-width: 30rem;">
+            <form method="POST" class="needs-validation" action="/new-post">
+                <div class="box-header">
+                    <span class="d-image">
+                        <img src="{{user.imageProfile}}" alt="profile {{user.name}}">
+                    </span>
+                    <small class="me-auto fs-6"><strong>{{user.name}}</strong></small>
+                </div>
+                <div class="box-body">
+                    <div class="">
                         <input type="hidden" name="AuthorId" value="{{user.id}}">
-
-                        <button type="submit" class="btn btn-sm btn-primary float-end mt-2 ms-2">
+                        <label for="post" class="form-label text-white"></label>
+                        <textarea type="text" class="form-control bg-dark text-white border-primary" id="post" name="Content" placeholder="¿Qué estás pensando?" rows="3" required></textarea>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-sm btn-primary">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-send-plus" viewBox="0 0 16 16">
                                 <path
@@ -40,7 +34,7 @@
                             </svg>
                             Publicar
                         </button>
-                        <a type="button" class="btn btn-sm btn-outline-light float-end mt-2" href="/new-post-image">
+                        <a type="button" class="btn btn-sm btn-outline-light" href="/new-post-image">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-images" viewBox="0 0 16 16">
                                 <path d="M4.502 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"></path>
@@ -50,12 +44,12 @@
                             </svg>
                             Foto
                         </a>
-
-                    </div>
                 </div>
-            </div>
-        </form>
-    </section>
+            </form>
+        </div>
+
+        {{!-- 15 lineas menos de html xd practicamente si bootstrap fin --}}
+
     {{/if}}
     {{!-- Publications section --}}
     {{#if comment}}
@@ -66,26 +60,24 @@
                 <img src="{{post.author.dataValues.imageProfile}}" class=" me-2" alt="profile">
             </span>
             <small class="me-auto fs-6"><strong>{{post.author.dataValues.name}}</strong></small>
-            <small class="float-end fw-light text-white">{{getDate post.createdAt}}</small>
+            <small class="float-end fw-light text-muted">{{getDate post.createdAt}}</small>
         </div>
         <div class="card-body">
             <small class="fs-6 mt-1">{{post.content}}</small>
             <div class="text-center mt-3">
                 <img src="{{post.src}}" class="image-post" alt="image">
             </div>
-
             {{#if post.comments}}
             <hr class="text-white mt-4" />
-            {{#each (findCommentsWithoutReplies post.comments) as | comment |}}
-            {{#if comment}}
-            <div class="card comment text-white mt-3" aria-live="assertive" aria-atomic="true"
+            {{#each ( findCommentsWithoutReplies post.comments) as | comment |}}
+            <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true"
                 style="width: 24rem;">
                 <div class="card-header " style="height: 40px;">
                     <span class="r-image">
                         <img src={{../post.author.dataValues.imageProfile}} class=" me-2" alt="profile">
                     </span>
                     <small class="me-auto fw-light">{{../post.author.dataValues.name}}</small>
-                    <small class="float-end fw-light text-white">{{getDate
+                    <small class="float-end fw-light text-muted">{{getDate
                         comment.dataValues.createdAt}}</small>
                 </div>
                 <div class="card-body">
@@ -97,39 +89,39 @@
             {{!-- Comments of reply --}}
             {{#each (findReply comment.dataValues.id ../post.comments) as | reply |}}
             {{#if reply}}
-            <div class="card comment text-white mt-3" aria-live="assertive" aria-atomic="true"
+            <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true"
                 style="width: 23rem;  margin-left: 18px;">
                 <div class="card-header " style="height: 40px;">
                     <span class="r-image">
-                        <img src="{{!-- {{findImageProfile users}} --}}" class=" me-2"
+                        <img src="{{findImageProfile reply.dataValues.authorId ../../users}}" class=" me-2"
                             alt="profile">
                     </span>
-                    <small class="me-auto fw-light">{{!-- {{findName reply.dataValues.authorId
-                        ../../users}}<i class="me-auto text-primary"> -> @{{findName
-                            comment.dataValues.authorId ../../users}}</i> --}}</small>
-                    <small class="float-end fw-light text-white"><small>{{getDate
+                    <small class="me-auto fw-light">{{findName reply.dataValues.authorId
+                        ../../users}}<i class="me-auto fw-light text-primary"> -> @{{findName
+                            comment.dataValues.authorId ../../users}}</i></small>
+                    <small class="float-end fw-light text-muted"><small>{{getDate
                             reply.dataValues.createdAt}}</small></small>
                 </div>
                 <div class="card-body">
                     <small class="fw-light">{{reply.dataValues.content}}</small>
-                    <a href="/new-reply/{{../../post.id}}/{{reply.dataValues.id}}?comment=postImage"
+                    <a href="/new-reply/{{post.id}}/{{reply.dataValues.id}}?comment=postImage"
                         class="float-end text-white-50"><small>Responder</small></a>
                 </div>
             </div>
             {{!-- Comments of reply #1 --}}
             {{#each (findReply reply.dataValues.id ../../post.comments) as | reply2 |}}
             {{#if reply2}}
-            <div class="card comment text-white mt-3" aria-live="assertive" aria-atomic="true"
+            <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true"
                 style="width: 22rem; margin-left: 33px;">
                 <div class="card-header " style="height: 40px;">
                     <span class="r-image">
-                        <img src="{{!-- {{findImageProfile reply2.dataValues.authorId ../../../users}} --}}"
-                            class=" me-2" alt="profile">
+                        <img src="{{findImageProfile reply2.dataValues.authorId ../../../users}}" class=" me-2"
+                            alt="profile">
                     </span>
-                    <small class="me-auto fw-light"><small>{{!-- {{findName reply2.dataValues.authorId
-                            ../../../users}}<i class="me-auto text-primary"> -> @{{findName
-                                reply.dataValues.authorId ../../../users}} --}}</i></small></small>
-                    <small class="float-end fw-light text-white"><small>{{getDate
+                    <small class="me-auto fw-light"><small>{{findName reply2.dataValues.authorId
+                            ../../../users}}<i class="me-auto fw-light text-primary"> -> @{{findName
+                                reply.dataValues.authorId ../../../users}}</i></small></small>
+                    <small class="float-end fw-light text-muted"><small>{{getDate
                             reply2.dataValues.createdAt}}</small></small>
                 </div>
                 <div class="card-body">
@@ -141,7 +133,7 @@
             {{!-- Comments of reply #2 --}}
             {{#each (findReply reply2.dataValues.id ../../../post.comments) as | reply3 |}}
             {{#if reply3}}
-            <div class="card comment text-white mt-3" aria-live="assertive" aria-atomic="true"
+            <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true"
                 style="width: 21rem; margin-left: 50px;">
                 <div class="card-header " style="height: 40px;">
                     <span class="r-image">
@@ -149,9 +141,9 @@
                             alt="profile">
                     </span>
                     <small class="me-auto fw-light"><small>{{findName reply2.dataValues.authorId
-                            ../../../../users}}<i class="me-auto text-primary"> -> @{{findName
+                            ../../../../users}}<i class="me-auto fw-light text-primary"> -> @{{findName
                                 reply2.dataValues.authorId ../../../../users}}</i></small></small>
-                    <small class="float-end fw-light text-white"><small>{{getDate
+                    <small class="float-end fw-light text-muted"><small>{{getDate
                             reply3.dataValues.createdAt}}</small></small>
                 </div>
                 <div class="card-body">
@@ -163,7 +155,7 @@
             {{!-- Comments of reply #3 --}}
             {{#each (findReply reply3.dataValues.id ../../../../post.comments) as | reply4 |}}
             {{#if reply4}}
-            <div class="card comment text-white mt-3" aria-live="assertive" aria-atomic="true"
+            <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true"
                 style="width: 20rem; margin-left: 60px;">
                 <div class="card-header " style="height: 40px;">
                     <span class="r-image">
@@ -171,9 +163,9 @@
                             alt="profile">
                     </span>
                     <small class="me-auto fw-light"><small>{{findName reply4.dataValues.authorId
-                            ../../../../../users}}<i class="me-auto text-primary">->@{{findName
+                            ../../../../../users}}<i class="me-auto fw-light text-primary">->@{{findName
                                 reply4.dataValues.authorId ../../../../../users}}</i></small></small>
-                    <small class="float-end fw-light text-white"><small><small>{{getDate
+                    <small class="float-end fw-light text-muted"><small><small>{{getDate
                                 reply4.dataValues.createdAt}}</small></small></small>
                 </div>
                 <div class="card-body">
@@ -190,7 +182,6 @@
             {{/each}}
             {{/if}}
             {{/each}}
-            {{/if}}
             {{/each}}
             {{/if}}
             <div class="mt-4">
@@ -204,7 +195,6 @@
                                 </path>
                             </svg>
                         </span>
-
                         <input type="text" class="form-control bg-dark text-white" placeholder="Escribe tu comentario"
                             aria-label="Input group example" aria-describedby="basic-addon1" name="Content">
                         <button type="submit" class="btn btn-primary float-end ms-3">
@@ -227,7 +217,7 @@
     <div class=" col-md-8 mt-4">
         <div class="card bg-dark mb-5" style="width: 35rem;">
             <div class="card-body">
-                <small class="text-white">{{getDate post.createdAt}}</small>
+                <small class="text-muted">{{getDate post.createdAt}}</small>
                 <header>
                     <div class="p-image-text">
                         <span class="p-image">
@@ -236,22 +226,19 @@
                         <h4 class="text text-center mt-2 mb-3">{{post.author.dataValues.name}}</h4>
                     </div>
                 </header>
-
                 <p class="text-white ms-5 me-5 mb-4">{{post.content}}</p>
-
-
                 {{#if post.comments}}
                 <hr class="text-white mb-4" />
                 {{#each (findCommentsWithoutReplies post.comments) as | comment |}}
 
-                <div class="card comment text-white mt-3" aria-live="assertive" aria-atomic="true"
+                <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true"
                     style="width: 24rem;">
                     <div class="card-header " style="height: 40px;">
                         <span class="r-image">
                             <img src="{{../post.author.dataValues.imageProfile}}" class=" me-2" alt="profile">
                         </span>
                         <small class="me-auto fw-light">{{../post.author.dataValues.name}}</small>
-                        <small class="float-end fw-light text-white">{{getDate
+                        <small class="float-end fw-light text-muted">{{getDate
                             comment.dataValues.createdAt}}</small>
                     </div>
                     <div class="card-body">
@@ -263,7 +250,7 @@
                 {{!-- Comments of reply --}}
                 {{#each (findReply comment.dataValues.id ../post.comments) as | reply |}}
                 {{#if reply}}
-                <div class="card comment text-white mt-3" aria-live="assertive" aria-atomic="true"
+                <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true"
                     style="width: 23rem;  margin-left: 18px;">
                     <div class="card-header " style="height: 40px;">
                         <span class="r-image">
@@ -271,21 +258,21 @@
                                 alt="profile">
                         </span>
                         <small class="me-auto fw-light">{{findName reply.dataValues.authorId
-                            ../../users}}<i class="me-auto text-primary"> -> @{{findName
+                            ../../users}}<i class="me-auto fw-light text-primary"> -> @{{findName
                                 comment.dataValues.authorId ../../users}}</i></small>
-                        <small class="float-end fw-light text-white"><small>{{getDate
+                        <small class="float-end fw-light text-muted"><small>{{getDate
                                 reply.dataValues.createdAt}}</small></small>
                     </div>
                     <div class="card-body">
                         <small class="fw-light">{{reply.dataValues.content}}</small>
-                        <a href="/new-reply/{{../../post.id}}/{{reply.dataValues.id}}?comment=post"
+                        <a href="/new-reply/{{post.id}}/{{reply.dataValues.id}}?comment=post"
                             class="float-end text-white-50"><small>Responder</small></a>
                     </div>
                 </div>
                 {{!-- Comments of reply #1 --}}
                 {{#each (findReply reply.dataValues.id ../../post.comments) as | reply2 |}}
                 {{#if reply2}}
-                <div class="card comment text-white mt-3" aria-live="assertive" aria-atomic="true"
+                <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true"
                     style="width: 22rem; margin-left: 33px;">
                     <div class="card-header " style="height: 40px;">
                         <span class="r-image">
@@ -293,21 +280,21 @@
                                 alt="profile">
                         </span>
                         <small class="me-auto fw-light"><small>{{findName reply2.dataValues.authorId
-                                ../../../users}}<i class="me-auto text-primary"> -> @{{findName
+                                ../../../users}}<i class="me-auto fw-light text-primary"> -> @{{findName
                                     reply.dataValues.authorId ../../../users}}</i></small></small>
-                        <small class="float-end fw-light text-white"><small>{{getDate
+                        <small class="float-end fw-light text-muted"><small>{{getDate
                                 reply2.dataValues.createdAt}}</small></small>
                     </div>
                     <div class="card-body">
                         <small class="fw-light">{{reply2.dataValues.content}}</small>
-                        <a href="/new-reply/{{../../../post.id}}/{{reply2.dataValues.id}}?comment=post"
+                        <a href="/new-reply/{{post.id}}/{{reply2.dataValues.id}}?comment=post"
                             class="float-end text-white-50"><small>Responder</small></a>
                     </div>
                 </div>
                 {{!-- Comments of reply #2 --}}
                 {{#each (findReply reply2.dataValues.id ../../../post.comments) as | reply3 |}}
                 {{#if reply3}}
-                <div class="card comment text-white mt-3" aria-live="assertive" aria-atomic="true"
+                <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true"
                     style="width: 21rem; margin-left: 50px;">
                     <div class="card-header " style="height: 40px;">
                         <span class="r-image">
@@ -315,21 +302,21 @@
                                 alt="profile">
                         </span>
                         <small class="me-auto fw-light"><small>{{findName reply2.dataValues.authorId
-                                ../../../../users}}<i class="me-auto text-primary"> -> @{{findName
+                                ../../../../users}}<i class="me-auto fw-light text-primary"> -> @{{findName
                                     reply2.dataValues.authorId ../../../../users}}</i></small></small>
-                        <small class="float-end fw-light text-white"><small>{{getDate
+                        <small class="float-end fw-light text-muted"><small>{{getDate
                                 reply3.dataValues.createdAt}}</small></small>
                     </div>
                     <div class="card-body">
                         <small class="fw-light">{{reply3.dataValues.content}}</small>
-                        <a href="/new-reply/{{../../../../post.id}}/{{reply3.dataValues.id}}?comment=post"
+                        <a href="/new-reply/{{post.id}}/{{reply3.dataValues.id}}?comment=post"
                             class="float-end text-white-50"><small>Responder</small></a>
                     </div>
                 </div>
                 {{!-- Comments of reply #3 --}}
                 {{#each (findReply reply3.dataValues.id ../../../../post.comments) as | reply4 |}}
                 {{#if reply4}}
-                <div class="card comment text-white mt-3" aria-live="assertive" aria-atomic="true"
+                <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true"
                     style="width: 20rem; margin-left: 60px;">
                     <div class="card-header " style="height: 40px;">
                         <span class="r-image">
@@ -337,14 +324,14 @@
                                 class=" me-2" alt="profile">
                         </span>
                         <small class="me-auto fw-light"><small>{{findName reply4.dataValues.authorId
-                                ../../../../../users}}<i class="me-auto text-primary">->@{{findName
+                                ../../../../../users}}<i class="me-auto fw-light text-primary">->@{{findName
                                     reply4.dataValues.authorId ../../../../../users}}</i></small></small>
-                        <small class="float-end fw-light text-white"><small><small>{{getDate
+                        <small class="float-end fw-light text-muted"><small><small>{{getDate
                                     reply4.dataValues.createdAt}}</small></small></small>
                     </div>
                     <div class="card-body">
                         <small class="fw-light">{{reply4.dataValues.content}}</small>
-                        <a href="/new-reply/{{../../../../../post.id}}/{{reply4.dataValues.id}}?comment=post"
+                        <a href="/new-reply/{{post.id}}/{{reply4.dataValues.id}}?comment=post"
                             class="float-end text-white-50"><small>Responder</small></a>
                     </div>
                 </div>
@@ -357,7 +344,7 @@
                 {{/if}}
                 {{/each}}
                 {{/each}}
-
+                
                 <div class="mt-5"></div>
                 {{/if}}
                 <div class="mt-4">
@@ -371,7 +358,6 @@
                                     </path>
                                 </svg>
                             </span>
-
                             <input type="text" class="form-control bg-dark text-white"
                                 placeholder="Escribe tu comentario" aria-label="Input group example"
                                 aria-describedby="basic-addon1" name="Content">
@@ -387,7 +373,6 @@
                             <input type="hidden" name="AuthorId" value="{{user.id}}">
                             <input type="hidden" name="PostId" value="{{post.id}}">
                             {{#if commentId}}<input type="hidden" name="CommentId" value="{{commentId}}">{{/if}}
-
                     </form>
                 </div>
             </div>
@@ -402,14 +387,14 @@
     </div>
     {{#each posts as | post |}}
     {{#if post.src}}
-    <section class="row " style="margin-left: 400px">
+    <section class="row " style="">
         <div class="ms-3 card bg-dark text-white mb-4" aria-live="assertive" aria-atomic="true" style="width: 35rem;">
             <div class="card-header border-dark" style="height: 55px;">
                 <span class="d-image">
                     <img src="{{post.author.dataValues.imageProfile}}" class=" me-2" alt="profile">
                 </span>
                 <small class="me-auto fs-6"><strong>{{post.author.dataValues.name}}</strong></small>
-                <small class="float-end fw-light text-white">{{getDate post.createdAt}}</small>
+                <small class="float-end fw-light text-muted">{{getDate post.createdAt}}</small>
             </div>
             <div class="card-body">
                 <small class="fs-6 mt-1">{{post.content}}</small>
@@ -417,7 +402,6 @@
                     <img src="{{post.src}}" class="image-post" alt="image">
                 </div>
                 <div class="mt-4">
-
                     <a type="button" class="btn btn-sm btn-outline-light me-2" href="/edit-post/{{post.id}}?edit=true">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-pencil-square" viewBox="0 0 16 16">
@@ -442,7 +426,6 @@
                             Eliminar
                         </button>
                     </form>
-
                     <a type="button" class="btn btn-primary float-end" href="/new-comment/{{post.id}}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-chat" viewBox="0 0 16 16">
@@ -456,7 +439,7 @@
                 {{#if post.comments}}
                 <hr class="text-white mt-4" />
                 {{#each (findCommentsWithoutReplies post.comments) as | comment |}}
-                <div class="card comment text-white mt-3" aria-live="assertive" aria-atomic="true"
+                <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true"
                     style="width: 24rem;">
                     <div class="card-header " style="height: 40px;">
                         <span class="r-image">
@@ -465,7 +448,7 @@
                         </span>
                         <small class="me-auto fw-light">{{findName comment.dataValues.authorId
                             ../../users}}</small>
-                        <small class="float-end fw-light text-white">{{getDate
+                        <small class="float-end fw-light text-muted">{{getDate
                             comment.dataValues.createdAt}}</small>
                     </div>
                     <div class="card-body">
@@ -477,7 +460,7 @@
                 {{!-- Comments of reply --}}
                 {{#each (findReply comment.dataValues.id post.comments) as | reply |}}
                 {{#if reply}}
-                <div class="card comment text-white mt-3" aria-live="assertive" aria-atomic="true"
+                <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true"
                     style="width: 23rem;  margin-left: 18px;">
                     <div class="card-header " style="height: 40px;">
                         <span class="r-image">
@@ -485,9 +468,9 @@
                                 alt="profile">
                         </span>
                         <small class="me-auto fw-light">{{findName reply.dataValues.authorId
-                            ../../../users}}<i class="me-auto text-primary"> -> @{{findName
+                            ../../../users}}<i class="me-auto fw-light text-primary"> -> @{{findName
                                 comment.dataValues.authorId ../../../users}}</i></small>
-                        <small class="float-end fw-light text-white"><small>{{getDate
+                        <small class="float-end fw-light text-muted"><small>{{getDate
                                 reply.dataValues.createdAt}}</small></small>
                     </div>
                     <div class="card-body">
@@ -499,7 +482,7 @@
                 {{!-- Comments of reply #1 --}}
                 {{#each (findReply reply.dataValues.id post.comments) as | reply2 |}}
                 {{#if reply2}}
-                <div class="card comment text-white mt-3" aria-live="assertive" aria-atomic="true"
+                <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true"
                     style="width: 22rem; margin-left: 33px;">
                     <div class="card-header " style="height: 40px;">
                         <span class="r-image">
@@ -507,9 +490,9 @@
                                 alt="profile">
                         </span>
                         <small class="me-auto fw-light"><small>{{findName reply2.dataValues.authorId
-                                ../../../../users}}<i class="me-auto text-primary"> -> @{{findName
+                                ../../../../users}}<i class="me-auto fw-light text-primary"> -> @{{findName
                                     reply.dataValues.authorId ../../../../users}}</i></small></small>
-                        <small class="float-end fw-light text-white"><small>{{getDate
+                        <small class="float-end fw-light text-muted"><small>{{getDate
                                 reply2.dataValues.createdAt}}</small></small>
                     </div>
                     <div class="card-body">
@@ -521,7 +504,7 @@
                 {{!-- Comments of reply #2 --}}
                 {{#each (findReply reply2.dataValues.id post.comments) as | reply3 |}}
                 {{#if reply3}}
-                <div class="card comment text-white mt-3" aria-live="assertive" aria-atomic="true"
+                <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true"
                     style="width: 21rem; margin-left: 50px;">
                     <div class="card-header " style="height: 40px;">
                         <span class="r-image">
@@ -529,9 +512,9 @@
                                 class=" me-2" alt="profile">
                         </span>
                         <small class="me-auto fw-light"><small>{{findName reply2.dataValues.authorId
-                                ../../../../../users}}<i class="me-auto text-primary"> -> @{{findName
+                                ../../../../../users}}<i class="me-auto fw-light text-primary"> -> @{{findName
                                     reply2.dataValues.authorId ../../../../../users}}</i></small></small>
-                        <small class="float-end fw-light text-white"><small>{{getDate
+                        <small class="float-end fw-light text-muted"><small>{{getDate
                                 reply3.dataValues.createdAt}}</small></small>
                     </div>
                     <div class="card-body">
@@ -543,7 +526,7 @@
                 {{!-- Comments of reply #3 --}}
                 {{#each (findReply reply3.dataValues.id post.comments) as | reply4 |}}
                 {{#if reply4}}
-                <div class="card comment text-white mt-3" aria-live="assertive" aria-atomic="true"
+                <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive" aria-atomic="true"
                     style="width: 20rem; margin-left: 60px;">
                     <div class="card-header " style="height: 40px;">
                         <span class="r-image">
@@ -551,9 +534,9 @@
                                 class=" me-2" alt="profile">
                         </span>
                         <small class="me-auto fw-light"><small>{{findName reply4.dataValues.authorId
-                                ../../../../../../users}}<i class="me-auto text-primary">->@{{findName
+                                ../../../../../../users}}<i class="me-auto fw-light text-primary">->@{{findName
                                     reply4.dataValues.authorId ../../../../../../users}}</i></small></small>
-                        <small class="float-end fw-light text-white"><small><small>{{getDate
+                        <small class="float-end fw-light text-muted"><small><small>{{getDate
                                     reply4.dataValues.createdAt}}</small></small></small>
                     </div>
                     <div class="card-body">
@@ -577,23 +560,21 @@
 
     </section>
     {{else}}
-    <section class="row" style="margin-left: 400px">
+    <section class="row" style="">
         <div class=" col-md-8 mb-4">
             <div class="card bg-dark" style="width: 35rem;">
                 <div class="card-body">
-                    <small class="text-white">{{getDate post.createdAt}}</small>
+                    <small class="text-muted">{{getDate post.createdAt}}</small>
                     <header>
                         <div class="p-image-text">
                             <span class="p-image">
                                 <img src="{{post.author.dataValues.imageProfile}}" alt="profile">
                             </span>
-                            <h4 class="text text-center mt-2 mb-3">{{post.author.dataValues.name}}</h4>
+                            <h4 class="text-white text-center mt-2 mb-3">{{post.author.dataValues.name}}</h4>
                         </div>
                     </header>
-
                     <p class="text-white ms-5 me-5">{{post.content}}</p>
                     <div class="mt-5">
-
                         <a type="button" class="btn btn-sm btn-outline-light me-2"
                             href="/edit-post/{{post.id}}?edit=true">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -619,7 +600,6 @@
                                 Eliminar
                             </button>
                         </form>
-
                         <a type="button" class="btn btn-primary float-end" href="/new-comment/{{post.id}}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-chat" viewBox="0 0 16 16">
@@ -633,7 +613,7 @@
                     {{#if post.comments}}
                     <hr class="text-white mt-4 mb-1" />
                     {{#each (findCommentsWithoutReplies post.comments) as | comment |}}
-                    <div class="card comment text-white mt-3" aria-live="assertive"
+                    <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive"
                         aria-atomic="true" style="width: 24rem;">
                         <div class="card-header " style="height: 40px;">
                             <span class="r-image">
@@ -642,7 +622,7 @@
                             </span>
                             <small class="me-auto fw-light">{{findName comment.dataValues.authorId
                                 ../../users}}</small>
-                            <small class="float-end fw-light text-white">{{getDate
+                            <small class="float-end fw-light text-muted">{{getDate
                                 comment.dataValues.createdAt}}</small>
                         </div>
                         <div class="card-body">
@@ -654,7 +634,7 @@
                     {{!-- Comments of reply --}}
                     {{#each (findReply comment.dataValues.id post.comments) as | reply |}}
                     {{#if reply}}
-                    <div class="card comment text-white mt-3" aria-live="assertive"
+                    <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive"
                         aria-atomic="true" style="width: 23rem;  margin-left: 18px;">
                         <div class="card-header " style="height: 40px;">
                             <span class="r-image">
@@ -662,9 +642,9 @@
                                     alt="profile">
                             </span>
                             <small class="me-auto fw-light">{{findName reply.dataValues.authorId
-                                ../../../users}}<i class="me-auto text-primary"> -> @{{findName
+                                ../../../users}}<i class="me-auto fw-light text-primary"> -> @{{findName
                                     comment.dataValues.authorId ../../../users}}</i></small>
-                            <small class="float-end fw-light text-white"><small>{{getDate
+                            <small class="float-end fw-light text-muted"><small>{{getDate
                                     reply.dataValues.createdAt}}</small></small>
                         </div>
                         <div class="card-body">
@@ -676,7 +656,7 @@
                     {{!-- Comments of reply #1 --}}
                     {{#each (findReply reply.dataValues.id post.comments) as | reply2 |}}
                     {{#if reply2}}
-                    <div class="card comment text-white mt-3" aria-live="assertive"
+                    <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive"
                         aria-atomic="true" style="width: 22rem; margin-left: 33px;">
                         <div class="card-header " style="height: 40px;">
                             <span class="r-image">
@@ -684,9 +664,9 @@
                                     class=" me-2" alt="profile">
                             </span>
                             <small class="me-auto fw-light"><small>{{findName reply2.dataValues.authorId
-                                    ../../../../users}}<i class="me-auto text-primary"> -> @{{findName
+                                    ../../../../users}}<i class="me-auto fw-light text-primary"> -> @{{findName
                                         reply.dataValues.authorId ../../../../users}}</i></small></small>
-                            <small class="float-end fw-light text-white"><small>{{getDate
+                            <small class="float-end fw-light text-muted"><small>{{getDate
                                     reply2.dataValues.createdAt}}</small></small>
                         </div>
                         <div class="card-body">
@@ -698,7 +678,7 @@
                     {{!-- Comments of reply #2 --}}
                     {{#each (findReply reply2.dataValues.id post.comments) as | reply3 |}}
                     {{#if reply3}}
-                    <div class="card comment text-white mt-3" aria-live="assertive"
+                    <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive"
                         aria-atomic="true" style="width: 21rem; margin-left: 50px;">
                         <div class="card-header " style="height: 40px;">
                             <span class="r-image">
@@ -706,9 +686,9 @@
                                     class=" me-2" alt="profile">
                             </span>
                             <small class="me-auto fw-light"><small>{{findName reply2.dataValues.authorId
-                                    ../../../../../users}}<i class="me-auto text-primary"> -> @{{findName
+                                    ../../../../../users}}<i class="me-auto fw-light text-primary"> -> @{{findName
                                         reply2.dataValues.authorId ../../../../../users}}</i></small></small>
-                            <small class="float-end fw-light text-white"><small>{{getDate
+                            <small class="float-end fw-light text-muted"><small>{{getDate
                                     reply3.dataValues.createdAt}}</small></small>
                         </div>
                         <div class="card-body">
@@ -720,7 +700,7 @@
                     {{!-- Comments of reply #3 --}}
                     {{#each (findReply reply3.dataValues.id post.comments) as | reply4 |}}
                     {{#if reply4}}
-                    <div class="card comment text-white mt-3" aria-live="assertive"
+                    <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive"
                         aria-atomic="true" style="width: 20rem; margin-left: 60px;">
                         <div class="card-header " style="height: 40px;">
                             <span class="r-image">
@@ -728,9 +708,9 @@
                                     class=" me-2" alt="profile">
                             </span>
                             <small class="me-auto fw-light"><small>{{findName reply4.dataValues.authorId
-                                    ../../../../../../users}}<i class="me-auto text-primary">->@{{findName
+                                    ../../../../../../users}}<i class="me-auto fw-light text-primary">->@{{findName
                                         reply4.dataValues.authorId ../../../../../../users}}</i></small></small>
-                            <small class="float-end fw-light text-white"><small><small>{{getDate
+                            <small class="float-end fw-light text-muted"><small><small>{{getDate
                                         reply4.dataValues.createdAt}}</small></small></small>
                         </div>
                         <div class="card-body">
@@ -749,16 +729,12 @@
                     {{/each}}
                     {{/each}}
                     {{/if}}
-
                 </div>
             </div>
         </div>
     </section>
-
     {{/if}}
     {{/each}}
     {{/if}}
-
-
     {{/if}}
-</main>
+</main> 
