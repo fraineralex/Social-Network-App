@@ -1,3 +1,145 @@
 <main>
-    <h1 class="text-center text-white mt-5">Eventos</h1>
+        <section class="text-center container">
+        <div class="row">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 class="fw-bold text-primary mt-4">Buzón de Eventos</h1>
+                <p class="lead text-white">Te damos la bienvenida a tu buzon de eventos, donde puedes revisar 
+                    los eventos a los que te invitaron tus amigos, crear nuevos eventos y mucho más.
+                </p>
+                <p>
+                    <a href="/create-event" class="btn btn-primary mt-1">Crear nuevo evento</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    
+
+    <style>
+        .tabs {
+            position: absolute;
+            top: 65%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60rem;
+            height: 30rem;
+            padding: 20px 30px;
+            overflow: hidden;
+            border-radius: 50px;
+            box-shadow: 5px 10px 5px rgb(70, 68, 68);
+        }
+
+        .tabs .tab-header {
+            height: 60px;
+            display: flex;
+            align-items: center;
+        }
+
+        .tabs .tab-header>div {
+            width: calc(100% / 2);
+            text-align: center;
+            color: rgb(255, 255, 255);
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 14px;
+            text-transform: uppercase;
+            outline: none;
+        }
+
+        .tabs .tab-header>div>i {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .tabs .tab-indicator-1 {
+            position: relative;
+            width: calc(100% / 2);
+            height: 5px;
+            background: #00acee;
+            left: ;
+            border-radius: 5px;
+            transition: all 500ms ease-in-out;
+        }
+
+        .tabs .tab-indicator-2 {
+            position: relative;
+            width: calc(100% / 2);
+            height: 5px;
+            background: #00acee;
+            left: 50%;
+            border-radius: 5px;
+            transition: all 500ms ease-in-out;
+        }
+
+        .tabs .tab-body {
+            position: relative;
+            height: calc(100% - 60px);
+            padding: 10px 5px;
+        }
+
+        .tabs .tab-body>div {
+            position: absolute;
+            top: -200%;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 500ms ease-in-out 0ms,
+                transform 500ms ease-in-out 0ms;
+        }
+
+        .tabs .tab-body>div.active {
+            top: 0px;
+            opacity: 1;
+            transform: scale(1);
+        }
+    </style>
+
+    <div class="tabs bg-dark">
+        <div class="tab-header">
+            <div>
+                <form class="form-tab-1" action="/events" method="get">
+                    <div class=" send-tab-1">
+                        <i class="fa fa-code">Recibidos</i>
+                    </div>
+                </form>
+            </div>
+            <div>
+                <form class="form-tab-2" action="/events-created" method="get">
+                    <div class=" send-tab-2">
+                        <i class="fa fa-pencil-square-o">Creados</i>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="tab-indicator-{{#if createdMode}}2{{else}}1{{/if}}"></div>
+        <div class="tab-body">
+            <div class="active text-white">
+
+                <div class="card bg-secondary mt-3" aria-live="assertive" aria-atomic="true">
+                    <div class="card-header">
+                        <img src="https://cdn-icons-png.flaticon.com/32/3078/3078971.png" class="rounded me-2"
+                            alt="Evento">
+                        <strong class="me-auto">Cumpleaños</strong>
+                        <small class="text-white float-end">Hacen 2 minutos</small>
+                    </div>
+
+                    <div class="card-body">
+                        <small><strong>Fecha: </strong> <i class="ms-2">25 de septiembre 2022</i></small><br>
+                        <small><strong> Lugar:</strong><i class="ms-2">Los Minas.</i></small>
+                        <small class="ms-4"><strong>Inivitados: </strong><i class="ms-2">25 personas.</i></small>
+                        <div class="mt-2 pt-2 border-top text-center">
+                            {{#if createdMode}}
+                            <button type="button" class="btn btn-sm btn-light">Eliminar</button>
+                            <button type="button" class="btn btn-sm btn-light">Agregar inivitados</button>
+                            <button type="button" class="btn btn-sm btn-light">Ver invitados</button>
+                            {{else}}
+                            <button type="button" class="btn btn-sm btn-light">Asistiré</button>
+                            <button type="button" class="btn btn-sm btn-light">Tal vez</button>
+                            <button type="button" class="btn btn-sm btn-light">No asistiré</button>
+                            {{/if}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </main>

@@ -1,0 +1,40 @@
+<main>
+    <div class="row position-absolute start-50 translate-middle" style="margin-top: 18rem;">
+        <form class="g-3 needs-validation" method="POST" action="/create-event">
+            <div class="card mb-5 mt-0 bg-dark" style="width: 38rem;">
+                <div class="card-header bg-primary text-light">
+                    <h4 class="text-center">Creando nuevo evento</h4>
+                </div>
+                <h4 class="text-center mb-4 text-white mt-4">Rellene todos los campos a continuación</h4>
+                <div class="card-body">
+
+                    <div class="mb-3">
+                        <label for="name" class="form-label text-white"><strong>Nombre</strong></label>
+                        <input type="text" class="form-control bg-dark text-white border-primary" id="name" name="Name"
+                            required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="place" class="form-label text-white"><strong>Lugar de encuentro</strong></label>
+                        <input type="text" class="form-control bg-dark text-white border-primary" id="place"
+                            name="Place" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="date" class="form-label text-white"><strong>Fecha</strong></label>
+                        <input type="date" class="form-control bg-dark text-white border-primary" id="date" name="Date"
+                            required>
+                    </div>
+
+                    <input type="hidden" value="{{user.id}}" name="AuthorId">
+
+                    <button type="submit" class="btn btn-primary float-end mt-2">Crear evento</button>
+
+                    <a href="/events" class="btn btn-light float-end mt-2 me-2">Volver</a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+</main>

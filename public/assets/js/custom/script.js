@@ -22,3 +22,11 @@ modeSwitch.addEventListener("click", () => {
     modeText.innerText = "Dark mode";
   }
 });
+
+$(".send-tab-1").on("click", function () {
+  $(this).closest(".form-tab-1").submit();
+});
+
+$(".send-tab-2").on("click", function () {
+  $(this).closest(".form-tab-2").submit();
+});

@@ -9,11 +9,11 @@ const Events = sequelize.define("event",{
       allowNull: false,
       primaryKey: true,
   },
-  title:{
+  name:{
       type: Sequelize.STRING,
       allowNull: false,
   },
-  location:{
+  place:{
       type: Sequelize.STRING,
       allowNull: false,
   },
