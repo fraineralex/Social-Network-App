@@ -12,6 +12,12 @@ exports.GetDate = (date) => {
   return time;
 };
 
+exports.GetEventDate = (date) => {
+  const time = moment(date).format('LLLL')
+
+  return time.charAt(0).toUpperCase() + time.slice(1);
+};
+
 exports.FindImageProfile = (authorId, users) => {
   const user = users.find((user) => user.id == authorId);
   return user.imageProfile;

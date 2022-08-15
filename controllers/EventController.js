@@ -30,40 +30,35 @@ exports.GetAllEvents = (req, res, next) => {
     });
 };
 
-exports.GetCreateEvent = (req, res, next) => {
-  const userId = 2; // req.params.userId
-  let userFriends;
-  Friends.findAll({
-    where: {
-      [Op.or]: [{ senderID: userId }, { receptorID: userId }],
-      [Op.and]: [{ isAccepted: 1 }],
-    },
-  })
-    .then((fs) => {
-      //mapping friends confirmation
-      const senderID = fs.map((f) =>
-        f.dataValues.senderID !== userId ? f.dataValues.senderID : 0
-      );
-      const receptorID = fs.map((f) =>
-        f.dataValues.receptorID !== userId ? f.dataValues.receptorID : 0
-      );
-      return senderID.concat(receptorID);
-    })
-    .then((friends) => {
-      userFriends = friends;
+exports.GetCreatedEvents = (req, res, next) => {
+  let authorId = 1;
+
+  Users.findAll()
+    .then((result) => {
+      const users = result.map((result) => result.dataValues);
       Users.findOne()
         .then((result) => {
           let user;
           if (result) {
             user = result.dataValues;
           }
-
-          res.render("client/create-event", {
-            pageTitle: "Crear evento",
-            eventActive: true,
-            user: user,
-            friends: userFriends,
-          });
+          Events.findAll({
+            where: { authorId: authorId },
+          })
+            .then((result) => {
+              const events = result.map((result) => result.dataValues);
+              res.render("client/events", {
+                pageTitle: "Eventos",
+                eventActive: true,
+                user: user,
+                users: users,
+                events: events,
+                createdMode: true,
+              });
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         })
         .catch((err) => {
           console.log(err);
@@ -74,28 +69,19 @@ exports.GetCreateEvent = (req, res, next) => {
     });
 };
 
-exports.GetCreatedEvents = (req, res, next) => {
-  Users.findAll()
+exports.GetCreateEvent = (req, res, next) => {
+  Users.findOne()
     .then((result) => {
-      const users = result.map((result) => result.dataValues);
-      Users.findOne()
-        .then((result) => {
-          let user;
-          if (result) {
-            user = result.dataValues;
-          }
+      let user;
+      if (result) {
+        user = result.dataValues;
+      }
 
-          res.render("client/events", {
-            pageTitle: "Eventos",
-            eventActive: true,
-            user: user,
-            users: users,
-            createdMode: true,
-          });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      res.render("client/create-event", {
+        pageTitle: "Crear evento",
+        eventActive: true,
+        user: user,
+      });
     })
     .catch((err) => {
       console.log(err);
@@ -116,6 +102,18 @@ exports.PostCreateEvent = (req, res, next) => {
   })
     .then(() => {
       res.redirect("/events-created");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+exports.PostDeleteEvent = (req, res, next) => {
+  const eventId = req.body.EventId;
+
+  Events.destroy({ where: { id: eventId } })
+    .then(() => {
+      return res.redirect("/events-created");
     })
     .catch((err) => {
       console.log(err);

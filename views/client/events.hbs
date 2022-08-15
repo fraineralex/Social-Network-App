@@ -1,9 +1,9 @@
 <main>
-        <section class="text-center container">
+    <section class="text-center container">
         <div class="row">
             <div class="col-lg-6 col-md-8 mx-auto">
                 <h1 class="fw-bold text-primary mt-4">Buzón de Eventos</h1>
-                <p class="lead text-white">Te damos la bienvenida a tu buzon de eventos, donde puedes revisar 
+                <p class="lead text-white">Te damos la bienvenida a tu buzon de eventos, donde puedes revisar
                     los eventos a los que te invitaron tus amigos, crear nuevos eventos y mucho más.
                 </p>
                 <p>
@@ -13,7 +13,7 @@
         </div>
     </section>
 
-    
+
 
     <style>
         .tabs {
@@ -51,22 +51,10 @@
             margin-bottom: 5px;
         }
 
-        .tabs .tab-indicator-1 {
+        .tabs .tab-indicator {
             position: relative;
-            width: calc(100% / 2);
+            width: calc(100%);
             height: 5px;
-            background: #00acee;
-            left: ;
-            border-radius: 5px;
-            transition: all 500ms ease-in-out;
-        }
-
-        .tabs .tab-indicator-2 {
-            position: relative;
-            width: calc(100% / 2);
-            height: 5px;
-            background: #00acee;
-            left: 50%;
             border-radius: 5px;
             transition: all 500ms ease-in-out;
         }
@@ -97,49 +85,86 @@
         <div class="tab-header">
             <div>
                 <form class="form-tab-1" action="/events" method="get">
-                    <div class=" send-tab-1">
-                        <i class="fa fa-code">Recibidos</i>
+                    <div class=" send-tab-1 {{#if createdMode}}{{else}}border-bottom border-4 border-primary{{/if}}"
+                        style="height: 50px;">
+                        <i class="fa fa-code fs-5">Recibidos</i>
                     </div>
                 </form>
             </div>
             <div>
                 <form class="form-tab-2" action="/events-created" method="get">
-                    <div class=" send-tab-2">
-                        <i class="fa fa-pencil-square-o">Creados</i>
+                    <div class=" send-tab-2 {{#if createdMode}}border-bottom border-4 border-primary{{/if}}"
+                        style="height: 50px;">
+                        <i class="fa fa-pencil-square-o fs-5">Creados</i>
                     </div>
                 </form>
             </div>
         </div>
-        <div class="tab-indicator-{{#if createdMode}}2{{else}}1{{/if}}"></div>
-        <div class="tab-body">
+        {{#if createdMode}}
+        <div class="tab-indicator tab-indicator-2">
+        </div>
+        <div class="tab-body" style="">
             <div class="active text-white">
-
+                {{#if events}}
+                {{#each events as | event |}}
                 <div class="card bg-secondary mt-3" aria-live="assertive" aria-atomic="true">
                     <div class="card-header">
                         <img src="https://cdn-icons-png.flaticon.com/32/3078/3078971.png" class="rounded me-2"
                             alt="Evento">
-                        <strong class="me-auto">Cumpleaños</strong>
-                        <small class="text-white float-end">Hacen 2 minutos</small>
+                        <strong class="me-auto">{{event.name}}</strong>
+                        <small class="text-white float-end">{{getDate event.createdAt}}</small>
                     </div>
 
                     <div class="card-body">
-                        <small><strong>Fecha: </strong> <i class="ms-2">25 de septiembre 2022</i></small><br>
-                        <small><strong> Lugar:</strong><i class="ms-2">Los Minas.</i></small>
-                        <small class="ms-4"><strong>Inivitados: </strong><i class="ms-2">25 personas.</i></small>
+                        <small><strong>Fecha: </strong> <i class="ms-2">{{getEventDate event.createdAt}}</i></small><br>
+                        <small><strong> Lugar:</strong><i class="ms-2">{{event.place}}</i></small>
+                        <small class="ms-4"><strong>Inivitados: </strong><i class="ms-2"></i></small>
                         <div class="mt-2 pt-2 border-top text-center">
-                            {{#if createdMode}}
-                            <button type="button" class="btn btn-sm btn-light">Eliminar</button>
-                            <button type="button" class="btn btn-sm btn-light">Agregar inivitados</button>
-                            <button type="button" class="btn btn-sm btn-light">Ver invitados</button>
-                            {{else}}
-                            <button type="button" class="btn btn-sm btn-light">Asistiré</button>
-                            <button type="button" class="btn btn-sm btn-light">Tal vez</button>
-                            <button type="button" class="btn btn-sm btn-light">No asistiré</button>
-                            {{/if}}
+                            <form class="d-inline" method="post" action="/delete-event">
+                                <input type="hidden" name="EventId" value="{{event.id}}">
+                                <button type="submit" class="btn btn-sm btn-light">Eliminar</button>
+                            </form>
+                            <a type="button" class="btn btn-sm btn-light">Agregar inivitados</a>
+                            <a type="button" class="btn btn-sm btn-light">Ver invitados</a>
+
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+                {{else}}
+                <h3 class="text-white mt-4">Aún no has creado ningun evento</h3>
+                {{/if}}
+
+            </div>
+        </div>
+        {{else}}
+        <div class="tab-indicator tab-indicator-1">
+            <div class="tab-body">
+                <div class="active text-white">
+
+                    <div class="card bg-secondary mt-3" aria-live="assertive" aria-atomic="true">
+                        <div class="card-header">
+                            <img src="https://cdn-icons-png.flaticon.com/32/3078/3078971.png" class="rounded me-2"
+                                alt="Evento">
+                            <strong class="me-auto">Cumpleaños</strong>
+                            <small class="text-white float-end">Hacen 2 minutos</small>
+                        </div>
+
+                        <div class="card-body">
+                            <small><strong>Fecha: </strong> <i class="ms-2">25 de septiembre 2022</i></small><br>
+                            <small><strong> Lugar:</strong><i class="ms-2">Los Minas.</i></small>
+                            <small class="ms-4"><strong>Inivitados: </strong><i class="ms-2">25 personas.</i></small>
+                            <div class="mt-2 pt-2 border-top text-center">
+
+                                <button type="button" class="btn btn-sm btn-light">Asistiré</button>
+                                <button type="button" class="btn btn-sm btn-light">Tal vez</button>
+                                <button type="button" class="btn btn-sm btn-light">No asistiré</button>
+
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+        {{/if}}
 </main>
