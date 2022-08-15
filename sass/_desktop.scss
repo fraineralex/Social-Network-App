@@ -2,6 +2,7 @@
     //post box size
     .post-box{
         margin-top: 3rem;
+        margin-left: 2rem;
         width: 100%;
         max-width: $maxWidthPost;
         min-width: $minWidthPost;
@@ -13,8 +14,6 @@
             textarea{
                 width: 100%;
                 border-radius: 1%;
-                background-color: #242526;
-                color:white;
             }
         }
         .box-header{
