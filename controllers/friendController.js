@@ -83,10 +83,9 @@ module.exports.searchNewFriendHome = (req, res, next) => {
 };
 module.exports.searchNewFriend = (req, res, next) => {
   const userId = req.body.userId;
-
-  user
-    .findAll({
-      where: {
+  
+  //user
+  user.findAll({where: {
         [Op.or]: [
           { name: { [Op.like]: req.body.userName } },
           { user: { [Op.like]: req.body.userName } },
@@ -94,15 +93,14 @@ module.exports.searchNewFriend = (req, res, next) => {
         ],
       },
     })
-
     .then((nf) => nf.map((nf) => nf.dataValues))
     .then((nf) => nf.filter((nf) => nf.id != userId))
 
+    //friends
     .then((us) => {
       const userF = us.map((uf) => uf.id);
       const userFriends = us;
-      friend
-        .findAll({
+      friend.findAll({
           where: {
             [Op.or]: [
               { [Op.and]: [{ senderID: userId }, { receptorID: userF }] },
@@ -119,6 +117,5 @@ module.exports.searchNewFriend = (req, res, next) => {
             us: userFriends,
           });
         });
-    })
-    .catch((err) => console.log(err));
+    }).catch((err) => console.log(err));
 };

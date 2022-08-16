@@ -1,44 +1,47 @@
-<div class="container">
+<div class="grid-container-searchFriend">
 
-    <div class="row">
-
-        <div class="row">
-            <form action="/searchNewFriend" method="post">
+    <div class="items1">
+        <form action="/searchNewFriend" method="post">
+            <div>
                 <label for="search">New friend</label>
-                <input type="text" id="search" name="userName" placeholder="User name..." required> <!--upgrade later-->
+            </div>
+            <div>
                 <input type="hidden" name="userId" value="{{userId}}">
-                <button type="submit">search</button>
-            </form>
-        </div>
-
-        <div class="col-12 p-5">
-            {{#if us}}
-            <div class="row">
-                {{#each us as |us key|}}
-                <a href="" class="bg-dark">
-                    <div class="box">
-                        <div class="card bg-dark">
-                            <div class="card-header">
-                                <img src="{{us.imageProfile}}" alt="{{us.name}} profile image" class="card-img">
-                            </div>
-                            <div class="card-body">
-                                <h1>{{us.name}}</h1>
-                                <h3>{{us.lastName}}</h3>
-                                <h3>{{us.user}}</h3>
-                            </div>
-                            <div class="card-header">
-                                {{#if (getConfirmationF ../ac key)}}
-                                    <a href="" class="btn btn-outline-success disabled">My friend :)</a>
-                                {{else}}
-                                    <a href="/solicitude/friend/{{../userId}}/{{us.id}}" class="btn btn-success">send</a>
-                                {{/if}}
-                            </div>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="search" name="userName" placeholder="User name..." aria-label="Recipient's username" aria-describedby="button-addon2" required>
+                    <button class="btn btn-outline-secondary" type="submit" id="button-addon2">search</button>
+                </div>
+            </div>
+        </form>
+    </div>
+        
+    <div class="items2">
+        {{#if us}}
+        <div class="search-box">
+            {{#each us as |us key|}}
+            <a href="" class="bg-dark">
+                <div class="">
+                    <div class="">
+                        <div class="">
+                            <img src="{{us.imageProfile}}" alt="{{us.name}} profile image">
+                        </div>
+                        <div class="">
+                            <h1>{{us.name}}</h1>
+                            <h3>{{us.lastName}}</h3>
+                            <h3>{{us.user}}</h3>
+                        </div>
+                        <div class="">
+                            {{#if (getConfirmationF ../ac key)}}
+                                <a href="" class="btn btn-outline-success disabled">My friend :)</a>
+                            {{else}}
+                                <a href="/solicitude/friend/{{../userId}}/{{us.id}}" class="btn btn-success">send</a>
+                            {{/if}}
                         </div>
                     </div>
-                </a>
-                {{/each}}
-            </div>
-            {{/if}}
+                </div>
+            </a>
+            {{/each}}
         </div>
+        {{/if}}
     </div>
 </div>

@@ -4,6 +4,8 @@ const notificationController = require('../controllers/notificationController');
 
 const notificationRouter = express.Router();
 
-notificationRouter.get('/notification', notificationController.getNotifications);
+notificationRouter.get('/solicitude/friend/:userId/:friendID', notificationController.solicitudeFriend);
+
+
 
 module.exports = notificationRouter;
