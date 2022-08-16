@@ -1,0 +1,29 @@
+<main class="row mt-4" style="margin-left: 400px">
+    <div>
+        <div class="card bg-dark col-md-8 me-5 mt-0 text-white" style="width: 35rem;">
+            <div class="card-header bg-primary">
+                <h4 class="text-center">Añadiendo nuevos invitados</h4>
+            </div>
+            <div class="card-body">
+
+                <h6 class="text-center fs-5 mb-4 mt-3">Ingresa el usuario de tu amigo y presiona invitar</h6>
+                <form class="d-flex" role="search" method="post" action="/add-invited">
+                    <input class="form-control me-2 bg-dark border-primary text-white" name="ReceptorUserName" type="search" placeholder="Nombre de usuario" aria-label="Search">
+                    <input type="hidden" name="AuthorId" value="{{event.authorId}}">
+                    <input type="hidden" name="EventId" value="{{event.id}}">
+                    <button class="btn btn-primary" type="submit">Invitar</button>
+                </form>
+                <a type="button" href="/events-created" class="btn btn-light float-end mt-5">Regresar</a>
+            </div>
+        </div>
+    </div>
+
+    {{#if requestSended}}
+    <script>
+        alert("Ha ocurrido un error, asegurese de digitar bien el usuario de su amigo.")
+    </script>
+
+    {{/if}}
+
+
+</main>
