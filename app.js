@@ -21,6 +21,7 @@ app.engine(
       findName: getDataHelpers.FindName,
       findImageProfile: getDataHelpers.FindImageProfile,
       getDate: getDataHelpers.GetDate,
+      getEventDate: getDataHelpers.GetEventDate,
       findCommentsWithoutReplies: getDataHelpers.FindCommentsWithoutReplies,
       findReply: getDataHelpers.FindReply,
       getConfirmationF: getConfirmation.friendConfirmation,
