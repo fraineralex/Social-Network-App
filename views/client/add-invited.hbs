@@ -8,7 +8,8 @@
 
                 <h6 class="text-center fs-5 mb-4 mt-3">Ingresa el usuario de tu amigo y presiona invitar</h6>
                 <form class="d-flex" role="search" method="post" action="/add-invited">
-                    <input class="form-control me-2 bg-dark border-primary text-white" name="ReceptorUserName" type="search" placeholder="Nombre de usuario" aria-label="Search">
+                    <input class="form-control me-2 bg-dark border-primary text-white" name="ReceptorUserName"
+                        type="search" placeholder="Nombre de usuario" aria-label="Search">
                     <input type="hidden" name="AuthorId" value="{{event.authorId}}">
                     <input type="hidden" name="EventId" value="{{event.id}}">
                     <button class="btn btn-primary" type="submit">Invitar</button>
@@ -20,7 +21,14 @@
 
     {{#if requestSended}}
     <script>
-        alert("Ha ocurrido un error, asegurese de digitar bien el usuario de su amigo.")
+        alert("Error, asegurese de digitar bien el usuario de su amigo.")
+    </script>
+
+    {{/if}}
+
+    {{#if alreadyInvited}}
+    <script>
+        alert("Error, Este usuario ya ha sido invitado al evento")
     </script>
 
     {{/if}}

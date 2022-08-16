@@ -25,6 +25,7 @@ app.engine(
       findCommentsWithoutReplies: getDataHelpers.FindCommentsWithoutReplies,
       findReply: getDataHelpers.FindReply,
       getConfirmationF: getConfirmation.friendConfirmation,
+      lengthValue: getDataHelpers.LengthValue,
     },
   })
 );

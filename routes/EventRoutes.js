@@ -11,6 +11,7 @@ router.post("/create-event",eventController.PostCreateEvent);
 router.post("/delete-event",eventController.PostDeleteEvent);
 router.get("/add-invited/:AuthorId/:EventId",eventController.GetAddInvited);
 router.post("/add-invited",eventController.PostAddInvited);
+router.get("/view-invited/:AuthorId/:EventId",eventController.GetViewInvited);
 
 
 

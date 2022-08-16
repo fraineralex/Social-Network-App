@@ -1,0 +1,41 @@
+<main class="row mt-4" style="margin-left: 300px">
+    {{#if invitedUsers}}
+    <div>
+        <div class="card bg-dark col-md-8 me-5 mt-0 text-white" style="width: 50rem;">
+            <div class="card-header bg-primary">
+                <h4 class="text-center">Amigos invitados</h4>
+            </div>
+            <div class="card-body text-white">
+                <table class="table table-dark table-striped text-white">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Apellido</th>
+                            <th scope="col">Usuario</th>
+                            <th scope="col">Respuesta</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each invitedUsers as |invited|}}
+                        {{#each invited.eventRequests as |receptor|}}
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>{{invited.name}}</td>
+                            <td>{{invited.lastName}}</td>
+                            <td>@{{invited.user}}</td>
+                            <td>{{receptor.dataValues.message}}</td>
+                        </tr>
+                        {{/each}}
+                        {{/each}}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+    {{else}}
+    <h1 class="text-white text-center">No hay invitados</h1>
+    {{/if}}
+</main>

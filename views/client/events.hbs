@@ -116,9 +116,9 @@
                     </div>
 
                     <div class="card-body">
-                        <small><strong>Fecha: </strong> <i class="ms-2">{{getEventDate event.createdAt}}</i></small><br>
+                        <small><strong>Fecha: </strong>{{#if (getEventDate event.date)}}<i class="ms-2">{{getEventDate event.date}}{{else}}<i class="ms-2">Evento finalizado ❌{{/if}}</i></small><br>
                         <small><strong> Lugar:</strong><i class="ms-2">{{event.place}}</i></small>
-                        <small class="ms-4"><strong>Inivitados: </strong><i class="ms-2"></i></small>
+                        <small class="ms-4"><strong>Inivitados: </strong><i class="ms-2">{{lengthValue event.eventRequests}}</i></small>
                         <div class="mt-2 pt-2 border-top text-center">
                             <form class="d-inline" method="post" action="/delete-event">
                                 <input type="hidden" name="EventId" value="{{event.id}}">
@@ -126,7 +126,7 @@
                             </form>
                             <a type="button" class="btn btn-sm btn-light"
                                 href="/add-invited/{{../user.id}}/{{event.id}}">Agregar inivitados</a>
-                            <a type=" button" class="btn btn-sm btn-light">Ver invitados</a>
+                            <a type=" button" class="btn btn-sm btn-light" href="/view-invited/{{../user.id}}/{{event.id}}">Ver invitados</a>
 
                         </div>
                     </div>
