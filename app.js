@@ -1,5 +1,9 @@
-const path = require("path");
+//dotenv
+require('dotenv').config();
+
 const express = require("express");
+const morgan = require("morgan");
+const path = require("path");
 const expressHbs = require("express-handlebars");
 const sequelize = require("./util/database");
 const relationships = require("./models/RelationShips");
@@ -8,13 +12,19 @@ const multer = require("multer");
 const { v4: uuidv4 } = require("uuid");
 const session = require("express-session");
 const flash = require("connect-flash");
-
-const app = express();
-
 const getDataHelpers = require("./util/helpers/GetData");
 const getConfirmation = require("./util/helpers/friendConfirmation");
-//const compareHelpers = require("./util/helpers/hbs/compare");
+const errorController = require("./controllers/ErrorController");
+const homeRouter = require("./routes/Home");
+const friendRouter = require("./routes/FriendRoutes");
+const notificationRouter = require("./routes/NotificationRoutes");
+const eventRouter = require("./routes/EventRoutes");
+const login_intRouter = require("./routes/Login_int");
 
+// Initialize express app
+const app = express();
+
+// Initialize express-handlebars
 app.engine(
   "hbs",
   expressHbs({
@@ -22,7 +32,6 @@ app.engine(
     defaultLayout: "main-layout",
     extname: "hbs",
     helpers: {
-      //equalValue: compareHelpers.EqualValue,
       findName: getDataHelpers.FindName,
       findImageProfile: getDataHelpers.FindImageProfile,
       getDate: getDataHelpers.GetDate,
@@ -35,21 +44,23 @@ app.engine(
     },
   })
 );
-
 app.set("view engine", "hbs");
 app.set("views", "views");
 
+//middleware
+app.use(morgan('dev'));
 app.use(express.urlencoded({extended: false}));
+app.use(express.json());
 
+//static folders
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/images",express.static(path.join(__dirname, "images")));
 
+//session
 app.use(
   session({ secret: "anything", resave: true, saveUninitialized: false })
 );
-
 app.use(flash());
-
 app.use((req, res, next) => {
   if (!req.session) {
     return next();
@@ -66,7 +77,6 @@ app.use((req, res, next) => {
       console.log(err);
     });
 });
-
 app.use((req, res, next) => {
   const errors = req.flash("errors");  
   res.locals.isAuthenticated = req.session.newSession;
@@ -76,6 +86,7 @@ app.use((req, res, next) => {
   next();
 });
 
+//multer
 const imageStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "images");
@@ -87,14 +98,7 @@ const imageStorage = multer.diskStorage({
 
 app.use(multer({ storage: imageStorage }).single("ImageFile"));
 
-const errorController = require("./controllers/ErrorController");
-const homeRouter = require("./routes/Home");
-const friendRouter = require("./routes/FriendRoutes");
-const notificationRouter = require("./routes/NotificationRoutes");
-const eventRouter = require("./routes/EventRoutes");
-const login_intRouter = require("./routes/Login_int");
-
-
+//routes
 app.use(homeRouter);
 app.use(friendRouter);
 app.use(notificationRouter);
@@ -102,14 +106,8 @@ app.use(eventRouter);
 app.use(login_intRouter);
 app.use(errorController.Get404);
 
+//db relationships
 relationships.RelationShips();
 
-
-sequelize
-  .sync()
-  .then((result) => {
-    app.listen(5000);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+//launches the server
+sequelize.sync().then(result=> app.listen(5000)).catch((err) =>console.log(err));
