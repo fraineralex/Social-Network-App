@@ -68,6 +68,7 @@
         .tabs .tab-body {
             position: relative;
             height: calc(100%);
+            align-items: center;
             overflow-y: scroll;
         }
 
@@ -114,36 +115,37 @@
         <div class="tab-body">
             <div class="active text-white">
                 {{#if events}}
-                <div class="row">
+                <div class="row mb-5 mx-auto">
                     {{#each events as | event |}}
-                    <div class="col"></div>
-                    <div class="card bg-secondary mt-3" aria-live="assertive" aria-atomic="true"
-                        style="max-width: 40%;">
-                        <div class="card-header">
-                            <img src="https://cdn-icons-png.flaticon.com/32/3078/3078971.png" class="rounded me-2"
-                                alt="Evento">
-                            <strong class="me-auto">{{event.name}}</strong>
-                            <small class="text-white float-end">{{getDate event.createdAt}}</small>
-                        </div>
+                    <div class="col-md-6">
+                        <div class="card bg-secondary mt-3 ms-4" aria-live="assertive" aria-atomic="true"
+                            style="max-width: 100%;">
+                            <div class="card-header">
+                                <img src="https://cdn-icons-png.flaticon.com/32/3078/3078971.png" class="rounded me-2"
+                                    alt="Evento">
+                                <strong class="me-auto">{{event.name}}</strong>
+                                <small class="text-white float-end">{{getDate event.createdAt}}</small>
+                            </div>
 
-                        <div class="card-body">
-                            <small><strong>Fecha: </strong>{{#if (getEventDate event.date)}}<i
-                                    class="ms-2">{{getEventDate
-                                    event.date}}{{else}}<i class="ms-2">Evento finalizado
-                                        ❌{{/if}}</i></small><br>
-                            <small><strong> Lugar:</strong><i class="ms-2">{{event.place}}</i></small>
-                            <small class="ms-4"><strong>Inivitados: </strong><i class="ms-2">{{lengthValue
-                                    event.eventRequests}}</i></small>
-                            <div class="mt-2 pt-2 border-top text-center">
-                                <form class="d-inline" method="post" action="/delete-event">
-                                    <input type="hidden" name="EventId" value="{{event.id}}">
-                                    <button type="submit" class="btn btn-sm btn-light">Eliminar</button>
-                                </form>
-                                <a type="button" class="btn btn-sm btn-light"
-                                    href="/add-invited/{{../user.id}}/{{event.id}}">Agregar inivitados</a>
-                                <a type=" button" class="btn btn-sm btn-light"
-                                    href="/view-invited/{{../user.id}}/{{event.id}}">Ver invitados</a>
+                            <div class="card-body">
+                                <small><strong>Fecha: </strong>{{#if (getEventDate event.date)}}<i
+                                        class="ms-2">{{getEventDate
+                                        event.date}}{{else}}<i class="ms-2">Evento finalizado
+                                            ❌{{/if}}</i></small><br>
+                                <small><strong> Lugar:</strong><i class="ms-2">{{event.place}}</i></small>
+                                <small class="ms-2"><strong>Inivitados:</strong><i>{{lengthValue
+                                        event.eventRequests}}</i></small>
+                                <div class="mt-2 pt-2 border-top text-center">
+                                    <form class="d-inline" method="post" action="/delete-event">
+                                        <input type="hidden" name="EventId" value="{{event.id}}">
+                                        <button type="submit" class="btn btn-sm btn-light">Eliminar</button>
+                                    </form>
+                                    <a type="button" class="btn btn-sm btn-light"
+                                        href="/add-invited/{{../user.id}}/{{event.id}}">Agregar inivitados</a>
+                                    <a type=" button" class="btn btn-sm btn-light"
+                                        href="/view-invited/{{../user.id}}/{{event.id}}">Ver invitados</a>
 
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -152,40 +154,62 @@
                 {{else}}
                 <h3 class="text-white mt-4">Aún no has creado ningun evento</h3>
                 {{/if}}
-
             </div>
-
         </div>
-    </div>
-    {{else}}
-    <div class="tab-indicator tab-indicator-1">
+        {{else}}
+        <div class="tab-indicator tab-indicator-1">
+        </div>
+
         <div class="tab-body">
             <div class="active text-white">
+                {{#if events}}
+                <div class="row mb-5">
+                    {{#each events as | event |}}
+                    <div class="col-md-6">
+                        <div class="card bg-secondary mt-3 ms-4" aria-live="assertive" aria-atomic="true"
+                            style="max-width: 100%;">
+                            <div class="card-header">
+                                <img src="https://cdn-icons-png.flaticon.com/32/3078/3078971.png" class="rounded me-2"
+                                    alt="Evento">
+                                <strong class="me-auto">{{event.name}}</strong>
+                                <small class="text-white float-end">{{getDate event.createdAt}}</small>
+                            </div>
 
-                <div class="card bg-secondary mt-3" aria-live="assertive" aria-atomic="true">
-                    <div class="card-header">
-                        <img src="https://cdn-icons-png.flaticon.com/32/3078/3078971.png" class="rounded me-2"
-                            alt="Evento">
-                        <strong class="me-auto">Cumpleaños</strong>
-                        <small class="text-white float-end">Hacen 2 minutos</small>
-                    </div>
-
-                    <div class="card-body">
-                        <small><strong>Fecha: </strong> <i class="ms-2">25 de septiembre 2022</i></small><br>
-                        <small><strong> Lugar:</strong><i class="ms-2">Los Minas.</i></small>
-                        <small class="ms-4"><strong>Inivitados: </strong><i class="ms-2">25
-                                personas.</i></small>
-                        <div class="mt-2 pt-2 border-top text-center">
-
-                            <button type="button" class="btn btn-sm btn-light">Asistiré</button>
-                            <button type="button" class="btn btn-sm btn-light">Tal vez</button>
-                            <button type="button" class="btn btn-sm btn-light">No asistiré</button>
-
+                            <div class="card-body">
+                                <small><strong>Fecha: </strong>{{#if (getEventDate event.date)}}<i
+                                        class="ms-2">{{getEventDate
+                                        event.date}}{{else}}<i class="ms-2">Evento finalizado
+                                            ❌{{/if}}</i></small><br>
+                                <small><strong> Lugar:</strong><i class="ms-2">{{event.place}}</i></small>
+                                <small class="ms-2"><strong>Inivitados:</strong><i>{{lengthValue
+                                        event.eventRequests}}</i></small>
+                                <div class="mt-2 pt-2 border-top text-center ms-4 me-4">
+                                    <form class="d-inline" method="post" action="/assist/yes">
+                                        <input type="hidden" name="ReceptorId" value="{{../user.id}}">
+                                        <input type="hidden" name="EventId" value="{{event.id}}">
+                                        <button type="submit" class="btn btn-sm btn-light">Asistiré</button>
+                                    </form>
+                                    <form class="d-inline" method="post" action="/assist/maybe">
+                                        <input type="hidden" name="ReceptorId" value="{{../user.id}}">
+                                        <input type="hidden" name="EventId" value="{{event.id}}">
+                                        <button type="submit" class="btn btn-sm {{#if (findMessage event.eventRequests ../user.id)}}{{else}}btn-light{{/if}}">Tal vez asista</button>
+                                    </form>
+                                    <form class="d-inline" method="post" action="/assist/not">
+                                        <input type="hidden" name="ReceptorId" value="{{../user.id}}">
+                                        <input type="hidden" name="EventId" value="{{event.id}}">
+                                        <button type="submit" class="btn btn-sm btn-light">No asistiré</button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    {{/each}}
                 </div>
+                {{else}}
+                <h3 class="text-white mt-4">Aún no has creado ningun evento</h3>
+                {{/if}}
             </div>
         </div>
+        {{/if}}
     </div>
-    {{/if}}
 </main>

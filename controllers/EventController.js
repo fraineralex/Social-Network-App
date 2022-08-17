@@ -5,21 +5,37 @@ const EventRequests = require("../models/EventRequests");
 const { Op } = require("sequelize");
 
 exports.GetAllEvents = (req, res, next) => {
-  Users.findAll()
+  let currentlyUser = 1;
+
+  Users.findOne({
+    where: {
+      id: currentlyUser,
+    },
+  })
     .then((result) => {
-      const users = result.map((result) => result.dataValues);
-      Users.findOne()
+      let user;
+      if (result) {
+        user = result.dataValues;
+      }
+
+      Events.findAll({
+        include: [
+          {
+            model: EventRequests,
+            where: {
+              receptorId: 2,
+            },
+          },
+        ],
+      })
         .then((result) => {
-          let user;
-          if (result) {
-            user = result.dataValues;
-          }
+          const events = result.map((result) => result.dataValues);
 
           res.render("client/events", {
             pageTitle: "Eventos",
             eventActive: true,
             user: user,
-            users: users,
+            events: events,
           });
         })
         .catch((err) => {
@@ -45,7 +61,7 @@ exports.GetCreatedEvents = (req, res, next) => {
         where: {
           authorId: authorId,
         },
-        include: [{ model: EventRequests}],
+        include: [{ model: EventRequests }],
       })
         .then((result) => {
           const events = result.map((result) => result.dataValues);
@@ -289,10 +305,10 @@ exports.GetViewInvited = (req, res, next) => {
         ],
       })
         .then((result) => {
-          console.log(result.length)
+          console.log(result.length);
 
-          if(result.length < 1){
-            return res.redirect("/events-created")
+          if (result.length < 1) {
+            return res.redirect("/events-created");
           }
 
           const invitedUsers = result.map((result) => result.dataValues);
@@ -327,6 +343,34 @@ exports.GetViewInvited = (req, res, next) => {
         .catch((err) => {
           console.log(err);
         });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+exports.PostMessageReceptor = (req, res, next) => {
+  const eventId = req.body.EventId;
+  const receptorId = req.body.ReceptorId;
+  const message = req.params.Message;
+  console.log(eventId, receptorId, message);
+
+  let contentMessage;
+  if (message == "yes") contentMessage = "Asistiré";
+  else if (message == "not") contentMessage = "No asistiré";
+  else if (message == "maybe") contentMessage = "Tal vez asista";
+  else return res.redirect("/events");
+
+  EventRequests.update(
+    { message: contentMessage },
+    {
+      where: {
+        [Op.and]: [{ eventId: eventId }, { receptorId: receptorId }],
+      },
+    }
+  )
+    .then(() => {
+      return res.redirect("/events");
     })
     .catch((err) => {
       console.log(err);
