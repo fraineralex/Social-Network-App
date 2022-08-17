@@ -72,11 +72,25 @@
                     transform: scale(1.1);
                 }
             }
-            .container-buttom{
+            .container-button{
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                margin: 10rem;
+                button{
+                    width: 100%;
+                    background-color: rgb(44, 61, 45);
+                    border: solid 1px rgb(44, 61, 45);
+                    border-radius: 3%;
+                    color: #ccc;
+                    font-size: 1rem;
+                    font-weight: bold;
+                    padding: 2px;
+                    transition: 0.5s;
+                    &:hover{
+                        background-color: rgb(37, 37, 37);
+                        box-shadow: rgb(44, 61, 45) 0px 0px 10px;
+                    }
+                }
     
             }
         }

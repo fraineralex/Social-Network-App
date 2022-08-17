@@ -17,29 +17,31 @@
         
     <div class="items2">
         {{#if us}}
-        <div class="search-box">
-            {{#each us as |us key|}}
-            <div class="box-container">
-                <a href="User/{{us.id}}" class="">
-                    <div class="container-img">
-                        <img src="{{us.imageProfile}}" alt="{{us.name}} profile image">
-                    </div>
-                    <div class="container-text">
-                        <h1>{{us.name}}</h1>
-                        <h3>{{us.lastName}}</h3>
-                        <h3>{{us.user}}</h3>
-                    </div>
-                    <div class="container-bottom">
-                        {{#if (getConfirmationF ../ac key)}}
-                            <a href="" class="btn btn-outline-success disabled">My friend :)</a>
-                        {{else}}
-                                <a href="/solicitude/friend/{{../userId}}/{{us.id}}" class="btn btn-outline-info">send</a>
-                        {{/if}}
-                    </div>
-                </a>
+            <div class="search-box">
+                {{#each us as |us key|}}
+                <div class="box-container">
+                    <form action="/solicitude/friend/{{../userId}}/{{us.id}}" method="post">
+                        <a href="User/{{us.id}}" class="">
+                            <div class="container-img">
+                                <img src="{{us.imageProfile}}" alt="{{us.name}} profile image">
+                            </div>
+                            <div class="container-text">
+                                <h1>{{us.name}}</h1>
+                                <h3>{{us.lastName}}</h3>
+                                <h3>{{us.user}}</h3>
+                            </div>
+                            <div class="container-button">
+                                {{#if (getConfirmationF ../ac key)}}
+                                    <a href="" class="btn btn-outline-success disabled">My friend :)</a>
+                                {{else}}
+                                    <button type="submit" class="">send</button>
+                                {{/if}}
+                            </div>
+                        </a>
+                    </form>
+                </div>
+                {{/each}}
             </div>
-            {{/each}}
-        </div>
         {{/if}}
     </div>
 </div>

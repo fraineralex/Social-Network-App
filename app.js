@@ -1,8 +1,9 @@
 //dotenv
 require('dotenv').config();
 
-const path = require("path");
 const express = require("express");
+const morgan = require("morgan");
+const path = require("path");
 const expressHbs = require("express-handlebars");
 const sequelize = require("./util/database");
 const relationships = require("./models/RelationShips");
