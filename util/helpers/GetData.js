@@ -45,21 +45,28 @@ exports.FindReply = (commentId, comments) => {
 
 exports.LengthValue = (array) => {
   if (array.length > 1) return "   " + array.length + " personas";
-  else if ((array.length = 1)) return "   " + array.length + " persona";
+  else if (array.length == 1) return "   " + array.length + " persona";
   else return " Nadie todavía";
 };
 
-exports.FindAnswer = (eventRequests, userId, btnAnswer) => {
-  const row = eventRequests.find((result) => result.receptorId == userId);
-  if (btnAnswer == "yes") {
-    if (row.message == "Asistiré") return "btn-primary";
-    else return "btn-light";
-  } else if (btnAnswer == "not") {
-    if (row.message == "No asistiré") return "btn-primary";
-    else return "btn-light";
-  } else if (btnAnswer == "maybe") {
-    if (row.message == "Tal vez asista") return "btn-primary";
-    else return "btn-light";
+exports.FindAnswer = (eventRequests, currentlyUser, btnAnswer) => {
+  console.log(btnAnswer);
+  const row = eventRequests.find(
+    (result) => result.dataValues.receptorId === currentlyUser
+  );
+  if (row) {
+    if (btnAnswer == "yes") {
+      if (row.dataValues.message == "Asistiré") return "btn-primary";
+      else return "btn-light";
+    } else if (btnAnswer == "not") {
+      if (row.message == "No asistiré") return "btn-primary";
+      else return "btn-light";
+    } else if (btnAnswer == "maybe") {
+      if (row.message == "Tal vez asista") return "btn-primary";
+      else return "btn-light";
+    } else {
+      return "btn-light";
+    }
   } else {
     return "btn-light";
   }

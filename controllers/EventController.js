@@ -353,7 +353,6 @@ exports.PostMessageReceptor = (req, res, next) => {
   const eventId = req.body.EventId;
   const receptorId = req.body.ReceptorId;
   const message = req.params.Message;
-  console.log(eventId, receptorId, message);
 
   let contentMessage;
   if (message == "yes") contentMessage = "Asistiré";

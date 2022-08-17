@@ -187,17 +187,17 @@
                                     <form class="d-inline" method="post" action="/assist/yes">
                                         <input type="hidden" name="ReceptorId" value="{{../user.id}}">
                                         <input type="hidden" name="EventId" value="{{event.id}}">
-                                        <button type="submit" class="btn btn-sm btn-light">Asistiré</button>
+                                        <button type="submit" class="btn btn-sm {{findAnswer event.eventRequests ../user.id 'yes'}}">Asistiré</button>
                                     </form>
                                     <form class="d-inline" method="post" action="/assist/maybe">
                                         <input type="hidden" name="ReceptorId" value="{{../user.id}}">
                                         <input type="hidden" name="EventId" value="{{event.id}}">
-                                        <button type="submit" class="btn btn-sm {{#if (findMessage event.eventRequests ../user.id)}}{{else}}btn-light{{/if}}">Tal vez asista</button>
+                                        <button type="submit" class="btn btn-sm {{findAnswer event.eventRequests ../user.id 'maybe'}}">Tal vez asista</button>
                                     </form>
                                     <form class="d-inline" method="post" action="/assist/not">
                                         <input type="hidden" name="ReceptorId" value="{{../user.id}}">
                                         <input type="hidden" name="EventId" value="{{event.id}}">
-                                        <button type="submit" class="btn btn-sm btn-light">No asistiré</button>
+                                        <button type="submit" class="btn btn-sm {{findAnswer event.eventRequests ../user.id 'not'}}">No asistiré</button>
                                     </form>
                                 </div>
                             </div>

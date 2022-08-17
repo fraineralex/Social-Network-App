@@ -40,6 +40,7 @@ app.engine(
       findReply: getDataHelpers.FindReply,
       getConfirmationF: getConfirmation.friendConfirmation,
       lengthValue: getDataHelpers.LengthValue,
+      findAnswer: getDataHelpers.FindAnswer,
       
     },
   })
