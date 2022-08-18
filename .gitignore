@@ -2,7 +2,6 @@
 package-lock.json
 /context
 /views/client/test.hbs
-/views/client/examples.hbs
 *png
 *jpg
 *jpeg

@@ -13,6 +13,7 @@ router.get("/add-invited/:AuthorId/:EventId",eventController.GetAddInvited);
 router.post("/add-invited",eventController.PostAddInvited);
 router.get("/view-invited/:AuthorId/:EventId",eventController.GetViewInvited);
 router.post("/assist/:Message",eventController.PostMessageReceptor);
+router.post("/delete-invited",eventController.PostDeleteInvited);
 
 
 

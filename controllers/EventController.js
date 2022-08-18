@@ -23,13 +23,15 @@ exports.GetAllEvents = (req, res, next) => {
           {
             model: EventRequests,
             where: {
-              receptorId: 2,
+              receptorId: currentlyUser,
             },
           },
         ],
       })
         .then((result) => {
-          const events = result.map((result) => result.dataValues);
+          let events;
+          if (result.length > 0)
+            events = result.map((result) => result.dataValues);
 
           res.render("client/events", {
             pageTitle: "Eventos",
@@ -318,23 +320,14 @@ exports.GetViewInvited = (req, res, next) => {
           })
             .then((result) => {
               const event = result.dataValues;
-              EventRequests.findAll({
-                [Op.and]: [{ eventId: eventId }, { authorId: authorId }],
-              })
-                .then((result) => {
-                  const nova = result.map((result) => result.dataValues);
 
-                  res.render("client/view-invited", {
-                    pageTitle: "Invitados",
-                    eventActive: true,
-                    user: user,
-                    event: event,
-                    invitedUsers: invitedUsers,
-                  });
-                })
-                .catch((err) => {
-                  console.log(err);
-                });
+              res.render("client/test", {
+                pageTitle: "Invitados",
+                eventActive: true,
+                user: user,
+                event: event,
+                invitedUsers: invitedUsers,
+              });
             })
             .catch((err) => {
               console.log(err);
@@ -369,7 +362,75 @@ exports.PostMessageReceptor = (req, res, next) => {
     }
   )
     .then(() => {
-      return res.redirect("/events");
+      res.redirect("/events");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+exports.PostDeleteInvited = (req, res, next) => {
+  const eventId = req.body.EventId;
+  const receptorId = req.body.InvitedId;
+  const authorId = req.body.AuthorId;
+  console.log(eventId, receptorId, authorId)
+
+  EventRequests.destroy({
+    where: {
+      [Op.and]: [{ eventId: eventId }, { receptorId: receptorId }],
+    },
+  })
+    .then(() => {
+      Events.findOne({
+        where: { id: eventId },
+      })
+        .then((result) => {
+          const event = result.dataValues;
+          Users.findAll({
+            where: { [Op.not]: { id: authorId } },
+            include: [
+              {
+                model: EventRequests,
+                where: {
+                  eventId: eventId,
+                },
+              },
+            ],
+          })
+            .then((result) => {
+              console.log(result.length);
+
+              if (result.length < 1) {
+                return res.redirect("/events-created");
+              }
+
+              const invitedUsers = result.map((result) => result.dataValues);
+
+              Users.findOne({
+                where: { id: authorId },
+              })
+                .then((result) => {
+                  const user = result.dataValues;
+
+                  res.render("client/test", {
+                    pageTitle: "Invitados",
+                    eventActive: true,
+                    user: user,
+                    event: event,
+                    invitedUsers: invitedUsers,
+                  });
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     })
     .catch((err) => {
       console.log(err);
