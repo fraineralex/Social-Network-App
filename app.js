@@ -81,9 +81,10 @@ app.use((req, res, next) => {
 app.use((req, res, next) => {
   const errors = req.flash("errors");  
   res.locals.isAuthenticated = req.session.newSession;
-  console.log(req.session.newSession);
   res.locals.errorMessages = errors;
   res.locals.hasErrorMessages = errors.length > 0;
+  
+
   next();
 });
 
