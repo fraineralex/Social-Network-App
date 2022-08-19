@@ -1,20 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="/assets/css/custom/styles.min.css">
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
-    
-    <title>{{pageTitle}}</title> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <title>{{pageTitle}}</title>
 </head>
+
 <body class="dark">
 
     {{#if loginActive}}
-    
+
     {{else}}
 
     <nav class="sidebar close">
@@ -51,7 +57,7 @@
 
                     <li class="">
                         <a href="/friend">
-                            <i class='bx bx-bar-chart-alt-2 icon' ></i>
+                            <i class='bx bx-bar-chart-alt-2 icon'></i>
                             <span class="textDesign nav-text">Amigos</span>
                         </a>
                     </li>
@@ -65,7 +71,7 @@
 
                     <li class="">
                         <a href="/events">
-                            <i class='bx bx-wallet icon' ></i>
+                            <i class='bx bx-wallet icon'></i>
                             <span class="textDesign nav-text">Eventos</span>
                         </a>
                     </li>
@@ -75,9 +81,9 @@
 
             <div class="bottom-content">
                 <li class="nav-item">
-                    <form   action="/logout" method="POST">
+                    <form action="/logout" method="POST">
                         <i class='bx bx-log-out icon'></i>
-                        <button class="text nav-text {{#if loginActive}}active{{/if}}" >Logout</button>
+                        <button class="text nav-text {{#if loginActive}}active{{/if}}">Logout</button>
                     </form>
                 </li>
 
@@ -98,30 +104,40 @@
     {{/if}}
 
     <main class="container">
-    {{#if hasErrorMessages}}
+        {{#if hasErrorMessages}}
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-          <ul>
-            {{#each errorMessages}}
-            <li>{{this}}</li>
-            {{/each}}
-          </ul>
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <ul>
+                {{#each errorMessages}}
+                <li>{{this}}</li>
+                {{/each}}
+            </ul>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-    {{/if}}
+        {{/if}}
 
-    {{{body}}}
+        {{{body}}}
 
-</main>
+    </main>
 
 
     <!-- JavaScript Bundle with Popper -->
-    {{!-- <script src="../../assets/js//lib/bootstrap/bootstrap.min.js"></script>  --}}
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    {{!--
+    <script src="../../assets/js//lib/bootstrap/bootstrap.min.js"></script> --}}
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
     <script src="/assets/js/custom/script.js"></script>
     <script src="/assets/js/custom/script_login.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        crossorigin="anonymous"></script>
     <script src="/assets/js/custom/subscriptions.js"></script>
 </body>
+
 </html>
