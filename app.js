@@ -62,28 +62,33 @@ app.use(
   session({ secret: "anything", resave: true, saveUninitialized: false })
 );
 app.use(flash());
+
 app.use((req, res, next) => {
+  
   if (!req.session) {
     return next();
   }
-  if (!req.session.users) {
+  if (!req.session.user) {
     return next();
   }
-  Users.findByPk(req.session.users.id)
-    .then((users) => {
-      req.users = users;
+  
+  Users.findByPk(req.session.user.id)
+    .then((user) => {
+      req.user = user;
       next();
     })
     .catch((err) => {
       console.log(err);
     });
 });
+
 app.use((req, res, next) => {
   const errors = req.flash("errors");  
   res.locals.isAuthenticated = req.session.newSession;
-  console.log(req.session.newSession);
   res.locals.errorMessages = errors;
   res.locals.hasErrorMessages = errors.length > 0;
+  
+
   next();
 });
 

@@ -5,7 +5,7 @@ const { Op } = require("sequelize");
 
 // get all friends post
 module.exports.getAllPublications = (req, res, next) => {
-  const userId = 2; // req.params.userId
+  const userId = req.user.id; // req.params.userId
   let userFriends;
 
   friend
@@ -57,7 +57,7 @@ module.exports.getAllPublications = (req, res, next) => {
 
 // delete friend
 module.exports.deleteFriend = (req, res, next) => {
-  const userID = req.params.userID;
+  const userID = req.user.id;
   const friendID = req.params.friendID;
 
   friend
@@ -78,7 +78,7 @@ module.exports.deleteFriend = (req, res, next) => {
 module.exports.searchNewFriendHome = (req, res, next) => {
   res.render("client/addNewFriendHome", {
     pageTitle: "Search new Friend",
-    userId: req.params.userID,
+    userId: req.user.id,
   });
 };
 module.exports.searchNewFriend = (req, res, next) => {
