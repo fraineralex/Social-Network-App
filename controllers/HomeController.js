@@ -14,7 +14,7 @@ exports.GetHome = (req, res, next) => {
       Users.findAll()
         .then((result) => {
           const users = result.map((result) => result.dataValues);
-          Users.findOne()
+          Users.findOne({ where: {id: req.user.id}})
             .then((result) => {
               let user;
               if (result) {
@@ -45,8 +45,7 @@ exports.GetHome = (req, res, next) => {
 };
 
 exports.GetNewPost = (req, res, next) => {
-  Users.findOne({
-    where: { id: 1 },
+  Users.findOne({ where: {id: req.user.id},
   })
     .then((result) => {
       const user = result.dataValues;
@@ -74,10 +73,10 @@ exports.GetNewComment = (req, res, next) => {
   })
     .then((result) => {
       const post = result.dataValues;
-      Users.findOne()
+      Users.findOne({ where: {id: req.user.id}})
         .then((result) => {
           const user = result.dataValues;
-          Users.findAll()
+          Users.findAll({ where: {id: req.user.id}})
             .then((result) => {
               const users = result.map((result) => result.dataValues);
 
@@ -137,7 +136,7 @@ exports.GetNewReply = (req, res, next) => {
     })
       .then((result) => {
         const post = result.dataValues;
-        Users.findOne()
+        Users.findOne({ where: {id: req.user.id}})
           .then((result) => {
             const user = result.dataValues;
 
@@ -167,7 +166,7 @@ exports.GetNewReply = (req, res, next) => {
     })
       .then((result) => {
         const post = result.dataValues;
-        Users.findOne()
+        Users.findOne({ where: {id: req.user.id}})
           .then((result) => {
             const user = result.dataValues;
 
@@ -260,10 +259,7 @@ exports.GetEditPost = (req, res, next) => {
   })
     .then((result) => {
       const post = result.dataValues;
-      Users.findOne({
-        where: {
-          id: 1,
-        },
+      Users.findOne({ where: {id: req.user.id},
       })
         .then((result) => {
           const user = result.dataValues;

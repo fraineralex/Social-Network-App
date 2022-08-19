@@ -5,7 +5,7 @@ const EventRequests = require("../models/EventRequests");
 const { Op } = require("sequelize");
 
 exports.GetAllEvents = (req, res, next) => {
-  let currentlyUser = 1;
+  let currentlyUser = req.user.id;
 
   Users.findOne({
     where: {
@@ -50,9 +50,9 @@ exports.GetAllEvents = (req, res, next) => {
 };
 
 exports.GetCreatedEvents = (req, res, next) => {
-  let authorId = 1;
+  let authorId = req.user.id;
 
-  Users.findOne()
+  Users.findOne({ where: {id: req.user.id}})
     .then((result) => {
       let user;
       if (result) {
@@ -86,7 +86,7 @@ exports.GetCreatedEvents = (req, res, next) => {
 };
 
 exports.GetCreateEvent = (req, res, next) => {
-  Users.findOne()
+  Users.findOne({ where: {id: req.user.id}})
     .then((result) => {
       let user;
       if (result) {
@@ -137,7 +137,7 @@ exports.PostDeleteEvent = (req, res, next) => {
 };
 
 exports.GetAddInvited = (req, res, next) => {
-  const authorId = req.params.AuthorId;
+  const authorId = req.user.id;
   const eventId = req.params.EventId;
 
   Users.findOne({
@@ -286,7 +286,7 @@ exports.PostAddInvited = (req, res, next) => {
 };
 
 exports.GetViewInvited = (req, res, next) => {
-  const authorId = req.params.AuthorId;
+  const authorId = req.user.id;
   const eventId = req.params.EventId;
 
   Users.findOne({
