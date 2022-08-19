@@ -60,7 +60,7 @@
                 <img src="{{post.author.dataValues.imageProfile}}" class=" me-2" alt="profile">
             </span>
             <small class="me-auto fs-6"><strong>{{post.author.dataValues.name}}</strong></small>
-            <small class="float-end fw-light text-muted">{{getDate post.createdAt}}</small>
+            <small class="float-end fw-light text-white">{{getDate post.createdAt}}</small>
         </div>
         <div class="card-body">
             <small class="fs-6 mt-1">{{post.content}}</small>
@@ -77,7 +77,7 @@
                         <img src={{../post.author.dataValues.imageProfile}} class=" me-2" alt="profile">
                     </span>
                     <small class="me-auto fw-light">{{../post.author.dataValues.name}}</small>
-                    <small class="float-end fw-light text-muted">{{getDate
+                    <small class="float-end fw-light text-white">{{getDate
                         comment.dataValues.createdAt}}</small>
                 </div>
                 <div class="card-body">
@@ -99,7 +99,7 @@
                     <small class="me-auto fw-light">{{findName reply.dataValues.authorId
                         ../../users}}<i class="me-auto fw-light text-primary"> -> @{{findName
                             comment.dataValues.authorId ../../users}}</i></small>
-                    <small class="float-end fw-light text-muted"><small>{{getDate
+                    <small class="float-end fw-light text-white"><small>{{getDate
                             reply.dataValues.createdAt}}</small></small>
                 </div>
                 <div class="card-body">
@@ -121,7 +121,7 @@
                     <small class="me-auto fw-light"><small>{{findName reply2.dataValues.authorId
                             ../../../users}}<i class="me-auto fw-light text-primary"> -> @{{findName
                                 reply.dataValues.authorId ../../../users}}</i></small></small>
-                    <small class="float-end fw-light text-muted"><small>{{getDate
+                    <small class="float-end fw-light text-white"><small>{{getDate
                             reply2.dataValues.createdAt}}</small></small>
                 </div>
                 <div class="card-body">
@@ -143,7 +143,7 @@
                     <small class="me-auto fw-light"><small>{{findName reply2.dataValues.authorId
                             ../../../../users}}<i class="me-auto fw-light text-primary"> -> @{{findName
                                 reply2.dataValues.authorId ../../../../users}}</i></small></small>
-                    <small class="float-end fw-light text-muted"><small>{{getDate
+                    <small class="float-end fw-light text-white"><small>{{getDate
                             reply3.dataValues.createdAt}}</small></small>
                 </div>
                 <div class="card-body">
@@ -165,7 +165,7 @@
                     <small class="me-auto fw-light"><small>{{findName reply4.dataValues.authorId
                             ../../../../../users}}<i class="me-auto fw-light text-primary">->@{{findName
                                 reply4.dataValues.authorId ../../../../../users}}</i></small></small>
-                    <small class="float-end fw-light text-muted"><small><small>{{getDate
+                    <small class="float-end fw-light text-white"><small><small>{{getDate
                                 reply4.dataValues.createdAt}}</small></small></small>
                 </div>
                 <div class="card-body">
@@ -238,7 +238,7 @@
                             <img src="{{../post.author.dataValues.imageProfile}}" class=" me-2" alt="profile">
                         </span>
                         <small class="me-auto fw-light">{{../post.author.dataValues.name}}</small>
-                        <small class="float-end fw-light text-muted">{{getDate
+                        <small class="float-end fw-light text-white">{{getDate
                             comment.dataValues.createdAt}}</small>
                     </div>
                     <div class="card-body">
@@ -260,7 +260,7 @@
                         <small class="me-auto fw-light">{{findName reply.dataValues.authorId
                             ../../users}}<i class="me-auto fw-light text-primary"> -> @{{findName
                                 comment.dataValues.authorId ../../users}}</i></small>
-                        <small class="float-end fw-light text-muted"><small>{{getDate
+                        <small class="float-end fw-light text-white"><small>{{getDate
                                 reply.dataValues.createdAt}}</small></small>
                     </div>
                     <div class="card-body">
@@ -282,7 +282,7 @@
                         <small class="me-auto fw-light"><small>{{findName reply2.dataValues.authorId
                                 ../../../users}}<i class="me-auto fw-light text-primary"> -> @{{findName
                                     reply.dataValues.authorId ../../../users}}</i></small></small>
-                        <small class="float-end fw-light text-muted"><small>{{getDate
+                        <small class="float-end fw-light text-white"><small>{{getDate
                                 reply2.dataValues.createdAt}}</small></small>
                     </div>
                     <div class="card-body">
@@ -304,7 +304,7 @@
                         <small class="me-auto fw-light"><small>{{findName reply2.dataValues.authorId
                                 ../../../../users}}<i class="me-auto fw-light text-primary"> -> @{{findName
                                     reply2.dataValues.authorId ../../../../users}}</i></small></small>
-                        <small class="float-end fw-light text-muted"><small>{{getDate
+                        <small class="float-end fw-light text-white"><small>{{getDate
                                 reply3.dataValues.createdAt}}</small></small>
                     </div>
                     <div class="card-body">
@@ -326,7 +326,7 @@
                         <small class="me-auto fw-light"><small>{{findName reply4.dataValues.authorId
                                 ../../../../../users}}<i class="me-auto fw-light text-primary">->@{{findName
                                     reply4.dataValues.authorId ../../../../../users}}</i></small></small>
-                        <small class="float-end fw-light text-muted"><small><small>{{getDate
+                        <small class="float-end fw-light text-white"><small><small>{{getDate
                                     reply4.dataValues.createdAt}}</small></small></small>
                     </div>
                     <div class="card-body">
@@ -394,7 +394,7 @@
                     <img src="{{post.author.dataValues.imageProfile}}" class=" me-2" alt="profile">
                 </span>
                 <small class="me-auto fs-6"><strong>{{post.author.dataValues.name}}</strong></small>
-                <small class="float-end fw-light text-muted">{{getDate post.createdAt}}</small>
+                <small class="float-end fw-light text-white">{{getDate post.createdAt}}</small>
             </div>
             <div class="card-body">
                 <small class="fs-6 mt-1">{{post.content}}</small>
@@ -448,7 +448,7 @@
                         </span>
                         <small class="me-auto fw-light">{{findName comment.dataValues.authorId
                             ../../users}}</small>
-                        <small class="float-end fw-light text-muted">{{getDate
+                        <small class="float-end fw-light text-white">{{getDate
                             comment.dataValues.createdAt}}</small>
                     </div>
                     <div class="card-body">
@@ -470,7 +470,7 @@
                         <small class="me-auto fw-light">{{findName reply.dataValues.authorId
                             ../../../users}}<i class="me-auto fw-light text-primary"> -> @{{findName
                                 comment.dataValues.authorId ../../../users}}</i></small>
-                        <small class="float-end fw-light text-muted"><small>{{getDate
+                        <small class="float-end fw-light text-white"><small>{{getDate
                                 reply.dataValues.createdAt}}</small></small>
                     </div>
                     <div class="card-body">
@@ -492,7 +492,7 @@
                         <small class="me-auto fw-light"><small>{{findName reply2.dataValues.authorId
                                 ../../../../users}}<i class="me-auto fw-light text-primary"> -> @{{findName
                                     reply.dataValues.authorId ../../../../users}}</i></small></small>
-                        <small class="float-end fw-light text-muted"><small>{{getDate
+                        <small class="float-end fw-light text-white"><small>{{getDate
                                 reply2.dataValues.createdAt}}</small></small>
                     </div>
                     <div class="card-body">
@@ -514,7 +514,7 @@
                         <small class="me-auto fw-light"><small>{{findName reply2.dataValues.authorId
                                 ../../../../../users}}<i class="me-auto fw-light text-primary"> -> @{{findName
                                     reply2.dataValues.authorId ../../../../../users}}</i></small></small>
-                        <small class="float-end fw-light text-muted"><small>{{getDate
+                        <small class="float-end fw-light text-white"><small>{{getDate
                                 reply3.dataValues.createdAt}}</small></small>
                     </div>
                     <div class="card-body">
@@ -536,7 +536,7 @@
                         <small class="me-auto fw-light"><small>{{findName reply4.dataValues.authorId
                                 ../../../../../../users}}<i class="me-auto fw-light text-primary">->@{{findName
                                     reply4.dataValues.authorId ../../../../../../users}}</i></small></small>
-                        <small class="float-end fw-light text-muted"><small><small>{{getDate
+                        <small class="float-end fw-light text-white"><small><small>{{getDate
                                     reply4.dataValues.createdAt}}</small></small></small>
                     </div>
                     <div class="card-body">
@@ -622,7 +622,7 @@
                             </span>
                             <small class="me-auto fw-light">{{findName comment.dataValues.authorId
                                 ../../users}}</small>
-                            <small class="float-end fw-light text-muted">{{getDate
+                            <small class="float-end fw-light text-white">{{getDate
                                 comment.dataValues.createdAt}}</small>
                         </div>
                         <div class="card-body">
@@ -644,7 +644,7 @@
                             <small class="me-auto fw-light">{{findName reply.dataValues.authorId
                                 ../../../users}}<i class="me-auto fw-light text-primary"> -> @{{findName
                                     comment.dataValues.authorId ../../../users}}</i></small>
-                            <small class="float-end fw-light text-muted"><small>{{getDate
+                            <small class="float-end fw-light text-white"><small>{{getDate
                                     reply.dataValues.createdAt}}</small></small>
                         </div>
                         <div class="card-body">
@@ -666,7 +666,7 @@
                             <small class="me-auto fw-light"><small>{{findName reply2.dataValues.authorId
                                     ../../../../users}}<i class="me-auto fw-light text-primary"> -> @{{findName
                                         reply.dataValues.authorId ../../../../users}}</i></small></small>
-                            <small class="float-end fw-light text-muted"><small>{{getDate
+                            <small class="float-end fw-light text-white"><small>{{getDate
                                     reply2.dataValues.createdAt}}</small></small>
                         </div>
                         <div class="card-body">
@@ -688,7 +688,7 @@
                             <small class="me-auto fw-light"><small>{{findName reply2.dataValues.authorId
                                     ../../../../../users}}<i class="me-auto fw-light text-primary"> -> @{{findName
                                         reply2.dataValues.authorId ../../../../../users}}</i></small></small>
-                            <small class="float-end fw-light text-muted"><small>{{getDate
+                            <small class="float-end fw-light text-white"><small>{{getDate
                                     reply3.dataValues.createdAt}}</small></small>
                         </div>
                         <div class="card-body">
@@ -710,7 +710,7 @@
                             <small class="me-auto fw-light"><small>{{findName reply4.dataValues.authorId
                                     ../../../../../../users}}<i class="me-auto fw-light text-primary">->@{{findName
                                         reply4.dataValues.authorId ../../../../../../users}}</i></small></small>
-                            <small class="float-end fw-light text-muted"><small><small>{{getDate
+                            <small class="float-end fw-light text-white"><small><small>{{getDate
                                         reply4.dataValues.createdAt}}</small></small></small>
                         </div>
                         <div class="card-body">

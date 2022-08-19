@@ -7,7 +7,7 @@
                     los eventos a los que te invitaron tus amigos, crear nuevos eventos y mucho más.
                 </p>
                 <p>
-                    <a href="/create-event" class="btn btn-primary mt-1">Crear nuevo evento</a>
+                    <a href="/create-event" class="btn btn-primary mt-1 mb-4">Crear nuevo evento</a>
                 </p>
             </div>
         </div>
@@ -17,22 +17,13 @@
 
     <style>
         .tabs {
-            position: absolute;
-            top: 70%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 60rem;
+            margin-left: 15%;
+             width: 70%;
             height: 30rem;
             padding: 20px 30px;
             overflow: hidden;
             border-radius: 50px;
             box-shadow: 5px 10px 5px rgb(70, 68, 68);
-        }
-
-        .heat {
-            position: absolute;
-            top: 10%;
-            left: 50%;
         }
 
         .tabs .tab-header {
@@ -88,7 +79,7 @@
         }
     </style>
 
-    <div class="tabs bg-dark">
+    <div class="tabs bg-dark mb-5">
         <div class="tab-header">
             <div>
                 <form class="form-tab-1" action="/events" method="get">
@@ -118,8 +109,8 @@
                 <div class="row mb-5 mx-auto">
                     {{#each events as | event |}}
                     <div class="col-md-6">
-                        <div class="card bg-secondary mt-3 ms-4" aria-live="assertive" aria-atomic="true"
-                            style="max-width: 100%;">
+                        <div class="card bg-secondary mt-3" aria-live="assertive" aria-atomic="true"
+                            style="max-width: 100%">
                             <div class="card-header">
                                 <img src="https://cdn-icons-png.flaticon.com/32/3078/3078971.png" class="rounded me-2"
                                     alt="Evento">
@@ -133,7 +124,8 @@
                                         event.date}}{{else}}<i class="ms-2">Evento finalizado
                                             ❌{{/if}}</i></small><br>
                                 <small><strong> Lugar:</strong><i class="ms-2">{{event.place}}</i></small>
-                                <small class="ms-2"><strong>Inivitados:</strong><i>{{lengthValue
+                                <small class="ms-2"><br>
+                                    <strong>Inivitados:</strong><i>{{lengthValue
                                         event.eventRequests}}</i></small>
                                 <div class="mt-2 pt-2 border-top text-center">
                                     <form class="d-inline" method="post" action="/delete-event">
@@ -176,28 +168,33 @@
                             </div>
 
                             <div class="card-body">
-                                <small><strong>Fecha: </strong>{{#if (getEventDate event.date)}}<i
+                                <small><strong>Fecha:</strong>{{#if (getEventDate event.date)}}<i
                                         class="ms-2">{{getEventDate
                                         event.date}}{{else}}<i class="ms-2">Evento finalizado
                                             ❌{{/if}}</i></small><br>
                                 <small><strong> Lugar:</strong><i class="ms-2">{{event.place}}</i></small>
-                                <small class="ms-2"><strong>Inivitados:</strong><i>{{lengthValue
+                                <small class="ms-2"><br><strong>Inivitados:</strong><i>{{lengthValue
                                         event.eventRequests}}</i></small>
                                 <div class="mt-2 pt-2 border-top text-center ms-4 me-4">
                                     <form class="d-inline" method="post" action="/assist/yes">
                                         <input type="hidden" name="ReceptorId" value="{{../user.id}}">
                                         <input type="hidden" name="EventId" value="{{event.id}}">
-                                        <button type="submit" class="btn btn-sm {{findAnswer event.eventRequests ../user.id 'yes'}}">Asistiré</button>
+                                        <button type="submit"
+                                            class="btn btn-sm {{findAnswer event.eventRequests ../user.id 'yes'}}">Asistiré</button>
                                     </form>
                                     <form class="d-inline" method="post" action="/assist/maybe">
                                         <input type="hidden" name="ReceptorId" value="{{../user.id}}">
                                         <input type="hidden" name="EventId" value="{{event.id}}">
-                                        <button type="submit" class="btn btn-sm {{findAnswer event.eventRequests ../user.id 'maybe'}}">Tal vez asista</button>
+                                        <button type="submit"
+                                            class="btn btn-sm {{findAnswer event.eventRequests ../user.id 'maybe'}}">Tal
+                                            vez asista</button>
                                     </form>
                                     <form class="d-inline" method="post" action="/assist/not">
                                         <input type="hidden" name="ReceptorId" value="{{../user.id}}">
                                         <input type="hidden" name="EventId" value="{{event.id}}">
-                                        <button type="submit" class="btn btn-sm {{findAnswer event.eventRequests ../user.id 'not'}}">No asistiré</button>
+                                        <button type="submit"
+                                            class="btn btn-sm {{findAnswer event.eventRequests ../user.id 'not'}}">No
+                                            asistiré</button>
                                     </form>
                                 </div>
                             </div>
