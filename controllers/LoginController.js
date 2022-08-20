@@ -150,6 +150,7 @@ exports.PostReset = (req, res, next) => {
 
     const token = buffer.toString("hex");
 
+    
     User.findOne({where: {email: email }}).then((user)=>{
 
       if(!user){
