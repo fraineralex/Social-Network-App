@@ -139,6 +139,8 @@ exports.PostDeleteEvent = (req, res, next) => {
 exports.GetAddInvited = (req, res, next) => {
   const authorId = req.user.id;
   const eventId = req.params.EventId;
+  const viewInvited = req.query.viewInvited;
+
 
   Users.findOne({
     where: { id: authorId },
@@ -158,6 +160,7 @@ exports.GetAddInvited = (req, res, next) => {
             eventActive: true,
             user: user,
             event: event,
+            viewInvited: viewInvited,
           });
         })
         .catch((err) => {
@@ -207,7 +210,6 @@ exports.PostAddInvited = (req, res, next) => {
               })
                 .then((result) => {
                   if (result) {
-                    console.log(result);
                     return res.render("client/add-invited", {
                       pageTitle: "Agregar invitado",
                       eventActive: true,
@@ -249,7 +251,7 @@ exports.PostAddInvited = (req, res, next) => {
                           eventId: eventId,
                         })
                           .then(() => {
-                            res.redirect("/events-created");
+                            res.redirect('/view-invited/'+ authorId + '/' + eventId);
                           })
                           .catch((err) => {
                             console.log(err);
@@ -321,7 +323,7 @@ exports.GetViewInvited = (req, res, next) => {
             .then((result) => {
               const event = result.dataValues;
 
-              res.render("client/test", {
+              res.render("client/view-invited", {
                 pageTitle: "Invitados",
                 eventActive: true,
                 user: user,

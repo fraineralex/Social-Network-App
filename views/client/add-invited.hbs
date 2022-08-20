@@ -14,7 +14,7 @@
                     <input type="hidden" name="EventId" value="{{event.id}}">
                     <button class="btn btn-primary" type="submit">Invitar</button>
                 </form>
-                <a type="button" href="/events-created" class="btn btn-light float-end mt-5">Regresar</a>
+                <a type="button" href="{{#if viewInvited}}/view-invited/{{event.authorId}}/{{event.id}}{{else}}/events-created{{/if}}" class="btn btn-light float-end mt-5">Regresar</a>
             </div>
         </div>
     </div>

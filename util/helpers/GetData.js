@@ -17,7 +17,8 @@ exports.GetDate = (date) => {
 
 exports.GetEventDate = (date) => {
   const time = moment(date).format("LLLL");
-  if (time < moment().format("LLLL")) {
+
+  if (Date.parse(date) < Date.parse(moment().toDate())) {
     return false;
   } else {
     return time.charAt(0).toUpperCase() + time.slice(1);
