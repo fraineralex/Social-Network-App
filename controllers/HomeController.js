@@ -6,7 +6,9 @@ exports.GetHome = (req, res, next) => {
   Posts.findAll({
     include: [
       { model: Users, as: "author", where: { id: req.user.id } },
-      { model: Comments },
+      { model: Comments,
+        order: [["createdAt", "DESC"]]
+        },
     ],
     order: [["createdAt", "DESC"]],
   })
@@ -29,7 +31,6 @@ exports.GetHome = (req, res, next) => {
                 user: user,
                 users: users,
                 hasPost: posts.length > 0,
-                search: true,
               });
             })
             .catch((err) => {
@@ -120,8 +121,8 @@ exports.PostNewComment = (req, res, next) => {
 };
 
 exports.GetNewReply = (req, res, next) => {
-  const commentId = req.params.CommentId;
   const postId = req.params.PostId;
+  const commentId = req.params.CommentId;
 
   Posts.findOne({
     where: {
@@ -144,6 +145,7 @@ exports.GetNewReply = (req, res, next) => {
                 post: post,
                 user: user,
                 users: users,
+                commentId: commentId,
               });
             })
             .catch((err) => {
@@ -285,6 +287,18 @@ exports.PostDeletePost = (req, res, next) => {
   const postId = req.body.PostId;
 
   Posts.destroy({ where: { id: postId } })
+    .then((result) => {
+      return res.redirect("/");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+exports.PostDeleteComment = (req, res, next) => {
+  const commentId = req.body.CommentId;
+
+  Comments.destroy({ where: { id: commentId } })
     .then((result) => {
       return res.redirect("/");
     })

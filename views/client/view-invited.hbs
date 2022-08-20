@@ -3,18 +3,31 @@
         integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <div class="container container-content p-4 mt-5 ">
-        <div class="row ">
-            <div class=" col-md-12 ">
+    <section class="text-center container">
+        <div class="row">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 class="fw-bold text-primary mt-4">Lista de invitados</h1>
+                <p class="lead text-white">Te damos la bienvenida a la lista de invitados de este evento, donde puedes
+                    los amigos invitados junto con su información personal, sus respuestas a tu invitación y mucho más.
+                </p>
+                <p>
+                    <a type="button" class="btn btn-primary text-light mt-2"
+                        href="/add-invited/{{user.id}}/{{event.id}}?viewInvited=true"><i
+                            class="fa-solid fa-circle-plus"></i>
+                        Agregar invitado</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <div class="container container-content text-center">
+        <div class="row">
+            <div class=" col-md-10 mx-auto">
                 <div class="container mt-5 pt-5 p-5 bg-dark rounded-3">
                     <table id="table-invited" class=" table table-dark table-hover">
 
                         <div class="d-flex justify-content-between mb-3 text-dark">
                             <h2 class="text-white">Inivitados</h2>
-                            <a type="button" class="btn btn-primary text-light"
-                                href="/add-invited/{{user.id}}/{{event.id}}?viewInvited=true"><i
-                                    class="fa-solid fa-circle-plus"></i>
-                                Agregar invitado</a>
                         </div>
 
 

@@ -1,9 +1,9 @@
 const moment = require("moment");
 moment.locale("es-do");
 
-exports.FindName = (authorId, users) => {
+exports.FindUser = (authorId, users) => {
   const user = users.find((user) => user.id == authorId);
-  return user.name;
+  return user.user;
 };
 
 exports.GetDate = (date) => {
@@ -71,4 +71,20 @@ exports.FindAnswer = (eventRequests, currentlyUser, btnAnswer) => {
   } else {
     return "btn-light";
   }
+};
+
+exports.FindOneCommentWithoutReplies = (comments) => {
+  const commentsWithoutReplies = comments.filter(
+    (comment) => comment.dataValues.commentId == null
+  );
+  const comment = [commentsWithoutReplies[0]];
+  return comment;
+};
+
+exports.FindOneReply =(commentId, comments) => {
+  const reply = comments.filter(
+    (comment) => comment.dataValues.commentId == commentId
+  );
+  const comment = [reply[0]];
+  return comment;
 };

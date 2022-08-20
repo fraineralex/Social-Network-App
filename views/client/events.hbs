@@ -7,18 +7,16 @@
                     los eventos a los que te invitaron tus amigos, crear nuevos eventos y mucho más.
                 </p>
                 <p>
-                    <a href="/create-event" class="btn btn-primary mt-1 mb-4">Crear nuevo evento</a>
+                    <a href="/create-event" class="btn btn-primary mt-1 mb-4"><i class="bi bi-calendar-plus"></i>  Nuevo evento</a>
                 </p>
             </div>
         </div>
     </section>
 
-
-
     <style>
         .tabs {
             margin-left: 15%;
-             width: 70%;
+            width: 70%;
             height: 30rem;
             padding: 20px 30px;
             overflow: hidden;
@@ -82,20 +80,15 @@
     <div class="tabs bg-dark mb-5">
         <div class="tab-header">
             <div>
-                <form class="form-tab-1" action="/events" method="get">
-                    <div class=" send-tab-1 {{#if createdMode}}{{else}}border-bottom border-4 border-primary{{/if}}"
-                        style="height: 50px;">
-                        <i class="fa fa-code fs-5">Recibidos</i>
-                    </div>
-                </form>
+                <div class="{{#if createdMode}}{{else}}border-bottom border-4 border-primary{{/if}}"
+                    style="height: 50px;">
+                    <a class="fa fa-code fs-5 text-white text-decoration-none" href="/events">Recibidos</a>
+                </div>
             </div>
             <div>
-                <form class="form-tab-2" action="/events-created" method="get">
-                    <div class=" send-tab-2 {{#if createdMode}}border-bottom border-4 border-primary{{/if}}"
-                        style="height: 50px;">
-                        <i class="fa fa-pencil-square-o fs-5">Creados</i>
-                    </div>
-                </form>
+                <div class="{{#if createdMode}}border-bottom border-4 border-primary{{/if}}" style="height: 50px;">
+                    <a class="fa fa-code fs-5 text-white text-decoration-none" href="/events-created">Creados</a>
+                </div>
             </div>
         </div>
 
@@ -119,23 +112,39 @@
                             </div>
 
                             <div class="card-body">
-                                <small><strong>Fecha: </strong>{{#if (getEventDate event.date)}}<i
-                                        class="ms-2">{{getEventDate
+                                <small><strong>Fecha:</strong>{{#if (getEventDate event.date)}}<i
+                                        class="ms-1 font-monospace">{{getEventDate
                                         event.date}}{{else}}<i class="ms-2">Evento finalizado
                                             ❌{{/if}}</i></small><br>
-                                <small><strong> Lugar:</strong><i class="ms-2">{{event.place}}</i></small>
-                                <small class="ms-2"><br>
-                                    <strong>Inivitados:</strong><i>{{lengthValue
+                                <small><strong> Lugar:</strong><i
+                                        class="ms-2 font-monospace">{{event.place}}</i></small>
+                                <small class="ms-2 font-monospace"><br>
+                                    <strong>Inivitados:</strong><i class="font-monospace">{{lengthValue
                                         event.eventRequests}}</i></small>
                                 <div class="mt-2 pt-2 border-top text-center">
                                     <form class="d-inline" method="post" action="/delete-event">
                                         <input type="hidden" name="EventId" value="{{event.id}}">
-                                        <button type="submit" class="btn btn-sm btn-light">Eliminar</button>
+                                        <button type="submit" class="btn btn-sm btn-danger">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                                            </svg>Eliminar
+                                        </button>
                                     </form>
                                     <a type="button" class="btn btn-sm btn-light"
-                                        href="/add-invited/{{../user.id}}/{{event.id}}">Agregar inivitados</a>
-                                    <a type=" button" class="btn btn-sm btn-light"
-                                        href="/view-invited/{{../user.id}}/{{event.id}}">Ver invitados</a>
+                                        href="/add-invited/{{../user.id}}/{{event.id}}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
+                                            <path
+                                                d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                                            <path fill-rule="evenodd"
+                                                d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z" />
+                                        </svg>
+                                        Invitar</a>
+                                    <a type=" button" class="btn btn-sm btn-info"
+                                        href="/view-invited/{{../user.id}}/{{event.id}}">
+                                        <i class="bi bi-info-circle"></i> Ver invitados</a>
 
                                 </div>
                             </div>
@@ -169,11 +178,13 @@
 
                             <div class="card-body">
                                 <small><strong>Fecha:</strong>{{#if (getEventDate event.date)}}<i
-                                        class="ms-2">{{getEventDate
+                                        class="ms-1 font-monospace">{{getEventDate
                                         event.date}}{{else}}<i class="ms-2">Evento finalizado
                                             ❌{{/if}}</i></small><br>
-                                <small><strong> Lugar:</strong><i class="ms-2">{{event.place}}</i></small>
-                                <small class="ms-2"><br><strong>Inivitados:</strong><i>{{lengthValue
+                                <small><strong> Lugar:</strong><i
+                                        class="ms-2 font-monospace">{{event.place}}</i></small>
+                                <small class="ms-2"><br><strong>Inivitados:</strong><i
+                                        class="font-monospace">{{lengthValue
                                         event.eventRequests}}</i></small>
                                 <div class="mt-2 pt-2 border-top text-center ms-4 me-4">
                                     <form class="d-inline" method="post" action="/assist/yes">

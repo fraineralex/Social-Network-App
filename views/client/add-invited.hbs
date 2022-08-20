@@ -12,9 +12,11 @@
                         type="search" placeholder="Nombre de usuario" aria-label="Search">
                     <input type="hidden" name="AuthorId" value="{{event.authorId}}">
                     <input type="hidden" name="EventId" value="{{event.id}}">
-                    <button class="btn btn-primary" type="submit">Invitar</button>
+                    <button class="btn btn-primary" type="submit"><i class="bi bi-send-check"></i> Invitar</button>
                 </form>
-                <a type="button" href="{{#if viewInvited}}/view-invited/{{event.authorId}}/{{event.id}}{{else}}/events-created{{/if}}" class="btn btn-light float-end mt-5">Regresar</a>
+                <a type="button"
+                    href="{{#if viewInvited}}/view-invited/{{event.authorId}}/{{event.id}}{{else}}/events-created{{/if}}"
+                    class="btn btn-light float-end mt-5"><i class="bi bi-arrow-left-circle-fill"></i> Regresar</a>
             </div>
         </div>
     </div>
