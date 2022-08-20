@@ -4,17 +4,18 @@ const Posts = require("../models/Posts");
 
 exports.GetHome = (req, res, next) => {
   Posts.findAll({
-    include: [{ model: Users, as: "author" }, { model: Comments }],
-    order: [
-      ['createdAt', 'DESC']
-    ]
+    include: [
+      { model: Users, as: "author", where: { id: req.user.id } },
+      { model: Comments },
+    ],
+    order: [["createdAt", "DESC"]],
   })
     .then((result) => {
       const posts = result.map((result) => result.dataValues);
       Users.findAll()
         .then((result) => {
           const users = result.map((result) => result.dataValues);
-          Users.findOne({ where: {id: req.user.id}})
+          Users.findOne({ where: { id: req.user.id } })
             .then((result) => {
               let user;
               if (result) {
@@ -45,8 +46,7 @@ exports.GetHome = (req, res, next) => {
 };
 
 exports.GetNewPost = (req, res, next) => {
-  Users.findOne({ where: {id: req.user.id},
-  })
+  Users.findOne({ where: { id: req.user.id } })
     .then((result) => {
       const user = result.dataValues;
 
@@ -73,22 +73,19 @@ exports.GetNewComment = (req, res, next) => {
   })
     .then((result) => {
       const post = result.dataValues;
-      Users.findOne({ where: {id: req.user.id}})
+      Users.findOne({ where: { id: req.user.id } })
         .then((result) => {
           const user = result.dataValues;
-          Users.findAll({ where: {id: req.user.id}})
+          Users.findAll()
             .then((result) => {
               const users = result.map((result) => result.dataValues);
 
-              res.render("client/home", {
+              res.render("client/add-comments", {
                 pageTitle: "Home",
                 homeActive: true,
                 post: post,
                 user: user,
                 users: users,
-                search: true,
-                comment: true,
-                postImage: true,
               });
             })
             .catch((err) => {
@@ -123,74 +120,43 @@ exports.PostNewComment = (req, res, next) => {
 };
 
 exports.GetNewReply = (req, res, next) => {
-  const comment = req.query.comment;
   const commentId = req.params.CommentId;
   const postId = req.params.PostId;
 
-  if (comment === "post") {
-    Posts.findOne({
-      where: {
-        id: postId,
-      },
-      include: [{ model: Users, as: "author" }, { model: Comments }],
-    })
-      .then((result) => {
-        const post = result.dataValues;
-        Users.findOne({ where: {id: req.user.id}})
-          .then((result) => {
-            const user = result.dataValues;
+  Posts.findOne({
+    where: {
+      id: postId,
+    },
+    include: [{ model: Users, as: "author" }, { model: Comments }],
+  })
+    .then((result) => {
+      const post = result.dataValues;
+      Users.findOne({ where: { id: req.user.id } })
+        .then((result) => {
+          const user = result.dataValues;
+          Users.findAll()
+            .then((result) => {
+              const users = result.map((result) => result.dataValues);
 
-            res.render("client/home", {
-              pageTitle: "Home",
-              homeActive: true,
-              post: post,
-              user: user,
-              search: true,
-              comment: true,
-              commentId: commentId,
+              res.render("client/add-comments", {
+                pageTitle: "Home",
+                homeActive: true,
+                post: post,
+                user: user,
+                users: users,
+              });
+            })
+            .catch((err) => {
+              console.log(err);
             });
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  } else if (comment === "postImage") {
-    Posts.findOne({
-      where: {
-        id: postId,
-      },
-      include: [{ model: Users, as: "author" }, { model: Comments }],
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     })
-      .then((result) => {
-        const post = result.dataValues;
-        Users.findOne({ where: {id: req.user.id}})
-          .then((result) => {
-            const user = result.dataValues;
-
-            res.render("client/home", {
-              pageTitle: "Home",
-              homeActive: true,
-              post: post,
-              user: user,
-              search: true,
-              comment: true,
-              postImage: true,
-              commentId: commentId,
-            });
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  } else {
-    return res.redirect("/");
-  }
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 exports.PostNewReply = (req, res, next) => {
@@ -259,8 +225,7 @@ exports.GetEditPost = (req, res, next) => {
   })
     .then((result) => {
       const post = result.dataValues;
-      Users.findOne({ where: {id: req.user.id},
-      })
+      Users.findOne({ where: { id: req.user.id } })
         .then((result) => {
           const user = result.dataValues;
 
