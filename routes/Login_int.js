@@ -13,4 +13,7 @@ router.post("/login_up", login_intController.PostLogin_up);
 router.get("/reset", login_intController.GetReset);
 router.post("/reset", login_intController.PostReset);
 
+router.get("/reset/:token", login_intController.GetNewPassword);
+router.post("/new-password", login_intController.PostNewPassword);
+
 module.exports =router;
