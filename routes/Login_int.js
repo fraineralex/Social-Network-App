@@ -8,6 +8,9 @@ router.get("/login", login_intController.GetLogin);
 router.post("/login", login_intController.PostLogin);
 router.post("/logout", login_intController.PostLogout);
 router.get("/login_up", login_intController.GetLogin_up);
-router.post("/login_up", login_intController.PostLogin_up);  
+router.post("/login_up", login_intController.PostLogin_up);
+
+router.get("/reset", login_intController.GetReset);
+router.post("/reset", login_intController.PostReset);
 
 module.exports =router;

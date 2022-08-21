@@ -192,23 +192,14 @@
     <section class="container forms">
         <div class="form login">
             <div class="form-content">
-                <header>Login</header>
-                <form action="/login" method="POST">
+                <header>Recupera tu contraseña</header>
+                <form action="/reset" method="POST">
                     <div class="field input-field">
-                        <input type="user" name="user" placeholder="User" class="input">
-                    </div>
-
-                    <div class="field input-field">
-                        <input type="password" name="password" placeholder="Password" class="password">
-                        <i class='bx bx-hide eye-icon'></i>
-                    </div>
-
-                    <div class="form-link">
-                        <a href="/reset" class="forgot-pass">Forgot password?</a>
+                        <input type="email" name="email" placeholder="Email" class="input">
                     </div>
 
                     <div class="field button-field">
-                        <button>Login</button>
+                        <button>Reset</button>
                     </div>
                 </form>
 

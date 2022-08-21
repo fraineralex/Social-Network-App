@@ -150,7 +150,6 @@ exports.PostReset = (req, res, next) => {
 
     const token = buffer.toString("hex");
 
-  
     User.findOne({where: {email: email }}).then((user)=>{
 
       if(!user){
@@ -172,13 +171,14 @@ exports.PostReset = (req, res, next) => {
         transporter.sendMail({
           from: "phpitladiplomado@gmail.com",
           to: email,
-          subject: "password reset",
+          subject: `Password reset`,
           html: `<h3>Ha solicitado una actualizacion de contraseña</h3>
                
           <p> Haga click en este <a href="http://localhost:5000/reset/${token}"> link </a> para actualizar su nueva contrasenia </p>`,
         });
 
       }
+      
 
       res.redirect(urlRedirect);
 
