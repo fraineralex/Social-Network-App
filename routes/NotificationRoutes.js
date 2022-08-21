@@ -5,8 +5,9 @@ const isLogin = require("../middleware/is-login");
 
 const notificationRouter = express.Router();
 
-notificationRouter.post('/',isLogin, notificationController.getNotifications);
-notificationRouter.post('/solicitude/friend/:userId/:friendID',isLogin, notificationController.solicitudeFriend);
+notificationRouter.get('/Notifications', isLogin, notificationController.getAllNotifications);
+notificationRouter.post('/', notificationController.getNotifications);
+notificationRouter.get('/solicitude/:friendRequestId/:userId/:friendID',notificationController.solicitudeFriend);
 
 
 module.exports = notificationRouter;

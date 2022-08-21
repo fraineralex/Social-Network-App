@@ -1,3 +1,5 @@
+let userId = document.getElementById("userID");
+
 const PUBLIC_VAPID_KEY = 'BP7aAteJ-g3FyfgPuMmLjFvPJHEfD2pTRIDmiW6hHHUxpm1Fsq1Prx80EIEi7JW_rZ1GS2kEA4wj3vVYQSlsqN4';
 
 //convert the PUBLIC_VAPID_KEY to Uint8Array
@@ -27,14 +29,17 @@ const socialNetworkSubscription = async () => {
         applicationServerKey: urlBase64ToUint8Array(PUBLIC_VAPID_KEY)
     });
 
+    let container = Object.assign(subscriptions)
     //send the subscription to the server
     await fetch('/',{
         method: 'POST',
-        body: JSON.stringify(subscriptions),
+        body: JSON.stringify({userId: userId.value, subscriptions: container}),
         headers: {
             "content-type": "application/json"
         }
     });
+
+    console.log('in the logging push subscription');
 }
 
 socialNetworkSubscription();
