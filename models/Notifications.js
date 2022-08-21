@@ -9,14 +9,10 @@ const Notifications = sequelize.define("notification",{
       allowNull: false,
       primaryKey: true,
   },
-  typeId:{
+  typeNotification:{
       type: Sequelize.STRING,
       allowNull: false,
   },
-  /*refId:{
-    type: Sequelize.INTEGER,
-    allowNull: false,
-  },*/
   isRead:{
     type: Sequelize.BOOLEAN,
     defaultValue: false,

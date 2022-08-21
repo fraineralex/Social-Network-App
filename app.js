@@ -14,6 +14,7 @@ const session = require("express-session");
 const flash = require("connect-flash");
 const getDataHelpers = require("./util/helpers/GetData");
 const getConfirmation = require("./util/helpers/friendConfirmation");
+const getNotificationsInfo = require("./util/helpers/NotificationInfo");
 const errorController = require("./controllers/ErrorController");
 const homeRouter = require("./routes/Home");
 const friendRouter = require("./routes/FriendRoutes");
@@ -25,9 +26,7 @@ const login_intRouter = require("./routes/Login_int");
 const app = express();
 
 // Initialize express-handlebars
-app.engine(
-  "hbs",
-  expressHbs({
+app.engine("hbs",expressHbs({
     layoutsDir: "views/layouts/",
     defaultLayout: "main-layout",
     extname: "hbs",
@@ -43,7 +42,9 @@ app.engine(
       getConfirmationF: getConfirmation.friendConfirmation,
       lengthValue: getDataHelpers.LengthValue,
       findAnswer: getDataHelpers.FindAnswer,
-      
+      notificationInfoName: getNotificationsInfo.NotificationInfoName,
+      notificationInfoUserName: getNotificationsInfo.NotificationInfoUserName, 
+      notificationInfoImg: getNotificationsInfo.NotificationInfoImg,
     },
   })
 );

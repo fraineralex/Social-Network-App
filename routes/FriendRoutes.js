@@ -13,6 +13,7 @@ friendRouter.get('/delete/friend/:userID/:friendID',isLogin, friendController.de
 
 //search friend
 friendRouter.get('/searchNewFriendHome/:userID',isLogin, friendController.searchNewFriendHome);
-friendRouter.post('/searchNewFriend',isLogin, friendController.searchNewFriend);
+friendRouter.post('/searchNewFriend', friendController.searchNewFriend);
+friendRouter.post('/solicitude/friend/:userId/:friendID',friendController.CreateFriendRequest);
 
 module.exports = friendRouter;

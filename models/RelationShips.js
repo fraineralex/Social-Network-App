@@ -19,8 +19,8 @@ module.exports.RelationShips = ()=>{
     Events.belongsTo(Users, { constraint: true, onDelete: "CASCADE", as: 'author'},);
     Users.hasMany(Events, {foreignKey: 'authorId'});
 
-    Notifications.belongsTo(Users, { constraint: true, onDelete: "CASCADE", as: 'author'},);
-    Users.hasMany(Notifications, {foreignKey: 'authorId'});
+    // Notifications.belongsTo(Users, { constraint: true, onDelete: "CASCADE", as: 'author'},);
+    // Users.hasMany(Notifications, {foreignKey: 'authorId'});
 
     /*
     Users.hasMany(Friends, {foreignKey: 'senderId'});
@@ -39,21 +39,21 @@ module.exports.RelationShips = ()=>{
     Posts.hasMany(Comments, {foreignKey: 'postId'});
 
     // comment relationships
-    Comments.belongsTo(Comments, { constraint: true, onDelete: "CASCADE", as: 'comment'},);
+    Comments.belongsTo(Comments, { constraint: true, onDelete: "CASCADE"},);
     Comments.hasMany(Comments, {foreignKey: 'commentId'});
 
     // event relationships
-    EventRequests.belongsTo(Events, { constraint: true, onDelete: "CASCADE", as: 'event'},);
+    EventRequests.belongsTo(Events, { constraint: true, onDelete: "CASCADE"},);
     Events.hasMany(EventRequests, {foreignKey: 'eventId'});
 
     // notifications relationships
-    Notifications.belongsTo(Comments, { constraint: true, onDelete: "CASCADE", as: 'comment'},);
-    Comments.hasOne(Notifications, {foreignKey: 'commentId'});
+    // Notifications.belongsTo(Comments, { constraint: true, onDelete: "CASCADE"},);
+    // Comments.hasOne(Notifications, {foreignKey: 'commentId'});
 
-    Notifications.belongsTo(EventRequests, { constraint: true, onDelete: "CASCADE", as: 'event'},);
-    EventRequests.hasMany(Notifications, {foreignKey: 'eventId'});
+    // Notifications.belongsTo(EventRequests, { constraint: true, onDelete: "CASCADE"},);
+    // EventRequests.hasMany(Notifications, {foreignKey: 'eventId'});
 
-    Notifications.belongsTo(Friends, { constraint: true, onDelete: "CASCADE", as: 'friend'},);
+    Notifications.belongsTo(Friends, { constraint: true, onDelete: "CASCADE"},);
     Friends.hasOne(Notifications, {foreignKey: 'friendId'});
 }
 

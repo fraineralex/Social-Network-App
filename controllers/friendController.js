@@ -3,9 +3,11 @@ const friend = require("../models/friends");
 const user = require("../models/Users");
 const { Op } = require("sequelize");
 
+let userId;
+
 // get all friends post
 module.exports.getAllPublications = (req, res, next) => {
-  const userId = req.user.id; // req.params.userId
+  userId = req.user.id
   let userFriends;
 
   friend
@@ -76,10 +78,19 @@ module.exports.deleteFriend = (req, res, next) => {
 
 // search friend
 module.exports.searchNewFriendHome = (req, res, next) => {
-  res.render("client/addNewFriendHome", {
-    pageTitle: "Search new Friend",
-    userId: req.user.id,
-  });
+
+  user.findOne({ where: { id: userId } }).then((f) => {
+                  
+    // const imgConfirmation = p.map(cf=> cf.src !== null ? true : false);
+    const currentlyUser = f.dataValues;
+
+    res.render("client/addNewFriendHome", {
+      pageTitle: "Search new Friend",
+      userId: req.user.id,
+      user: currentlyUser,
+    });
+
+  }).catch((err) => console.log(err));
 };
 module.exports.searchNewFriend = (req, res, next) => {
   const userId = req.body.userId;
@@ -113,9 +124,42 @@ module.exports.searchNewFriend = (req, res, next) => {
           res.render("client/addNewFriendHome", {
             pageTitle: "Search new Friend",
             userId: userId,
+            user: userId,
             ac,
             us: userFriends,
           });
         });
     }).catch((err) => console.log(err));
 };
+
+//create a new friend request
+module.exports.CreateFriendRequest= (req, res, next) => {
+  let userId = req.params.userId;
+  let friendID = req.params.friendID;
+
+  friend.findAll({
+    where: 
+      {
+        [Op.or]: 
+        [
+          { [Op.and]: [{ senderID: userId }, { receptorID: friendID }] },
+          { [Op.and]: [{ senderID: friendID }, { receptorID: userId }] },
+        ]
+      }
+      
+      }).then(fc => {
+      const count = fc.map((f) => f.dataValues);
+
+      if (count.length > 0) {
+        res.send("ya has hecho una solicitud de amistad")/*we need to checking that later*/
+      } 
+      else {
+        friend.create({isAccepted: false, senderID: userId, receptorID: friendID}).then(() =>{
+
+          friend.findOne({where: {[Op.or]: [{ [Op.and]: [{ senderID: userId }, { receptorID: friendID }]}]}}).then((sf=>res.redirect(`/solicitude/${sf.dataValues.id}/${userId}/${friendID}`))).catch((err) => console.log(err));
+
+        });
+    }
+
+  }).catch((err) => console.log(err));
+}
