@@ -35,7 +35,7 @@ module.exports.RelationShips = ()=>{
     Users.hasMany(EventRequests, {foreignKey: 'receptorId'});
 
     // Post relationships
-    Comments.belongsTo(Posts, { constraint: true, onDelete: "CASCADE", as: 'post'},);
+    Comments.belongsTo(Posts, { constraint: true, onDelete: "CASCADE"},);
     Posts.hasMany(Comments, {foreignKey: 'postId'});
 
     // comment relationships

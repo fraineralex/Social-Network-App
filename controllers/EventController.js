@@ -52,7 +52,7 @@ exports.GetAllEvents = (req, res, next) => {
 exports.GetCreatedEvents = (req, res, next) => {
   let authorId = req.user.id;
 
-  Users.findOne({ where: {id: req.user.id}})
+  Users.findOne({ where: {id: authorId}})
     .then((result) => {
       let user;
       if (result) {
