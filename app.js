@@ -45,6 +45,7 @@ app.engine("hbs",expressHbs({
       notificationInfoName: getNotificationsInfo.NotificationInfoName,
       notificationInfoUserName: getNotificationsInfo.NotificationInfoUserName, 
       notificationInfoImg: getNotificationsInfo.NotificationInfoImg,
+      notificationCount: getNotificationsInfo.NotificationCount,
     },
   })
 );
@@ -91,7 +92,6 @@ app.use((req, res, next) => {
   res.locals.errorMessages = errors;
   res.locals.hasErrorMessages = errors.length > 0;
   
-
   next();
 });
 
@@ -104,7 +104,6 @@ const imageStorage = multer.diskStorage({
     cb(null, `${uuidv4()}-${file.originalname}`);
   },
 });
-
 app.use(multer({ storage: imageStorage }).single("ImageFile"));
 
 //routes
