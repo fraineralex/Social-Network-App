@@ -52,7 +52,7 @@ exports.GetAllEvents = (req, res, next) => {
 exports.GetCreatedEvents = (req, res, next) => {
   let authorId = req.user.id;
 
-  Users.findOne({ where: {id: authorId}})
+  Users.findOne({ where: { id: authorId } })
     .then((result) => {
       let user;
       if (result) {
@@ -86,7 +86,7 @@ exports.GetCreatedEvents = (req, res, next) => {
 };
 
 exports.GetCreateEvent = (req, res, next) => {
-  Users.findOne({ where: {id: req.user.id}})
+  Users.findOne({ where: { id: req.user.id } })
     .then((result) => {
       let user;
       if (result) {
@@ -140,7 +140,6 @@ exports.GetAddInvited = (req, res, next) => {
   const authorId = req.user.id;
   const eventId = req.params.EventId;
   const viewInvited = req.query.viewInvited;
-
 
   Users.findOne({
     where: { id: authorId },
@@ -197,7 +196,7 @@ exports.PostAddInvited = (req, res, next) => {
             },
           })
             .then((result) => {
-              let receptorId;
+              let receptorId = 0;
 
               if (result) {
                 receptorId = result.dataValues.id;
@@ -210,13 +209,10 @@ exports.PostAddInvited = (req, res, next) => {
               })
                 .then((result) => {
                   if (result) {
-                    return res.render("client/add-invited", {
-                      pageTitle: "Agregar invitado",
-                      eventActive: true,
-                      user: user,
-                      event: event,
-                      alreadyInvited: true,
-                    });
+                    req.flash("errors", "Este usuario ya ha sido invitado");
+                    return res.redirect(
+                      "/add-invited/" + authorId + "/" + eventId
+                    );
                   }
 
                   Friends.findOne({
@@ -251,19 +247,21 @@ exports.PostAddInvited = (req, res, next) => {
                           eventId: eventId,
                         })
                           .then(() => {
-                            res.redirect('/view-invited/'+ authorId + '/' + eventId);
+                            res.redirect(
+                              "/view-invited/" + authorId + "/" + eventId
+                            );
                           })
                           .catch((err) => {
                             console.log(err);
                           });
                       } else {
-                        res.render("client/add-invited", {
-                          pageTitle: "Agregar invitado",
-                          eventActive: true,
-                          user: user,
-                          event: event,
-                          requestSended: true,
-                        });
+                        req.flash(
+                          "errors",
+                          "Este usuario no se ha encontrado en su lista de amigos."
+                        );
+                        return res.redirect(
+                          "/add-invited/" + authorId + "/" + eventId
+                        );
                       }
                     })
                     .catch((err) => {
@@ -309,9 +307,8 @@ exports.GetViewInvited = (req, res, next) => {
         ],
       })
         .then((result) => {
-          console.log(result.length);
-
           if (result.length < 1) {
+            req.flash("errors", "Aún no has invitado a nadie a este evento");
             return res.redirect("/events-created");
           }
 
@@ -375,7 +372,7 @@ exports.PostDeleteInvited = (req, res, next) => {
   const eventId = req.body.EventId;
   const receptorId = req.body.InvitedId;
   const authorId = req.body.AuthorId;
-  console.log(eventId, receptorId, authorId)
+  console.log(eventId, receptorId, authorId);
 
   EventRequests.destroy({
     where: {
