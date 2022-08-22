@@ -88,3 +88,8 @@ exports.FindOneReply =(commentId, comments) => {
   const comment = [reply[0]];
   return comment;
 };
+
+exports.IsEqual =(userId, authorId) => {
+  if(userId === authorId) return true;
+  else return false;
+};

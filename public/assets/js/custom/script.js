@@ -18,3 +18,27 @@ modeSwitch.addEventListener("click", () => {
     modeText.innerText = "Dark mode";
   }
 });
+
+/* $(document).ready(function () {
+  $(".btn-delete-post").on("click", function (e) {
+    e.preventDefault();
+
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this imaginary file!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        swal("La publicación se ha eliminado satisfactriamente", {
+          icon: "success",
+        });
+        $(this).closest(".form-delete").submit();
+      } else {
+      }
+    });
+  });
+}); */
+
+
