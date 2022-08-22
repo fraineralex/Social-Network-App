@@ -1,4 +1,10 @@
 <main>
+    <script>
+        const moment = require("moment");
+        moment.locale("es-do");
+
+
+    </script>
     <div class="row position-absolute start-50 translate-middle" style="margin-top: 18rem;">
         <form class="g-3 needs-validation" method="POST" action="/create-event">
             <div class="card mb-5 mt-0 bg-dark" style="width: 38rem;">
@@ -22,8 +28,8 @@
 
                     <div class="mb-3">
                         <label for="date" class="form-label text-white"><strong>Fecha</strong></label>
-                        <input type="datetime-local" class="form-control bg-dark text-white border-primary" id="date" name="Date"
-                            required>
+                        <input type="datetime-local" class="form-control bg-dark text-white border-primary" id="date"
+                            name="Date" min="16/08/2022 15:08" required>
                     </div>
 
                     <input type="hidden" value="{{user.id}}" name="AuthorId">
