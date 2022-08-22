@@ -1,7 +1,7 @@
 const friend = require("../models/Friends");
 const notification = require("../models/Notifications");
 const user = require("../models/Users");
-const { Op } = require("sequelize");
+const { Op, Sequelize, and } = require("sequelize");
 const webPush = require('../util/webPush');
 const fs = require('fs');
 const path = require('path');
@@ -24,7 +24,7 @@ module.exports.getAllNotifications = async (req, res, next) => {
         const friendS= fs.map(f => f.dataValues);
         const usersIdSender = friendS.map(f => f.senderID);
 
-        user.findAll({where: {[Op.or]:[{id: usersIdSender}]}}).then((us)=>{
+        user.findAll({where: {[Op.or]:[{id: usersIdSender}]}}).then(async (us)=>{
           const userS = us.map(u => u.dataValues);
           
           res.render("./client/Notification", {
@@ -32,6 +32,7 @@ module.exports.getAllNotifications = async (req, res, next) => {
             user: currentlyUser,
             friendS,
             userS,
+            nCount1: await notiCount.countNotifications(userId),
           });
           
         }).catch((err) => console.log(err));
@@ -51,27 +52,23 @@ module.exports.solicitudeFriend = (req, res, next) => {
   let isReadV = false;
 
   friend.findOne({ where: { id: friendRequestId } }).then((f) => {
-
-    res.status(200).redirect(`/searchNewFriendHome/${userId}}`);
     notification.create({typeNotification: typeNotificationV, isRead: isReadV, friendId: friendRequestId}).then(() => {
-      user.findOne({where: {id: friendID}}).then(async (f)=>{
-
+      user.findOne({where: {id: userId}}).then( async (f)=>{
         let friendInfo = f.dataValues;
 
+        //send the notification to the user
         let endpoint = await JSON.parse(fs.readFileSync(path.join(__dirname, "../endpoint.json"), 'utf8'));
-      
-        let container = endpoint.filter(sub => sub.userId === `${friendID}`);
-        console.log(container);
-        pushSubscription = container[0].subscriptions;
-      
-        const userNotification = JSON.stringify({
+        let container = await endpoint.filter(sub => sub.userId === `${friendID}`);
+        pushSubscription = await container[0].subscriptions;
+        const userNotification = await JSON.stringify({
           title: "Friend Request",
           body: `${friendInfo.user} has sent you a friend request`,
           icon: `${friendInfo.imageProfile}`,
+          count: await cnl(Notifications, countFI),
         });
-      
-        //send the notification to the user
+        
         await webPush.sendNotification(pushSubscription, userNotification);
+        res.status(200).redirect(`/searchNewFriendHome/${userId}}`);
 
       }).catch((err) => console.log(err));    
     }).catch(err => console.log(err));
@@ -84,7 +81,6 @@ module.exports.solicitudeFriend = (req, res, next) => {
 module.exports.getNotifications =  async (req, res, next) => {
  
   let endpoint = JSON.parse(fs.readFileSync(path.join(__dirname, "../endpoint.json"), 'utf8'));
-  console.log('\n\n\n\n pase por aqui', '\n\n\n\n', endpoint);
   
   if (endpoint.find(x => x.userId === req.body.userId)) {
     let endpointSave = endpoint.filter(x => x.userId != req.body.userId);

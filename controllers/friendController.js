@@ -2,6 +2,7 @@ const post = require("../models/Posts");
 const friend = require("../models/friends");
 const user = require("../models/Users");
 const { Op } = require("sequelize");
+const notiCount = require("../util/countNotifications");
 
 let userId;
 
@@ -37,7 +38,7 @@ module.exports.getAllPublications = (req, res, next) => {
           userFriends = userFriends.filter((f) => f !== 0);
           user.findAll({ where: { id: userFriends } }).then((f) => {
               const userF = f.map((uf) => uf.dataValues);
-              user.findOne({ where: { id: userId } }).then((f) => {
+              user.findOne({ where: { id: userId } }).then( async (f) => {
                   
                   const imgConfirmation = p.map(cf=> cf.src !== null ? true : false);
                   const currentlyUser = f.dataValues;
@@ -48,7 +49,8 @@ module.exports.getAllPublications = (req, res, next) => {
                     imgConfirmation,
                     userF,
                     userId,
-                    user: currentlyUser
+                    user: currentlyUser,
+                    nCount1: await notiCount.countNotifications(userId),
                   });
 
                 }).catch((err) => console.log(err));
@@ -79,7 +81,7 @@ module.exports.deleteFriend = (req, res, next) => {
 // search friend
 module.exports.searchNewFriendHome = (req, res, next) => {
 
-  user.findOne({ where: { id: userId } }).then((f) => {
+  user.findOne({ where: { id: userId } }).then( async (f) => {
                   
     // const imgConfirmation = p.map(cf=> cf.src !== null ? true : false);
     const currentlyUser = f.dataValues;
@@ -88,6 +90,7 @@ module.exports.searchNewFriendHome = (req, res, next) => {
       pageTitle: "Search new Friend",
       userId: req.user.id,
       user: currentlyUser,
+      nCount1: await notiCount.countNotifications(userId),
     });
 
   }).catch((err) => console.log(err));
@@ -119,14 +122,15 @@ module.exports.searchNewFriend = (req, res, next) => {
             ],
           },
         })
-        .then((f) => f.map((fr) => fr.dataValues.isAccepted))
-        .then((ac) => {
+        .then((f) => f.map( (fr) => fr.dataValues.isAccepted))
+        .then(async (ac) => {
           res.render("client/addNewFriendHome", {
             pageTitle: "Search new Friend",
             userId: userId,
             user: userId,
             ac,
             us: userFriends,
+            nCount1: await notiCount.countNotifications(userId),
           });
         });
     }).catch((err) => console.log(err));
