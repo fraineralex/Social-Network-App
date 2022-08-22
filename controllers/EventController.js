@@ -3,6 +3,8 @@ const Friends = require("../models/friends");
 const Events = require("../models/Events");
 const EventRequests = require("../models/EventRequests");
 const { Op } = require("sequelize");
+const notiCount = require("../util/countNotifications");
+const { asIs } = require("sequelize");
 
 exports.GetAllEvents = (req, res, next) => {
   let currentlyUser = req.user.id;
@@ -28,7 +30,7 @@ exports.GetAllEvents = (req, res, next) => {
           },
         ],
       })
-        .then((result) => {
+        .then( async (result) => {
           let events;
           if (result.length > 0)
             events = result.map((result) => result.dataValues);
@@ -38,6 +40,7 @@ exports.GetAllEvents = (req, res, next) => {
             eventActive: true,
             user: user,
             events: events,
+            nCount1: await notiCount.countNotifications(currentlyUser),
           });
         })
         .catch((err) => {
@@ -65,7 +68,7 @@ exports.GetCreatedEvents = (req, res, next) => {
         },
         include: [{ model: EventRequests }],
       })
-        .then((result) => {
+        .then( async (result) => {
           const events = result.map((result) => result.dataValues);
 
           res.render("client/events", {
@@ -74,6 +77,7 @@ exports.GetCreatedEvents = (req, res, next) => {
             user: user,
             events: events,
             createdMode: true,
+            nCount1: await notiCount.countNotifications(authorId),
           });
         })
         .catch((err) => {
@@ -86,8 +90,9 @@ exports.GetCreatedEvents = (req, res, next) => {
 };
 
 exports.GetCreateEvent = (req, res, next) => {
-  Users.findOne({ where: { id: req.user.id } })
-    .then((result) => {
+  let userId = req.user.id;
+  Users.findOne({ where: {id: userId}})
+    .then(async (result) => {
       let user;
       if (result) {
         user = result.dataValues;
@@ -97,6 +102,7 @@ exports.GetCreateEvent = (req, res, next) => {
         pageTitle: "Crear evento",
         eventActive: true,
         user: user,
+        nCount1: await notiCount.countNotifications(userId),
       });
     })
     .catch((err) => {
@@ -152,7 +158,7 @@ exports.GetAddInvited = (req, res, next) => {
       Events.findOne({
         where: { id: eventId },
       })
-        .then((result) => {
+        .then(async (result) => {
           const event = result.dataValues;
           res.render("client/add-invited", {
             pageTitle: "Agregar invitado",
@@ -160,6 +166,7 @@ exports.GetAddInvited = (req, res, next) => {
             user: user,
             event: event,
             viewInvited: viewInvited,
+            nCount1: await notiCount.countNotifications(authorId)
           });
         })
         .catch((err) => {
@@ -207,7 +214,7 @@ exports.PostAddInvited = (req, res, next) => {
                   [Op.and]: [{ eventId: eventId }, { receptorId: receptorId }],
                 },
               })
-                .then((result) => {
+                .then( async (result) => {
                   if (result) {
                     req.flash("errors", "Este usuario ya ha sido invitado");
                     return res.redirect(
@@ -233,7 +240,7 @@ exports.PostAddInvited = (req, res, next) => {
                       ],
                     },
                   })
-                    .then((result) => {
+                    .then(async (result) => {
                       let areFriend = false;
 
                       if (result) {
@@ -317,7 +324,7 @@ exports.GetViewInvited = (req, res, next) => {
           Events.findOne({
             where: { id: eventId },
           })
-            .then((result) => {
+            .then(async (result) => {
               const event = result.dataValues;
 
               res.render("client/view-invited", {
@@ -326,6 +333,7 @@ exports.GetViewInvited = (req, res, next) => {
                 user: user,
                 event: event,
                 invitedUsers: invitedUsers,
+                nCount1: await notiCount.countNotifications(authorId),
               });
             })
             .catch((err) => {
@@ -408,7 +416,7 @@ exports.PostDeleteInvited = (req, res, next) => {
               Users.findOne({
                 where: { id: authorId },
               })
-                .then((result) => {
+                .then(async (result) => {
                   const user = result.dataValues;
 
                   res.render("client/test", {
@@ -417,6 +425,7 @@ exports.PostDeleteInvited = (req, res, next) => {
                     user: user,
                     event: event,
                     invitedUsers: invitedUsers,
+                    nCount1: await notiCount.countNotifications(authorId),
                   });
                 })
                 .catch((err) => {

@@ -55,8 +55,14 @@
                     </li>
 
                     <li class="">
-                        <a href="/Notifications">
-                            <i class='bx bx-bell icon'></i>
+                        <a href="/Notifications" class="position-relative">
+                            <i class='bx bx-bell icon'>
+                                {{!-- {{#if countNotification}} --}}
+                                <span class="position-absolute top-0 start-50 translate-middle badge rounded-5 bg-danger" id="nnSpan">
+                                    {{nCount1}}
+                                </span>
+                                {{!-- {{/if}} --}}
+                            </i>
                             <span class="textDesign nav-text">Notificaciones</span>
                         </a>
                     </li>
@@ -114,14 +120,13 @@
         </div>
         {{/if}}
 
+        <input type="hidden" value="{{userIDvalidationNotifications}}" id="validationsNotifications">
         {{{body}}}
-
     </main>
 
 
     <!-- JavaScript Bundle with Popper -->
-    {{!--
-    <script src="../../assets/js//lib/bootstrap/bootstrap.min.js"></script> --}}
+    <script src="../../assets/js//lib/bootstrap/bootstrap.min.js"></script> 
     <script src="/assets/js/custom/script.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -136,6 +141,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
         crossorigin="anonymous"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/assets/js/custom/socketClient.js"></script>
     <script src="/assets/js/custom/subscriptions.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"

@@ -1,6 +1,7 @@
 const Users = require("../models/Users");
 const Comments = require("../models/Comments");
 const Posts = require("../models/Posts");
+const notiCount = require("../util/countNotifications");
 
 exports.GetHome = (req, res, next) => {
   Posts.findAll({
@@ -17,8 +18,9 @@ exports.GetHome = (req, res, next) => {
       Users.findAll()
         .then((result) => {
           const users = result.map((result) => result.dataValues);
-          Users.findOne({ where: { id: req.user.id } })
-            .then((result) => {
+          let userIdn = req.user.id 
+          Users.findOne({ where: { id: userIdn} })
+            .then(async (result) => {
               let user;
               if (result) {
                 user = result.dataValues;
@@ -31,6 +33,7 @@ exports.GetHome = (req, res, next) => {
                 user: user,
                 users: users,
                 hasPost: posts.length > 0,
+                nCount1: await notiCount.countNotifications(userIdn),
               });
             })
             .catch((err) => {
@@ -47,8 +50,9 @@ exports.GetHome = (req, res, next) => {
 };
 
 exports.GetNewPost = (req, res, next) => {
+  let userIdn = req.user.id
   Users.findOne({ where: { id: req.user.id } })
-    .then((result) => {
+    .then( async  (result) => {
       const user = result.dataValues;
 
       res.render("client/save-post", {
@@ -56,6 +60,7 @@ exports.GetNewPost = (req, res, next) => {
         homeActive: true,
         post: { src: true },
         user: user,
+        nCount1: await notiCount.countNotifications(userIdn),
       });
     })
     .catch((err) => {
@@ -78,7 +83,7 @@ exports.GetNewComment = (req, res, next) => {
         .then((result) => {
           const user = result.dataValues;
           Users.findAll()
-            .then((result) => {
+            .then(async  (result) => {
               const users = result.map((result) => result.dataValues);
 
               res.render("client/add-comments", {
@@ -87,6 +92,7 @@ exports.GetNewComment = (req, res, next) => {
                 post: post,
                 user: user,
                 users: users,
+                nCount1: await notiCount.countNotifications(postId),
               });
             })
             .catch((err) => {
@@ -136,7 +142,7 @@ exports.GetNewReply = (req, res, next) => {
         .then((result) => {
           const user = result.dataValues;
           Users.findAll()
-            .then((result) => {
+            .then(async  (result) => {
               const users = result.map((result) => result.dataValues);
 
               res.render("client/add-comments", {
@@ -146,6 +152,7 @@ exports.GetNewReply = (req, res, next) => {
                 user: user,
                 users: users,
                 commentId: commentId,
+                nCount1:await notiCount.countNotifications(authorId),
               });
             })
             .catch((err) => {
@@ -227,8 +234,9 @@ exports.GetEditPost = (req, res, next) => {
   })
     .then((result) => {
       const post = result.dataValues;
+      let userIdn = req.user.id
       Users.findOne({ where: { id: req.user.id } })
-        .then((result) => {
+        .then(async  (result) => {
           const user = result.dataValues;
 
           res.render("client/save-post", {
@@ -237,6 +245,7 @@ exports.GetEditPost = (req, res, next) => {
             post: post,
             user: user,
             editMode: true,
+            nCount1: await notiCount.countNotifications(userIdn),
           });
         })
         .catch((err) => {
