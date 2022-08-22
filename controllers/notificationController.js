@@ -5,6 +5,7 @@ const { Op, Sequelize, and } = require("sequelize");
 const webPush = require('../util/webPush');
 const fs = require('fs');
 const path = require('path');
+const notiCount = require("../util/countNotifications");
 
 //get all notifications
 module.exports.getAllNotifications = async (req, res, next) => {
@@ -64,7 +65,6 @@ module.exports.solicitudeFriend = (req, res, next) => {
           title: "Friend Request",
           body: `${friendInfo.user} has sent you a friend request`,
           icon: `${friendInfo.imageProfile}`,
-          count: await cnl(Notifications, countFI),
         });
         
         await webPush.sendNotification(pushSubscription, userNotification);
