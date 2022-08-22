@@ -57,11 +57,13 @@
                     <li class="">
                         <a href="/Notifications" class="position-relative">
                             <i class='bx bx-bell icon'>
-                                {{!-- {{#if countNotification}} --}}
+                                {{#if (notificationCount nCount1)}}
+
+                                {{else}} 
                                 <span class="position-absolute top-0 start-50 translate-middle badge rounded-5 bg-danger" id="nnSpan">
                                     {{nCount1}}
                                 </span>
-                                {{!-- {{/if}} --}}
+                                {{/if}}
                             </i>
                             <span class="textDesign nav-text">Notificaciones</span>
                         </a>
@@ -120,7 +122,6 @@
         </div>
         {{/if}}
 
-        <input type="hidden" value="{{userIDvalidationNotifications}}" id="validationsNotifications">
         {{{body}}}
     </main>
 

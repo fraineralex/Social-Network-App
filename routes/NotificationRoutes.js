@@ -9,5 +9,9 @@ notificationRouter.get('/Notifications', isLogin, notificationController.getAllN
 notificationRouter.post('/', notificationController.getNotifications);
 notificationRouter.get('/solicitude/:friendRequestId/:userId/:friendID',notificationController.solicitudeFriend);
 
+notificationRouter.get('/notifications/acceptFriend/:idNotification', notificationController.acceptFriend);
+notificationRouter.get('/notifications/deleteNotification/:idNotification', notificationController.deleteNotification);
+notificationRouter.get('/notifications/viewNotifications/:idNotification', notificationController.viewNotifications);
+
 
 module.exports = notificationRouter;

@@ -12,9 +12,10 @@
             <h2>User: {{notificationInfoUserName ../userS key}}</h2>
         </div>
         <div class="container-button">
-            <a href="" class="btn btn-danger">delete</a>
-            <a href="" class="btn btn-success">view</a>
-        </div>
+            <a href="/notifications/acceptFriend/{{fs.id}}" class="btn btn-success">accepted</a>
+            <a href="/notifications/deleteNotification/{{fs.id}}" class="btn btn-danger">delete</a>
+            <a href="/notifications/viewNotifications/{{fs.id}}" class="btn btn-info">view</a>
+        </div>      
     </div>
     {{/each}}
 </div>

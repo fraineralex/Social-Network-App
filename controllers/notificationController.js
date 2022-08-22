@@ -18,7 +18,7 @@ module.exports.getAllNotifications = async (req, res, next) => {
       friend.findAll({
         where: {
           [Op.or]: [
-            { [Op.and]: [{ receptorID: userId }] },
+            { [Op.and]: [{ receptorID: userId }, {isAccepted: false}]},
           ]
         }
       }).then((fs) => {
@@ -76,6 +76,34 @@ module.exports.solicitudeFriend = (req, res, next) => {
 
 }
 
+
+//accept friend request
+module.exports.acceptFriend = async (req, res, next) => {
+  let id = req.params.idNotification;
+  const updateSolicitude = await friend.update({isAccepted: true}, {where: {id: id}})
+  const deleteNotification = await notification.destroy({where: {friendId: id}})
+  res.status(200).redirect(`/Notifications`);
+}
+
+//delete Notification
+module.exports.deleteNotification =  (req, res, next) => {
+  let id = req.params.idNotification;
+  notification.findOne({where: {friendId: id}}).then(async (n)=>{
+
+    const idN = n.dataValues.id;
+    const deleteNotification = await notification.destroy({where: {id: idN}})
+    const deleteFriendSolicitations = await friend.destroy({where: {id: id}})
+    res.status(200).redirect(`/Notifications`);
+    
+  }).catch((err) => console.log(err));
+}
+
+//view notification
+module.exports.viewNotifications = async (req, res, next) => {
+  const id = req.params.idNotification;
+  const viewNotification = await notification.update({isRead: true}, {where: {friendId: id}})
+  res.status(200).redirect(`/Notifications`);
+}
 
 //move this for loggin route and controller
 module.exports.getNotifications =  async (req, res, next) => {
