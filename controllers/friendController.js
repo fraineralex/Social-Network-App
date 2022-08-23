@@ -3,6 +3,7 @@ const friend = require("../models/friends");
 const user = require("../models/Users");
 const { Op } = require("sequelize");
 const notiCount = require("../util/countNotifications");
+const comment = require("../models/Comments");
 
 let userId;
 
@@ -20,7 +21,14 @@ module.exports.getAllPublications = (req, res, next) => {
 
     }).then((friendS) => {
       //get all friends post
-      post.findAll({include: { model: user, as: "author" },where: { authorId: friendS },}).then((p) => {
+      post.findAll({
+        include: [
+          { model: user, as: "author"},
+          { model: comment,
+            order: [["createdAt", "DESC"]]
+            },
+        ],
+          where: { authorId: friendS }}).then((p) => {
 
           userFriends = friendS;
           //organize posts by the most recently
@@ -43,12 +51,15 @@ module.exports.getAllPublications = (req, res, next) => {
                   const imgConfirmation = p.map(cf=> cf.src !== null ? true : false);
                   const currentlyUser = f.dataValues;
 
+                  const users = await user.findAll();          
+
                   res.render("client/friend", {
                     pageTitle: "Friend",
                     postF: p,
                     imgConfirmation,
                     userF,
                     userId,
+                    users,
                     user: currentlyUser,
                     nCount1: await notiCount.countNotifications(userId),
                   });

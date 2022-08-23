@@ -16,7 +16,7 @@ const getDataHelpers = require("./util/helpers/GetData");
 const getConfirmation = require("./util/helpers/friendConfirmation");
 const getNotificationsInfo = require("./util/helpers/NotificationInfo");
 const errorController = require("./controllers/ErrorController");
-const homeRouter = require("./routes/Home");
+const homeRouter = require("./routes/HomeRoutes");
 const friendRouter = require("./routes/FriendRoutes");
 const notificationRouter = require("./routes/NotificationRoutes");
 const eventRouter = require("./routes/EventRoutes");
@@ -48,6 +48,7 @@ app.engine("hbs",expressHbs({
       notificationInfoUserName: getNotificationsInfo.NotificationInfoUserName, 
       notificationInfoImg: getNotificationsInfo.NotificationInfoImg,
       notificationCount: getNotificationsInfo.NotificationCount,
+      isEqual: getDataHelpers.IsEqual,
     },
   })
 );
@@ -91,11 +92,11 @@ app.use((req, res, next) => {
 });
 
 app.use((req, res, next) => {
-  const errors = req.flash("errors");  
+  const errors = req.flash("errors"); 
+  const alerts = req.flash("alerts");  
   res.locals.isAuthenticated = req.session.newSession;
   res.locals.errorMessages = errors;
   res.locals.hasErrorMessages = errors.length > 0;
-  res.locals.csrfToken = req.csrfToken();
   
   next();
 });

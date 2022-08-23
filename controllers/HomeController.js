@@ -70,6 +70,8 @@ exports.GetNewPost = (req, res, next) => {
 
 exports.GetNewComment = (req, res, next) => {
   const postId = req.params.PostId;
+  let previousPlace;
+  if(req.query.previousPlace == "friend") previousPlace = "friend"
 
   Posts.findOne({
     where: {
@@ -92,6 +94,7 @@ exports.GetNewComment = (req, res, next) => {
                 post: post,
                 user: user,
                 users: users,
+                previousPlace,
                 nCount1: await notiCount.countNotifications(postId),
               });
             })
@@ -112,6 +115,7 @@ exports.PostNewComment = (req, res, next) => {
   const content = req.body.Content;
   const postId = req.body.PostId;
   const authorId = req.body.AuthorId;
+  const previousPlace = req.body.PreviousPlace;
 
   Comments.create({
     content: content,
@@ -119,7 +123,9 @@ exports.PostNewComment = (req, res, next) => {
     postId: postId,
   })
     .then(() => {
-      res.redirect("/");
+      if(previousPlace == "friend"){res.redirect("/friend");}
+      else {res.redirect("/");}
+      
     })
     .catch((err) => {
       console.log(err);
@@ -129,6 +135,8 @@ exports.PostNewComment = (req, res, next) => {
 exports.GetNewReply = (req, res, next) => {
   const postId = req.params.PostId;
   const commentId = req.params.CommentId;
+  let previousPlace;
+  if(req.query.previousPlace == "friend") previousPlace = "friend"
 
   Posts.findOne({
     where: {
@@ -141,6 +149,7 @@ exports.GetNewReply = (req, res, next) => {
       Users.findOne({ where: { id: req.user.id } })
         .then((result) => {
           const user = result.dataValues;
+          const authorId = user.id;
           Users.findAll()
             .then(async  (result) => {
               const users = result.map((result) => result.dataValues);
@@ -152,6 +161,7 @@ exports.GetNewReply = (req, res, next) => {
                 user: user,
                 users: users,
                 commentId: commentId,
+                previousPlace,
                 nCount1:await notiCount.countNotifications(authorId),
               });
             })
@@ -173,6 +183,7 @@ exports.PostNewReply = (req, res, next) => {
   const postId = req.body.PostId;
   const commentId = req.body.CommentId;
   const authorId = req.body.AuthorId;
+  const previousPlace = req.body.PreviousPlace;
 
   Comments.create({
     content: content,
@@ -181,7 +192,8 @@ exports.PostNewReply = (req, res, next) => {
     commentId: commentId,
   })
     .then(() => {
-      res.redirect("/");
+      if(previousPlace == "friend"){res.redirect("/friend");}
+      else {res.redirect("/");}
     })
     .catch((err) => {
       console.log(err);
@@ -304,7 +316,7 @@ exports.PostDeletePost = (req, res, next) => {
     });
 };
 
-exports.PostDeleteComment = (req, res, next) => {
+/* exports.PostDeleteComment = (req, res, next) => {
   const commentId = req.body.CommentId;
 
   Comments.destroy({ where: { id: commentId } })
@@ -314,4 +326,4 @@ exports.PostDeleteComment = (req, res, next) => {
     .catch((err) => {
       console.log(err);
     });
-};
+}; */

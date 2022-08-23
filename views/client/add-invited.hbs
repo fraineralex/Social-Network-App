@@ -10,7 +10,7 @@
                 <form class="d-flex" role="search" method="post" action="/add-invited">
                 <input type="hidden" name="_csrf" value="{{csrfToken}}">
                     <input class="form-control me-2 bg-dark border-primary text-white" name="ReceptorUserName"
-                        type="search" placeholder="Nombre de usuario" aria-label="Search">
+                        type="search" placeholder="Nombre de usuario" aria-label="Search" required>
                     <input type="hidden" name="AuthorId" value="{{event.authorId}}">
                     <input type="hidden" name="EventId" value="{{event.id}}">
                     <button class="btn btn-primary" type="submit"><i class="bi bi-send-check"></i> Invitar</button>
@@ -21,20 +21,4 @@
             </div>
         </div>
     </div>
-
-    {{#if requestSended}}
-    <script>
-        alert("Error, asegurese de digitar bien el usuario de su amigo.")
-    </script>
-
-    {{/if}}
-
-    {{#if alreadyInvited}}
-    <script>
-        alert("Error, Este usuario ya ha sido invitado al evento")
-    </script>
-
-    {{/if}}
-
-
 </main>
