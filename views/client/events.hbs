@@ -132,6 +132,7 @@
                                             </svg>Eliminar
                                         </button>
                                     </form>
+                                    {{#if (getEventDate event.date)}}
                                     <a type="button" class="btn btn-sm btn-light"
                                         href="/add-invited/{{../user.id}}/{{event.id}}">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -141,7 +142,7 @@
                                             <path fill-rule="evenodd"
                                                 d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z" />
                                         </svg>
-                                        Invitar</a>
+                                        Invitar</a>{{/if}}
                                     <a type=" button" class="btn btn-sm btn-info"
                                         href="/view-invited/{{../user.id}}/{{event.id}}">
                                         <i class="bi bi-info-circle"></i> Ver invitados</a>
@@ -186,6 +187,7 @@
                                 <small class="ms-2"><br><strong>Inivitados:</strong><i
                                         class="font-monospace">{{lengthValue
                                         event.eventRequests}}</i></small>
+                                {{#if (getEventDate event.date)}}
                                 <div class="mt-2 pt-2 border-top text-center ms-4 me-4">
                                     <form class="d-inline" method="post" action="/assist/yes">
                                         <input type="hidden" name="ReceptorId" value="{{../user.id}}">
@@ -208,6 +210,7 @@
                                             asistiré</button>
                                     </form>
                                 </div>
+                                {{/if}}
                             </div>
                         </div>
                     </div>

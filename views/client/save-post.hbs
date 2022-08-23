@@ -1,9 +1,9 @@
-<main class="row mt-4" style="margin-left: 400px">
+<main class="box-center">
     {{#if post.src}}
     <form enctype="multipart/form-data" method="POST" class="row g-3 needs-validation"
         action="{{#if editMode}}/edit-post{{else}}/new-post{{/if}}">
-        <div class="col-md-8 me-5 mt-0">
-            <div class="card bg-dark" style="width: 35rem;">
+        <div class="col-md-8 me-5 mt-5">
+            <div class="card bg-dark" style="width: 40rem;">
                 <div class="card-body">
                     <header>
                         <div class="c-image-text">
@@ -26,7 +26,7 @@
 
                     {{#if editMode}}
                     <div class="text-center mt-4 mb-4">
-                        <img src="{{post.src}}" class="image-post" alt="image">
+                        <img src="{{post.src}}" class="img-fluid" alt="image">
                     </div>
                     {{/if}}
 
@@ -61,15 +61,16 @@
         </div>
     </form>
     {{else}}
-    <form method="POST" class="row g-3 needs-validation mx-auto"
+    <form method="POST" class="row g-3 needs-validation mt-5"
         action="{{#if editMode}}/edit-post{{else}}/new-post{{/if}}">
         <div class="col-md-8 mt-0 ms-4 px-5">
-            <div class="card bg-dark" style="width: 25rem;">
+            <div class="card bg-dark" style="width: 40rem;">
                 <div class="card-body">
+                    <small class="text-white float-end">{{getDate post.createdAt}}</small>
                     <header>
                         <div class="c-image-text">
                             <span class="c-image">
-                                <img src="/assets/images/profile-11.jpg" alt="profile">
+                                <img src="{{post.author.dataValues.imageProfile}}" alt="profile">
                             </span>
 
                             <div class="c-text c-logo-text">
@@ -81,7 +82,7 @@
                     <div class="mb-4">
                         <label for="post" class="form-label text-white text-white"></label>
                         <textarea type="text" class="form-control bg-dark text-white border-primary" id="post"
-                            name="Content" placeholder="¿Qué estás pensando?" rows="3"
+                            name="Content" placeholder="¿Qué estás pensando?" rows="5"
                             required>{{#if editMode}}{{post.content}}{{/if}}</textarea>
                     </div>
 

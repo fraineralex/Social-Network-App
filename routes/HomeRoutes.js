@@ -15,7 +15,7 @@ router.get("/new-post-image",isLogin, homeController.GetNewPost);
 router.get("/edit-post/:PostId",isLogin, homeController.GetEditPost);
 router.post("/edit-post",isLogin, homeController.PostEditPost);
 router.post("/delete-post",isLogin, homeController.PostDeletePost);
-router.post("/delete-comment",isLogin, homeController.PostDeleteComment);
+/* router.post("/delete-comment",isLogin, homeController.PostDeleteComment); */
 
 
 module.exports = router;

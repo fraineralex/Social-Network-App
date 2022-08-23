@@ -37,18 +37,6 @@
                                         d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM4.5 5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7zm0 2.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7zm0 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4z" />
                                 </svg>
                         </a>
-                        {{#if (isEqual ../user.id comment.dataValues.authorId)}}
-                        <form class="d-inline" method="post" action="/delete-comment">
-                            <input type="hidden" name="CommentId" value="{{comment.dataValues.id}}">
-                                <button type="submit" class="btn-sm btn-danger float-end">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                        class="bi bi-trash-fill" viewBox="0 0 16 16">
-                                        <path
-                                            d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
-                                    </svg>
-                                </button>
-                        </form>
-                        {{/if}}
                 </div>
             </div>
             {{!-- Comments of reply --}}
@@ -77,18 +65,6 @@
                                             d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM4.5 5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7zm0 2.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7zm0 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4z" />
                                     </svg>
                             </a>
-                            {{#if (isEqual ../../user.id reply.dataValues.authorId)}}
-                            <form class="d-inline" method="post" action="/delete-comment">
-                                <input type="hidden" name="CommentId" value="{{reply.dataValues.id}}">
-                                    <button type="submit" class="btn-sm btn-danger float-end">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                            class="bi bi-trash-fill" viewBox="0 0 16 16">
-                                            <path
-                                                d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
-                                        </svg>
-                                    </button>
-                            </form>
-                            {{/if}}
                     </div>
                 </div>
                     {{!-- Comments of reply1 --}}
@@ -117,18 +93,6 @@
                                             d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM4.5 5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7zm0 2.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7zm0 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4z" />
                                     </svg>
                             </a>
-                            {{#if (isEqual ../../../user.id reply2.dataValues.authorId)}}
-                            <form class="d-inline" method="post" action="/delete-comment">
-                                <input type="hidden" name="CommentId" value="{{reply2.dataValues.id}}">
-                                    <button type="submit" class="btn-sm btn-danger float-end">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                            class="bi bi-trash-fill" viewBox="0 0 16 16">
-                                            <path
-                                                d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
-                                        </svg>
-                                    </button>
-                            </form>
-                            {{/if}}
                         </div>
                     </div>
                         {{!-- Comments of reply2 --}}
@@ -157,18 +121,6 @@
                                                 d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM4.5 5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7zm0 2.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7zm0 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4z" />
                                         </svg>
                                 </a>
-                                {{#if (isEqual ../../../../user.id reply3.dataValues.authorId)}}
-                                <form class="d-inline" method="post" action="/delete-comment">
-                                    <input type="hidden" name="CommentId" value="{{reply3.dataValues.id}}">
-                                        <button type="submit" class="btn-sm btn-danger float-end">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                                class="bi bi-trash-fill" viewBox="0 0 16 16">
-                                                <path
-                                                    d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
-                                            </svg>
-                                        </button>
-                                </form>
-                                {{/if}}
                             </div>
                         </div>
                             {{!-- Comments of reply3 --}}
@@ -196,18 +148,6 @@
                                                 d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM4.5 5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7zm0 2.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7zm0 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4z" />
                                         </svg>
                                 </a>
-                                {{#if (isEqual ../../../../../user.id reply4.dataValues.authorId)}}
-                                <form class="d-inline" method="post" action="/delete-comment">
-                                    <input type="hidden" name="CommentId" value="{{reply4.dataValues.id}}">
-                                        <button type="submit" class="btn-sm btn-danger float-end">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                                class="bi bi-trash-fill" viewBox="0 0 16 16">
-                                                <path
-                                                    d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
-                                            </svg>
-                                        </button>
-                                </form>
-                                {{/if}}
                                 </div>
                             </div>
                                 {{!-- Comments of reply4 --}}
@@ -227,19 +167,6 @@
                                     </div>
                                     <div class="card-body">
                                         <small class="fw-light">{{reply5.dataValues.content}}</small>
-
-                                    {{#if (isEqual ../../../../../../user.id reply5.dataValues.authorId)}}                       
-                                    <form class="d-inline" method="post" action="/delete-comment">
-                                        <input type="hidden" name="CommentId" value="{{reply5.dataValues.id}}">
-                                            <button type="submit" class="btn-sm btn-danger float-end">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                                    class="bi bi-trash-fill" viewBox="0 0 16 16">
-                                                    <path
-                                                        d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
-                                                </svg>
-                                            </button>
-                                    </form>
-                                    {{/if}}
                                     </div>
                                 </div>
                                 {{/if}}
@@ -324,18 +251,6 @@
                                         d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM4.5 5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7zm0 2.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7zm0 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4z" />
                                 </svg>
                         </a>
-                        {{#if (isEqual ../user.id comment.dataValues.authorId)}}
-                        <form class="d-inline" method="post" action="/delete-comment">
-                            <input type="hidden" name="CommentId" value="{{comment.dataValues.id}}">
-                                <button type="submit" class="btn-sm btn-danger float-end">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                        class="bi bi-trash-fill" viewBox="0 0 16 16">
-                                        <path
-                                            d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
-                                    </svg>
-                                </button>
-                        </form>
-                        {{/if}}
                 </div>
             </div>
             {{!-- Comments of reply --}}
@@ -364,18 +279,6 @@
                                             d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM4.5 5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7zm0 2.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7zm0 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4z" />
                                     </svg>
                             </a>
-                            {{#if (isEqual ../../user.id reply.dataValues.authorId)}}
-                            <form class="d-inline" method="post" action="/delete-comment">
-                                <input type="hidden" name="CommentId" value="{{reply.dataValues.id}}">
-                                    <button type="submit" class="btn-sm btn-danger float-end">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                            class="bi bi-trash-fill" viewBox="0 0 16 16">
-                                            <path
-                                                d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
-                                        </svg>
-                                    </button>
-                            </form>
-                            {{/if}}
                     </div>
                 </div>
                     {{!-- Comments of reply1 --}}
@@ -404,18 +307,6 @@
                                             d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM4.5 5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7zm0 2.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7zm0 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4z" />
                                     </svg>
                             </a>
-                            {{#if (isEqual ../../../user.id reply2.dataValues.authorId)}}
-                            <form class="d-inline" method="post" action="/delete-comment">
-                                <input type="hidden" name="CommentId" value="{{reply2.dataValues.id}}">
-                                    <button type="submit" class="btn-sm btn-danger float-end">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                            class="bi bi-trash-fill" viewBox="0 0 16 16">
-                                            <path
-                                                d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
-                                        </svg>
-                                    </button>
-                            </form>
-                            {{/if}}
                         </div>
                     </div>
                         {{!-- Comments of reply2 --}}
@@ -444,18 +335,6 @@
                                                 d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM4.5 5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7zm0 2.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7zm0 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4z" />
                                         </svg>
                                 </a>
-                                {{#if (isEqual ../../../../user.id reply3.dataValues.authorId)}}
-                                <form class="d-inline" method="post" action="/delete-comment">
-                                    <input type="hidden" name="CommentId" value="{{reply3.dataValues.id}}">
-                                        <button type="submit" class="btn-sm btn-danger float-end">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                                class="bi bi-trash-fill" viewBox="0 0 16 16">
-                                                <path
-                                                    d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
-                                            </svg>
-                                        </button>
-                                </form>
-                                {{/if}}
                             </div>
                         </div>
                             {{!-- Comments of reply3 --}}
@@ -483,18 +362,6 @@
                                                 d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM4.5 5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7zm0 2.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7zm0 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4z" />
                                         </svg>
                                 </a>
-                                {{#if (isEqual ../../../../../user.id reply4.dataValues.authorId)}}
-                                <form class="d-inline" method="post" action="/delete-comment">
-                                    <input type="hidden" name="CommentId" value="{{reply4.dataValues.id}}">
-                                        <button type="submit" class="btn-sm btn-danger float-end">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                                class="bi bi-trash-fill" viewBox="0 0 16 16">
-                                                <path
-                                                    d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
-                                            </svg>
-                                        </button>
-                                </form>
-                                {{/if}}
                                 </div>
                             </div>
                                 {{!-- Comments of reply4 --}}
@@ -514,19 +381,6 @@
                                     </div>
                                     <div class="card-body">
                                         <small class="fw-light">{{reply5.dataValues.content}}</small>
-
-                                    {{#if (isEqual ../../../../../../user.id reply5.dataValues.authorId)}}                          
-                                    <form class="d-inline" method="post" action="/delete-comment">
-                                        <input type="hidden" name="CommentId" value="{{reply5.dataValues.id}}">
-                                            <button type="submit" class="btn-sm btn-danger float-end">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                                    class="bi bi-trash-fill" viewBox="0 0 16 16">
-                                                    <path
-                                                        d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
-                                                </svg>
-                                            </button>
-                                    </form>
-                                    {{/if}}
                                     </div>
                                 </div>
                                 {{/if}}

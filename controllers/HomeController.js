@@ -305,7 +305,7 @@ exports.PostDeletePost = (req, res, next) => {
     });
 };
 
-exports.PostDeleteComment = (req, res, next) => {
+/* exports.PostDeleteComment = (req, res, next) => {
   const commentId = req.body.CommentId;
 
   Comments.destroy({ where: { id: commentId } })
@@ -315,4 +315,4 @@ exports.PostDeleteComment = (req, res, next) => {
     .catch((err) => {
       console.log(err);
     });
-};
+}; */
