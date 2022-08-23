@@ -206,6 +206,7 @@
                         </button>
                         <input type="hidden" name="AuthorId" value="{{user.id}}">
                         <input type="hidden" name="PostId" value="{{post.id}}">
+                        <input type="hidden" name="PreviousPlace" value="{{previousPlace}}">
                         {{#if commentId}}<input type="hidden" name="CommentId" value="{{commentId}}">{{/if}}
                 </form>
             </div>
@@ -420,6 +421,7 @@
                                 </button>
                                 <input type="hidden" name="AuthorId" value="{{user.id}}">
                                 <input type="hidden" name="PostId" value="{{post.id}}">
+                                <input type="hidden" name="PreviousPlace" value="{{previousPlace}}">
                                 {{#if commentId}}<input type="hidden" name="CommentId" value="{{commentId}}">{{/if}}
                         </form>
                     </div>

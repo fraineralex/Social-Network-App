@@ -53,7 +53,7 @@ module.exports.getAllPublications = (req, res, next) => {
 
                   const users = await user.findAll();          
 
-                  res.render("client/test", {
+                  res.render("client/friend", {
                     pageTitle: "Friend",
                     postF: p,
                     imgConfirmation,
