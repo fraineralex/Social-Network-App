@@ -46,6 +46,7 @@ app.engine("hbs",expressHbs({
       notificationInfoUserName: getNotificationsInfo.NotificationInfoUserName, 
       notificationInfoImg: getNotificationsInfo.NotificationInfoImg,
       notificationCount: getNotificationsInfo.NotificationCount,
+      isEqual: getDataHelpers.IsEqual,
     },
   })
 );

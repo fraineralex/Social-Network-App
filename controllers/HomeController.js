@@ -141,6 +141,7 @@ exports.GetNewReply = (req, res, next) => {
       Users.findOne({ where: { id: req.user.id } })
         .then((result) => {
           const user = result.dataValues;
+          const authorId = user.id;
           Users.findAll()
             .then(async  (result) => {
               const users = result.map((result) => result.dataValues);
