@@ -97,6 +97,7 @@ app.use((req, res, next) => {
   res.locals.isAuthenticated = req.session.newSession;
   res.locals.errorMessages = errors;
   res.locals.hasErrorMessages = errors.length > 0;
+  res.locals.csrfToken = req.csrfToken();
   
   next();
 });
