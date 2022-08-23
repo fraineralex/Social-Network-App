@@ -39,6 +39,7 @@
                         </a>
                         {{#if (isEqual ../user.id comment.dataValues.authorId)}}
                         <form class="d-inline" method="post" action="/delete-comment">
+                        <input type="hidden" name="_csrf" value="{{csrfToken}}">
                             <input type="hidden" name="CommentId" value="{{comment.dataValues.id}}">
                                 <button type="submit" class="btn-sm btn-danger float-end">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -79,6 +80,7 @@
                             </a>
                             {{#if (isEqual ../../user.id comment.dataValues.authorId)}}
                             <form class="d-inline" method="post" action="/delete-comment">
+                            <input type="hidden" name="_csrf" value="{{csrfToken}}">
                                 <input type="hidden" name="CommentId" value="{{reply.dataValues.id}}">
                                     <button type="submit" class="btn-sm btn-danger float-end">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -119,6 +121,7 @@
                             </a>
                             {{#if (isEqual ../../../user.id comment.dataValues.authorId)}}
                             <form class="d-inline" method="post" action="/delete-comment">
+                            <input type="hidden" name="_csrf" value="{{csrfToken}}">
                                 <input type="hidden" name="CommentId" value="{{reply2.dataValues.id}}">
                                     <button type="submit" class="btn-sm btn-danger float-end">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -159,6 +162,7 @@
                                 </a>
                                 {{#if (isEqual ../../../../user.id comment.dataValues.authorId)}}
                                 <form class="d-inline" method="post" action="/delete-comment">
+                                <input type="hidden" name="_csrf" value="{{csrfToken}}">
                                     <input type="hidden" name="CommentId" value="{{reply3.dataValues.id}}">
                                         <button type="submit" class="btn-sm btn-danger float-end">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -198,6 +202,7 @@
                                 </a>
                                 {{#if (isEqual ../../../../../user.id comment.dataValues.authorId)}}
                                 <form class="d-inline" method="post" action="/delete-comment">
+                                <input type="hidden" name="_csrf" value="{{csrfToken}}">
                                     <input type="hidden" name="CommentId" value="{{reply4.dataValues.id}}">
                                         <button type="submit" class="btn-sm btn-danger float-end">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -230,6 +235,7 @@
 
                                     {{#if (isEqual ../../../../../../user.id comment.dataValues.authorId)}}                       
                                     <form class="d-inline" method="post" action="/delete-comment">
+                                    <input type="hidden" name="_csrf" value="{{csrfToken}}">
                                         <input type="hidden" name="CommentId" value="{{reply5.dataValues.id}}">
                                             <button type="submit" class="btn-sm btn-danger float-end">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -257,6 +263,7 @@
 
             <div class="mt-4">
                 <form action="/new-{{#if commentId}}reply{{else}}comment{{/if}}" method="post">
+                <input type="hidden" name="_csrf" value="{{csrfToken}}">
                     <div class="input-group w-60 float-start">
                         <span class="input-group-text" id="basic-addon1">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="26" fill="currentColor"
@@ -326,6 +333,7 @@
                         </a>
                         {{#if (isEqual ../user.id comment.dataValues.authorId)}}
                         <form class="d-inline" method="post" action="/delete-comment">
+                        <input type="hidden" name="_csrf" value="{{csrfToken}}">
                             <input type="hidden" name="CommentId" value="{{comment.dataValues.id}}">
                                 <button type="submit" class="btn-sm btn-danger float-end">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -366,6 +374,7 @@
                             </a>
                             {{#if (isEqual ../../user.id comment.dataValues.authorId)}}
                             <form class="d-inline" method="post" action="/delete-comment">
+                            <input type="hidden" name="_csrf" value="{{csrfToken}}">
                                 <input type="hidden" name="CommentId" value="{{reply.dataValues.id}}">
                                     <button type="submit" class="btn-sm btn-danger float-end">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -406,6 +415,7 @@
                             </a>
                             {{#if (isEqual ../../../user.id comment.dataValues.authorId)}}
                             <form class="d-inline" method="post" action="/delete-comment">
+                            <input type="hidden" name="_csrf" value="{{csrfToken}}">
                                 <input type="hidden" name="CommentId" value="{{reply2.dataValues.id}}">
                                     <button type="submit" class="btn-sm btn-danger float-end">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -446,6 +456,7 @@
                                 </a>
                                 {{#if (isEqual ../../../../user.id comment.dataValues.authorId)}}
                                 <form class="d-inline" method="post" action="/delete-comment">
+                                <input type="hidden" name="_csrf" value="{{csrfToken}}">
                                     <input type="hidden" name="CommentId" value="{{reply3.dataValues.id}}">
                                         <button type="submit" class="btn-sm btn-danger float-end">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -485,6 +496,7 @@
                                 </a>
                                 {{#if (isEqual ../../../../../user.id comment.dataValues.authorId)}}
                                 <form class="d-inline" method="post" action="/delete-comment">
+                                <input type="hidden" name="_csrf" value="{{csrfToken}}">
                                     <input type="hidden" name="CommentId" value="{{reply4.dataValues.id}}">
                                         <button type="submit" class="btn-sm btn-danger float-end">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -517,6 +529,7 @@
 
                                     {{#if (isEqual ../../../../../../user.id comment.dataValues.authorId)}}                          
                                     <form class="d-inline" method="post" action="/delete-comment">
+                                    <input type="hidden" name="_csrf" value="{{csrfToken}}">
                                         <input type="hidden" name="CommentId" value="{{reply5.dataValues.id}}">
                                             <button type="submit" class="btn-sm btn-danger float-end">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -544,6 +557,7 @@
 
                     <div class="mt-4">
                         <form action="/new-{{#if commentId}}reply{{else}}comment{{/if}}" method="post">
+                        <input type="hidden" name="_csrf" value="{{csrfToken}}">
                             <div class="input-group w-60 float-start">
                                 <span class="input-group-text" id="basic-addon1">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="26" fill="currentColor"

@@ -7,6 +7,7 @@
     <div class="col-md-6 ms-3">
         <div class="post-box mb-5" aria-live="assertive" aria-atomic="true" style="max-width: 35rem;">
             <form method="POST" class="needs-validation" action="/new-post">
+            <input type="hidden" name="_csrf" value="{{csrfToken}}">
                 <div class="box-header">
                     <span class="d-image">
                         <img src="{{user.imageProfile}}" alt="profile {{user.name}}">
@@ -80,6 +81,7 @@
                             Editar
                         </a>
                         <form method="post" action="/delete-post" class="d-inline">
+                        <input type="hidden" name="_csrf" value="{{csrfToken}}">
                             <input type="hidden" value="{{post.id}}" name="PostId">
                             <button type="submit" class="btn btn-sm btn-danger">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -127,6 +129,7 @@
                             </a>
                             {{#if (isEqual ../../user.id comment.dataValues.authorId)}}
                             <form class="d-inline" method="post" action="/delete-comment">
+                            <input type="hidden" name="_csrf" value="{{csrfToken}}">
                                 <input type="hidden" name="CommentId" value="{{comment.dataValues.id}}">
                                 <button type="submit" class="btn-sm btn-danger float-end">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -168,6 +171,7 @@
                             </a>
                             {{#if (isEqual ../../../user.id comment.dataValues.authorId)}}
                             <form class="d-inline" method="post" action="/delete-comment">
+                            <input type="hidden" name="_csrf" value="{{csrfToken}}">
                                 <input type="hidden" name="CommentId" value="{{reply.dataValues.id}}">
                                 <button type="submit" class="btn-sm btn-danger float-end">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -222,6 +226,7 @@
                             Editar
                         </a>
                         <form method="post" action="/delete-post" class="d-inline">
+                        <input type="hidden" name="_csrf" value="{{csrfToken}}">
                             <input type="hidden" value="{{post.id}}" name="PostId">
                             <button type="submit" class="btn btn-sm btn-danger">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -269,6 +274,7 @@
                             </a>
                             {{#if (isEqual ../../user.id comment.dataValues.authorId)}}
                             <form class="d-inline" method="post" action="/delete-comment">
+                            <input type="hidden" name="_csrf" value="{{csrfToken}}">
                                 <input type="hidden" name="CommentId" value="{{comment.dataValues.id}}">
                                 <button type="submit" class="btn-sm btn-danger float-end">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -310,6 +316,7 @@
                             </a>
                             {{#if (isEqual ../../../user.id comment.dataValues.authorId)}}
                             <form class="d-inline" method="post" action="/delete-comment">
+                            <input type="hidden" name="_csrf" value="{{csrfToken}}">
                                 <input type="hidden" name="CommentId" value="{{reply.dataValues.id}}">
                                 <button type="submit" class="btn-sm btn-danger float-end">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"

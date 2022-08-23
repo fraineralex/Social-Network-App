@@ -51,6 +51,7 @@
                                 <td>{{receptor.dataValues.message}}</td>
                                 <td>
                                     <form method="post" action="/delete-invited">
+                                    <input type="hidden" name="_csrf" value="{{../csrfToken}}">
                                         <input type="hidden" name="InvitedId"
                                             value="{{receptor.dataValues.receptorId}}">
                                         <input type="hidden" name="EventId" value="{{receptor.dataValues.eventId}}">

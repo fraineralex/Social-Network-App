@@ -1,6 +1,7 @@
 <main>
     <div class="row position-absolute start-50 translate-middle" style="margin-top: 18rem;">
         <form class="g-3 needs-validation" method="POST" action="/create-event">
+        <input type="hidden" name="_csrf" value="{{csrfToken}}">
             <div class="card mb-5 mt-0 bg-dark" style="width: 38rem;">
                 <div class="card-header bg-primary text-light">
                     <h4 class="text-center">Creando nuevo evento</h4>

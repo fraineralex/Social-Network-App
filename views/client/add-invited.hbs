@@ -8,6 +8,7 @@
 
                 <h6 class="text-center fs-5 mb-4 mt-3">Ingresa el usuario de tu amigo y presiona invitar</h6>
                 <form class="d-flex" role="search" method="post" action="/add-invited">
+                <input type="hidden" name="_csrf" value="{{csrfToken}}">
                     <input class="form-control me-2 bg-dark border-primary text-white" name="ReceptorUserName"
                         type="search" placeholder="Nombre de usuario" aria-label="Search">
                     <input type="hidden" name="AuthorId" value="{{event.authorId}}">

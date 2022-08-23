@@ -2,6 +2,7 @@
     {{#if post.src}}
     <form enctype="multipart/form-data" method="POST" class="row g-3 needs-validation"
         action="{{#if editMode}}/edit-post{{else}}/new-post{{/if}}">
+        <input type="hidden" name="_csrf" value="{{csrfToken}}">
         <div class="col-md-8 me-5 mt-0">
             <div class="card bg-dark" style="width: 35rem;">
                 <div class="card-body">
@@ -63,6 +64,7 @@
     {{else}}
     <form method="POST" class="row g-3 needs-validation mx-auto"
         action="{{#if editMode}}/edit-post{{else}}/new-post{{/if}}">
+        <input type="hidden" name="_csrf" value="{{csrfToken}}">
         <div class="col-md-8 mt-0 ms-4 px-5">
             <div class="card bg-dark" style="width: 25rem;">
                 <div class="card-body">
