@@ -48,17 +48,14 @@
                                 <td>{{invited.name}}</td>
                                 <td>{{invited.lastName}}</td>
                                 <td>@{{invited.user}}</td>
-                                <td>{{#if receptor.dataValues.message}}{{receptor.dataValues.message}}{{else}}Sin respuesta{{/if}}</td>
+                                <td>{{#if receptor.dataValues.message}}{{receptor.dataValues.message}}{{else}}Sin
+                                    respuesta{{/if}}</td>
                                 <td>
-                                    <form method="post" action="/delete-invited">
-                                    <input type="hidden" name="_csrf" value="{{../../csrfToken}}">
-                                        <input type="hidden" name="InvitedId"
-                                            value="{{receptor.dataValues.receptorId}}">
-                                        <input type="hidden" name="EventId" value="{{receptor.dataValues.eventId}}">
-                                        <input type="hidden" name="AuthorId" value="{{../../user.id}}">
-                                        <button type="submit" class="btn btn-danger deletecontact"><i
-                                                class='fa-solid fa-trash-can'></i> </button>
-                                    </form>
+
+                                    <a type="submit" class="btn btn-danger"
+                                        onclick="DeleteConfirm({{receptor.dataValues.receptorId}}+'/'+{{receptor.dataValues.eventId}}+'/'+{{../../user.id}}, 'invited', 'Seguro que deseas eliminar este inivitado', 'Invitado eliminado satisfactoriamente')"><i
+                                            class='fa-solid fa-trash-can'></i> </a>
+
                                 </td>
                                 </td>
                             </tr>

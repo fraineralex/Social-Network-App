@@ -15,7 +15,7 @@ router.get("/add-invited/:AuthorId/:EventId",isLogin, eventController.GetAddInvi
 router.post("/add-invited",isLogin, eventController.PostAddInvited);
 router.get("/view-invited/:AuthorId/:EventId",isLogin, eventController.GetViewInvited);
 router.post("/assist/:Message",isLogin, eventController.PostMessageReceptor);
-router.post("/delete-invited",isLogin, eventController.PostDeleteInvited);
+router.get("/delete-invited/:InvitedId/:EventId/:AuthorId",isLogin, eventController.GetDeleteInvited);
 
 
 module.exports = router;

@@ -304,8 +304,8 @@ exports.PostEditPost = (req, res, next) => {
   }
 };
 
-exports.PostDeletePost = (req, res, next) => {
-  const postId = req.body.PostId;
+exports.GetDeletePost = (req, res, next) => {
+  const postId = req.params.PostId;
 
   Posts.destroy({ where: { id: postId } })
     .then((result) => {

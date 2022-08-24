@@ -377,11 +377,10 @@ exports.PostMessageReceptor = (req, res, next) => {
     });
 };
 
-exports.PostDeleteInvited = (req, res, next) => {
-  const eventId = req.body.EventId;
-  const receptorId = req.body.InvitedId;
-  const authorId = req.body.AuthorId;
-  console.log(eventId, receptorId, authorId);
+exports.GetDeleteInvited = (req, res, next) => {
+  const receptorId = req.params.InvitedId;
+  const eventId = req.params.EventId;
+  const authorId = req.params.AuthorId;
 
   EventRequests.destroy({
     where: {
