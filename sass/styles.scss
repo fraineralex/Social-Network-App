@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 @import './layout-styles';
 @import './img-styles'; // no la uses la voy a borrar en el futuro
+@import './notification';  
 
 // el centra todo XD
 .box-center{
@@ -27,3 +28,4 @@
     @include boxPost(5rem, 1rem, 44rem, 9rem, 45rem, 15rem);
     @include showFriend(3);
 }
+

@@ -1,6 +1,6 @@
 <div class="grid-container">
 
-    <div class="grid-item0">
+    <div class="grid-item0"> 
         <div class="">
             <a href="#allFriends" class="SeeAllYourFriend">See All you friend</a>
         </div>
@@ -8,185 +8,40 @@
             <a href="/searchNewFriendHome/{{userId}}" class="searchNewFriend">add new friend</a>
         </div>
     </div>
-
+    
     <div class="grid-item1">
         <div class="box-center">
-            {{#each postF as |post|}}
+            {{#each postF as |p key|}}
             {{!-- post --}}
-            {{#if post.src}}
             <div class="post-box" aria-live="assertive" aria-atomic="true">
                 <div class="box-header border-dark">
                     <span class="d-image">
-                        <img src="{{post.author.dataValues.imageProfile}}" class="image-post"
-                            alt="{{post.author.dataValues.name}}">
+                        <img src="{{p.author.dataValues.imageProfile}}" class="image-post" alt="{{p.author.dataValues.name}}">
                     </span>
-                    <small class="me-auto fs-6"><strong>{{post.author.dataValues.name}}</strong></small>
-                    <small class="float-end fw-light text-white">{{getDate post.createdAt}}</small>
+                    <small class="me-auto fs-6"><strong>{{p.author.dataValues.name}}</strong></small>
+                    <small class="float-end fw-light text-muted">{{getDate p.createdAt}}</small>
                 </div>
                 <div class="box-body">
                     <small class="fs-6 mt-1"></small>
                     <div class="">
-                        <p>{{post.content}}</p>
-                        <img src="{{post.src}}" alt="image {{post.author.dataValues.name}}">
+                        <p>{{p.content}}</p>
+                        {{#if (getConfirmationF ../imgConfirmation key)}}
+                            <img src="{{p.src}}" alt="image {{p.author.dataValues.name}}">
+                        {{/if}}
                     </div>
-
-                    <a type="button" class="btn btn-primary float-end mt-4 mb-3"
-                        href="/new-comment/{{post.id}}?previousPlace=friend">
-                        <i class="bi bi-chat"></i>
+                </div>
+                <div class="box-footer">
+                    <a type="button" class="btn btn-primary float-end" href="/new-comment/{{p.id}}">
                         Comentar
                     </a>
-
-                    {{#if post.comments}}
-                    <hr class="text-white mt-5" />
-                    {{#each ( findOneCommentsWithoutReplies post.comments) as | comment |}}
-                    <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive"
-                        aria-atomic="true" style="width: 60%;">
-                        <div class="card-header " style="height: 40px;">
-                            <span class="r-image">
-                                <img src="{{findImageProfile comment.dataValues.authorId ../../users}}" class=" me-2"
-                                    alt="profile">
-                            </span>
-                            <small class="me-auto fw-light">{{findUser comment.dataValues.authorId
-                                ../../users}}</small>
-                            <small class="float-end fw-light text-white">{{getDate
-                                comment.dataValues.createdAt}}</small>
-                        </div>
-                        <div class="card-body">
-                            <small class="fw-light">{{comment.dataValues.content}}</small>
-
-                            <a type="button"
-                                href="/new-reply/{{post.id}}/{{comment.dataValues.id}}?previousPlace=friend"
-                                class="btn-sm btn-primary float-end ms-1">
-                                <i class="bi bi-chat-text-fill"></i>
-                            </a>
-                        </div>
-                    </div>
-                    {{!-- Comments of reply --}}
-                    {{#each (findOneReply comment.dataValues.id post.comments) as | reply |}}
-                    {{#if reply}}
-                    <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive"
-                        aria-atomic="true" style="width: 60%;  margin-left: 26px;">
-                        <div class="card-header " style="height: 40px;">
-                            <span class="r-image">
-                                <img src="{{findImageProfile reply.dataValues.authorId ../../../users}}" class=" me-2"
-                                    alt="profile">
-                            </span>
-                            <small class="me-auto fw-light"><small>{{findUser reply.dataValues.authorId
-                                    ../../../users}}<i class="me-auto fw-light text-info"> -> @{{findUser
-                                        comment.dataValues.authorId
-                                        ../../../users}}</i></small></small>
-                            <small class="float-end fw-light text-white"><small>{{getDate
-                                    reply.dataValues.createdAt}}</small></small>
-                        </div>
-                        <div class="card-body">
-                            <small class="fw-light">{{reply.dataValues.content}}</small>
-                            <a type="button" href="/new-reply/{{post.id}}/{{reply.dataValues.id}}?previousPlace=friend"
-                                class="btn-sm btn-primary float-end ms-1">
-                                <i class="bi bi-chat-text-fill"></i>
-                            </a>
-                        </div>
-                    </div>
-                    {{/if}}
-                    {{/each}}
-                    {{/each}}
-
-                    <p class="text-white float-end mt-3">
-                        <small><a href="/new-comment/{{post.id}}" class="text-reset text-decoration-underline">Ver todos
-                                los
-                                comentarios</a></small>
-                    </p>
-                    {{/if}}
-
                 </div>
             </div>
-            {{else}}
-            <div class="post-box" aria-live="assertive" aria-atomic="true">
-                <div class="box-body">
-                    <small class="text-white">{{getDate post.createdAt}}</small>
-                    <header>
-                        <div class="p-image-text">
-                            <span class="p-image">
-                                <img src="{{post.author.dataValues.imageProfile}}" alt="profile">
-                            </span>
-                            <h4 class="text-white text-center mt-2 mb-3">{{post.author.dataValues.name}}</h4>
-                        </div>
-                    </header>
-                    <p class="text-white ms-5 me-5 mb-4">{{post.content}}</p>
-
-                    <a type="button" class="btn btn-primary float-end mt-0"
-                        href="/new-comment/{{post.id}}?previousPlace=friend">
-                        <i class="bi bi-chat"></i>
-                        Comentar
-                    </a>
-                    {{#if post.comments}}
-                    <hr class="text-white mt-5" />
-                    {{#each ( findOneCommentsWithoutReplies post.comments) as | comment |}}
-                    <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive"
-                        aria-atomic="true" style="width: 60%;">
-                        <div class="card-header " style="height: 40px;">
-                            <span class="r-image">
-                                <img src="{{findImageProfile comment.dataValues.authorId ../../users}}" class=" me-2"
-                                    alt="profile">
-                            </span>
-                            <small class="me-auto fw-light">{{findUser comment.dataValues.authorId
-                                ../../users}}</small>
-                            <small class="float-end fw-light text-white">{{getDate
-                                comment.dataValues.createdAt}}</small>
-                        </div>
-                        <div class="card-body">
-                            <small class="fw-light">{{comment.dataValues.content}}</small>
-
-                            <a type="button"
-                                href="/new-reply/{{post.id}}/{{comment.dataValues.id}}?previousPlace=friend"
-                                class="btn-sm btn-primary float-end ms-1">
-                                <i class="bi bi-chat-text-fill"></i>
-                            </a>
-                        </div>
-                    </div>
-                    {{!-- Comments of reply --}}
-                    {{#each (findOneReply comment.dataValues.id post.comments) as | reply |}}
-                    {{#if reply}}
-                    <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive"
-                        aria-atomic="true" style="width: 60%;  margin-left: 26px;">
-                        <div class="card-header " style="height: 40px;">
-                            <span class="r-image">
-                                <img src="{{findImageProfile reply.dataValues.authorId ../../../users}}" class=" me-2"
-                                    alt="profile">
-                            </span>
-                            <small class="me-auto fw-light"><small>{{findUser reply.dataValues.authorId
-                                    ../../../users}}<i class="me-auto fw-light text-info"> -> @{{findUser
-                                        comment.dataValues.authorId
-                                        ../../../users}}</i></small></small>
-                            <small class="float-end fw-light text-white"><small>{{getDate
-                                    reply.dataValues.createdAt}}</small></small>
-                        </div>
-                        <div class="card-body">
-                            <small class="fw-light">{{reply.dataValues.content}}</small>
-                            <a type="button" href="/new-reply/{{post.id}}/{{reply.dataValues.id}}?previousPlace=friend"
-                                class="btn-sm btn-primary float-end ms-1">
-                                <i class="bi bi-chat-text-fill"></i>
-                            </a>
-                        </div>
-                    </div>
-                    {{/if}}
-                    {{/each}}
-                    {{/each}}
-
-                    <p class="text-white float-end mt-3">
-                        <small><a href="/new-comment/{{post.id}}" class="text-reset text-decoration-underline">Ver todos
-                                los
-                                comentarios</a></small>
-                    </p>
-                    {{/if}}
-                </div>
-            </div>
-            {{/if}}
             {{/each}}
         </div>
     </div>
 
-
-    <div class="grid-item2" id="allFriends">
+    
+   <div class="grid-item2" id="allFriends">
         <h1>Your Friends</h1>
         <hr>
         <div class="friendList">
@@ -194,48 +49,44 @@
                 {{#each userF as |uf key|}}
                 <li>
                     <div class="imgNameButton">
-                        <a href="">
+                        <a href="">    
                             <div class="imgName">
-                                <img src="{{uf.imageProfile}}" alt="profile {{uf.name}}" class="imgFriendList">
-                                <p>
-                                    {{uf.name}} {{uf.lastName}}
-                                </p>
+                                    <img src="{{uf.imageProfile}}" alt="profile {{uf.name}}" class="imgFriendList"> 
+                                    <p>
+                                        {{uf.name}} {{uf.lastName}}
+                                    </p>
                             </div>
                         </a>
                         <div class="">
-                            <button type="button" class="btn btn-primary" data-toggle="modal"
-                                data-target="#deleteF{{uf.id}}">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteF{{uf.id}}">
                                 <i class="bi bi-trash"></i>
                             </button>
                         </div>
-                    </div>
+                    </div>      
                 </li>
 
-                <div class="modal fade" id="deleteF{{uf.id}}" tabindex="-1" role="dialog"
-                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="btn close btn-danger" data-dismiss="modal"
-                                    aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <p>Estas seguro de que quieres borrar a <i>{{uf.name}} {{uf.lastName}}</i> de tu lista
-                                    de amigos...?</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <div class="modal fade" id="deleteF{{uf.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="btn close btn-danger" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Estas seguro de que quieres borrar a <i>{{uf.name}} {{uf.lastName}}</i> de tu lista de amigos...?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 <a href="/delete/friend/{{../userId}}/{{uf.id}}" class="btn btn-danger">Delete</a>
-                            </div>
                         </div>
                     </div>
                 </div>
+                </div> 
 
                 {{/each}}
             </ul>
-        </div>
+        </div>    
         <div class="">
             <a href="/searchNewFriendHome/{{userId}}" class="searchNewFriend">add new friend</a>
         </div>

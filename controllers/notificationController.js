@@ -20,7 +20,8 @@ module.exports.getAllNotifications = async (req, res, next) => {
           [Op.or]: [
             { [Op.and]: [{ receptorID: userId }, {isAccepted: false}]},
           ]
-        }
+        },
+        order: [["createdAt", "DESC"]]
       }).then((fs) => {
         const friendS= fs.map(f => f.dataValues);
         const usersIdSender = friendS.map(f => f.senderID);
@@ -58,17 +59,21 @@ module.exports.solicitudeFriend = (req, res, next) => {
         let friendInfo = f.dataValues;
 
         //send the notification to the user
-        let endpoint = await JSON.parse(fs.readFileSync(path.join(__dirname, "../endpoint.json"), 'utf8'));
-        let container = await endpoint.filter(sub => sub.userId === `${friendID}`);
-        pushSubscription = await container[0].subscriptions;
-        const userNotification = await JSON.stringify({
-          title: "Friend Request",
-          body: `${friendInfo.user} has sent you a friend request`,
-          icon: `${friendInfo.imageProfile}`,
-        });
-        
-        await webPush.sendNotification(pushSubscription, userNotification);
-        res.status(200).redirect(`/searchNewFriendHome/${userId}}`);
+        try {
+          let endpoint = await JSON.parse(fs.readFileSync(path.join(__dirname, "../endpoint.json"), 'utf8'));
+          let container = await endpoint.filter(sub => sub.userId === `${friendID}`);
+          pushSubscription = await container[0].subscriptions;
+          const userNotification = await JSON.stringify({
+            title: "Friend Request",
+            body: `${friendInfo.user} has sent you a friend request`,
+            icon: `${friendInfo.imageProfile}`,
+          });
+          
+          await webPush.sendNotification(pushSubscription, userNotification);
+          res.status(200).redirect(`/searchNewFriendHome/${userId}}`);
+        } catch (error) {
+          console.log('\nerror in web push notification: \n\n\n',error);
+        }
 
       }).catch((err) => console.log(err));    
     }).catch(err => console.log(err));
