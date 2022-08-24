@@ -202,7 +202,7 @@
 
     <div class="form-content">
 
-      <form action="/login_up " method="POST" id="login" onsubmit="process(event)" >
+      <form enctype="multipart/form-data" action="/login_up " method="POST" id="login" onsubmit="process(event)" >
 
         <input type="hidden" name="_csrf" value="{{csrfToken}}" />
 
@@ -226,7 +226,7 @@
         </div>
 
         <div class="input-box underline">
-          <input name="image" accept="image/*" type="file" placeholder="Image Profile" autocomplete="off" class=""
+          <input name="ImageFile" accept="image/*" type="file" placeholder="Image Profile" autocomplete="off" class=""
             required />
           <div class="underline"></div>
         </div>
