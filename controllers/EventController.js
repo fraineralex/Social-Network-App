@@ -7,7 +7,6 @@ const notiCount = require("../util/countNotifications");
 const { asIs } = require("sequelize");
 const moment = require("moment");
 
-
 exports.GetAllEvents = (req, res, next) => {
   let currentlyUser = req.user.id;
 
@@ -33,7 +32,7 @@ exports.GetAllEvents = (req, res, next) => {
           },
         ],
       })
-        .then( async (result) => {
+        .then(async (result) => {
           let events;
           if (result.length > 0)
             events = result.map((result) => result.dataValues);
@@ -72,7 +71,7 @@ exports.GetCreatedEvents = (req, res, next) => {
         include: [{ model: EventRequests }],
         order: [["createdAt", "DESC"]],
       })
-        .then( async (result) => {
+        .then(async (result) => {
           const events = result.map((result) => result.dataValues);
 
           res.render("client/events", {
@@ -95,7 +94,7 @@ exports.GetCreatedEvents = (req, res, next) => {
 
 exports.GetCreateEvent = (req, res, next) => {
   let userId = req.user.id;
-  Users.findOne({ where: {id: userId}})
+  Users.findOne({ where: { id: userId } })
     .then(async (result) => {
       let user;
       if (result) {
@@ -137,7 +136,7 @@ exports.PostCreateEvent = (req, res, next) => {
 
 exports.GetDeleteEvent = (req, res, next) => {
   const eventId = req.params.EventId;
-  console.log(eventId)
+  console.log(eventId);
 
   Events.destroy({ where: { id: eventId } })
     .then(() => {
@@ -172,7 +171,7 @@ exports.GetAddInvited = (req, res, next) => {
             user: user,
             event: event,
             viewInvited: viewInvited,
-            nCount1: await notiCount.countNotifications(authorId)
+            nCount1: await notiCount.countNotifications(authorId),
           });
         })
         .catch((err) => {
@@ -189,101 +188,73 @@ exports.PostAddInvited = (req, res, next) => {
   const eventId = req.body.EventId;
   const receptorUserName = req.body.ReceptorUserName;
 
-  Events.findOne({
-    where: { id: eventId },
+  Users.findOne({
+    where: {
+      [Op.and]: [{user: receptorUserName}, {isActive: true}],
+    },
   })
     .then((result) => {
-      const event = result.dataValues;
+      let receptorId = 0;
 
-      Users.findOne({
+      if (result) {
+        receptorId = result.dataValues.id;
+      }
+
+      EventRequests.findOne({
         where: {
-          id: authorId,
+          [Op.and]: [{ eventId: eventId }, { receptorId: receptorId }],
         },
       })
-        .then((result) => {
-          const user = result.dataValues;
+        .then(async (result) => {
+          if (result) {
+            req.flash("errors", "Este usuario ya ha sido invitado");
+            return res.redirect("/add-invited/" + authorId + "/" + eventId);
+          }
 
-          Users.findOne({
+          Friends.findOne({
             where: {
-              user: receptorUserName,
+              [Op.or]: [
+                {
+                  [Op.and]: [
+                    { senderID: authorId },
+                    { receptorID: receptorId },
+                  ],
+                },
+                {
+                  [Op.and]: [
+                    { senderID: receptorId },
+                    { receptorID: authorId },
+                  ],
+                },
+              ],
             },
           })
-            .then((result) => {
-              let receptorId = 0;
+            .then(async (result) => {
+              let areFriend = false;
 
               if (result) {
-                receptorId = result.dataValues.id;
+                areFriend = result.dataValues.isAccepted;
               }
 
-              EventRequests.findOne({
-                where: {
-                  [Op.and]: [{ eventId: eventId }, { receptorId: receptorId }],
-                },
-              })
-                .then( async (result) => {
-                  if (result) {
-                    req.flash("errors", "Este usuario ya ha sido invitado");
-                    return res.redirect(
-                      "/add-invited/" + authorId + "/" + eventId
-                    );
-                  }
-
-                  Friends.findOne({
-                    where: {
-                      [Op.or]: [
-                        {
-                          [Op.and]: [
-                            { senderID: authorId },
-                            { receptorID: receptorId },
-                          ],
-                        },
-                        {
-                          [Op.and]: [
-                            { senderID: receptorId },
-                            { receptorID: authorId },
-                          ],
-                        },
-                      ],
-                    },
-                  })
-                    .then(async (result) => {
-                      let areFriend = false;
-
-                      if (result) {
-                        areFriend = result.dataValues.isAccepted;
-                      }
-
-                      if (areFriend) {
-                        EventRequests.create({
-                          authorId: authorId,
-                          receptorId: receptorId,
-                          eventId: eventId,
-                        })
-                          .then(() => {
-                            res.redirect(
-                              "/view-invited/" + authorId + "/" + eventId
-                            );
-                          })
-                          .catch((err) => {
-                            console.log(err);
-                          });
-                      } else {
-                        req.flash(
-                          "errors",
-                          "Este usuario no se ha encontrado en su lista de amigos."
-                        );
-                        return res.redirect(
-                          "/add-invited/" + authorId + "/" + eventId
-                        );
-                      }
-                    })
-                    .catch((err) => {
-                      console.log(err);
-                    });
+              if (areFriend) {
+                EventRequests.create({
+                  authorId: authorId,
+                  receptorId: receptorId,
+                  eventId: eventId,
                 })
-                .catch((err) => {
-                  console.log(err);
-                });
+                  .then(() => {
+                    res.redirect("/view-invited/" + authorId + "/" + eventId);
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                  });
+              } else {
+                req.flash(
+                  "errors",
+                  "Este usuario no se ha encontrado en su lista de amigos."
+                );
+                return res.redirect("/add-invited/" + authorId + "/" + eventId);
+              }
             })
             .catch((err) => {
               console.log(err);
