@@ -1,0 +1,228 @@
+<main>
+    <section class="text-center container">
+        <div class="row">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 class="fw-bold text-primary mt-4">Buzón de Eventos</h1>
+                <p class="lead text-white">Te damos la bienvenida a tu buzon de eventos, donde puedes revisar
+                    los eventos a los que te invitaron tus amigos, crear nuevos eventos y mucho más.
+                </p>
+                <p>
+                    <a href="/create-event" class="btn btn-primary mt-1 mb-4"><i class="bi bi-calendar-plus"></i> Nuevo
+                        evento</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <style>
+        .tabs {
+            margin-left: 15%;
+            width: 70%;
+            height: 30rem;
+            padding: 20px 30px;
+            overflow: hidden;
+            border-radius: 50px;
+            box-shadow: 5px 10px 5px rgb(70, 68, 68);
+        }
+
+        .tabs .tab-header {
+            height: 60px;
+            display: flex;
+            align-items: center;
+        }
+
+        .tabs .tab-header>div {
+            width: calc(100% / 2);
+            text-align: center;
+            color: rgb(255, 255, 255);
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 14px;
+            text-transform: uppercase;
+            outline: none;
+        }
+
+        .tabs .tab-header>div>i {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .tabs .tab-indicator {
+            position: relative;
+            width: calc(100%);
+            height: 5px;
+            border-radius: 5px;
+            transition: all 500ms ease-in-out;
+        }
+
+        .tabs .tab-body {
+            position: relative;
+            height: calc(100%);
+            align-items: center;
+            overflow-y: scroll;
+        }
+
+        .tabs .tab-body>div {
+            position: absolute;
+            top: -200%;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 500ms ease-in-out 0ms,
+                transform 500ms ease-in-out 0ms;
+        }
+
+        .tabs .tab-body>div.active {
+            top: 0px;
+            opacity: 1;
+            transform: scale(1);
+        }
+    </style>
+
+    <div class="tabs bg-dark mb-5">
+        <div class="tab-header">
+            <div>
+                <div class="{{#if createdMode}}{{else}}border-bottom border-4 border-primary{{/if}}"
+                    style="height: 50px;">
+                    <a class="fa fa-code fs-5 text-white text-decoration-none" href="/events">Recibidos</a>
+                </div>
+            </div>
+            <div>
+                <div class="{{#if createdMode}}border-bottom border-4 border-primary{{/if}}" style="height: 50px;">
+                    <a class="fa fa-code fs-5 text-white text-decoration-none" href="/events-created">Creados</a>
+                </div>
+            </div>
+        </div>
+
+        {{#if createdMode}}
+        <div class="tab-indicator tab-indicator-2">
+        </div>
+
+        <div class="tab-body">
+            <div class="active text-white">
+                {{#if events}}
+                <div class="row mb-5 mx-auto">
+                    {{#each events as | event |}}
+                    <div class="col-md-6">
+                        <div class="card bg-secondary mt-3" aria-live="assertive" aria-atomic="true"
+                            style="max-width: 100%">
+                            <div class="card-header">
+                                <img src="https://cdn-icons-png.flaticon.com/32/3078/3078971.png" class="rounded me-2"
+                                    alt="Evento">
+                                <strong class="me-auto">{{event.name}}</strong>
+                                <small class="text-white float-end">{{getDate event.createdAt}}</small>
+                            </div>
+
+                            <div class="card-body">
+                                <small><strong>Fecha:</strong>{{#if (getEventDate event.date)}}<i
+                                        class="ms-1 font-monospace">{{getEventDate
+                                        event.date}}{{else}}<i class="ms-2">Evento finalizado
+                                            ❌{{/if}}</i></small><br>
+                                <small><strong> Lugar:</strong><i
+                                        class="ms-2 font-monospace">{{event.place}}</i></small>
+                                <small class="ms-2 font-monospace"><br>
+                                    <strong>Inivitados:</strong><i class="font-monospace">{{lengthValue
+                                        event.eventRequests}}</i></small>
+                                <div class="mt-2 pt-2 border-top text-center">
+
+                                    <a type="submit" class="btn btn-sm btn-danger" onclick="DeleteConfirm({{event.id}}, 'event', 'Seguro que deseas eliminar este evento', 'Evento eliminado satisfactoriamente')">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                            <path
+                                                d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                                        </svg>Eliminar
+                                    </a>
+                                    {{#if (getEventDate event.date)}}
+                                    <a type="button" class="btn btn-sm btn-light"
+                                        href="/add-invited/{{../user.id}}/{{event.id}}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
+                                            <path
+                                                d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                                            <path fill-rule="evenodd"
+                                                d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z" />
+                                        </svg>
+                                        Invitar</a>{{/if}}
+                                    <a type=" button" class="btn btn-sm btn-info"
+                                        href="/view-invited/{{../user.id}}/{{event.id}}">
+                                        <i class="bi bi-info-circle"></i> Ver invitados</a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+                {{else}}
+                <h3 class="text-white mt-4">Aún no has creado ningun evento</h3>
+                {{/if}}
+            </div>
+        </div>
+        {{else}}
+        <div class="tab-indicator tab-indicator-1">
+        </div>
+
+        <div class="tab-body">
+            <div class="active text-white">
+                {{#if events}}
+                <div class="row mb-5">
+                    {{#each events as | event |}}
+                    <div class="col-md-6">
+                        <div class="card bg-secondary mt-3 ms-4" aria-live="assertive" aria-atomic="true"
+                            style="max-width: 100%;">
+                            <div class="card-header">
+                                <img src="https://cdn-icons-png.flaticon.com/32/3078/3078971.png" class="rounded me-2"
+                                    alt="Evento">
+                                <strong class="me-auto">{{event.name}}</strong>
+                                <small class="text-white float-end">{{getDate event.createdAt}}</small>
+                            </div>
+
+                            <div class="card-body">
+                                <small><strong>Fecha:</strong>{{#if (getEventDate event.date)}}<i
+                                        class="ms-1 font-monospace">{{getEventDate
+                                        event.date}}{{else}}<i class="ms-2">Evento finalizado
+                                            ❌{{/if}}</i></small><br>
+                                <small><strong> Lugar:</strong><i
+                                        class="ms-2 font-monospace">{{event.place}}</i></small>
+                                <small class="ms-2"><br><strong>Inivitados:</strong><i
+                                        class="font-monospace">{{lengthValue
+                                        event.eventRequests}}</i></small>
+                                {{#if (getEventDate event.date)}}
+                                <div class="mt-2 pt-2 border-top text-center ms-4 me-4">
+                                    <form class="d-inline" method="post" action="/assist/yes">
+                                        <input type="hidden" name="_csrf" value="{{csrfToken}}">
+                                        <input type="hidden" name="ReceptorId" value="{{../user.id}}">
+                                        <input type="hidden" name="EventId" value="{{event.id}}">
+                                        <button type="submit"
+                                            class="btn btn-sm {{findAnswer event.eventRequests ../user.id 'yes'}}">Asistiré</button>
+                                    </form>
+                                    <form class="d-inline" method="post" action="/assist/maybe">
+                                        <input type="hidden" name="_csrf" value="{{csrfToken}}">
+                                        <input type="hidden" name="ReceptorId" value="{{../user.id}}">
+                                        <input type="hidden" name="EventId" value="{{event.id}}">
+                                        <button type="submit"
+                                            class="btn btn-sm {{findAnswer event.eventRequests ../user.id 'maybe'}}">Tal
+                                            vez asista</button>
+                                    </form>
+                                    <form class="d-inline" method="post" action="/assist/not">
+                                        <input type="hidden" name="_csrf" value="{{csrfToken}}">
+                                        <input type="hidden" name="ReceptorId" value="{{../user.id}}">
+                                        <input type="hidden" name="EventId" value="{{event.id}}">
+                                        <button type="submit"
+                                            class="btn btn-sm {{findAnswer event.eventRequests ../user.id 'not'}}">No
+                                            asistiré</button>
+                                    </form>
+                                </div>
+                                {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+                {{else}}
+                <h3 class="text-white mt-4">No has recibido ninguna invitación todavía</h3>
+                {{/if}}
+            </div>
+        </div>
+        {{/if}}
+    </div>
+</main>

@@ -1,0 +1,70 @@
+<main>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <section class="text-center container">
+        <div class="row">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 class="fw-bold text-primary mt-4">Lista de invitados</h1>
+                <p class="lead text-white">Te damos la bienvenida a la lista de invitados de este evento, donde puedes
+                    los amigos invitados junto con su información personal, sus respuestas a tu invitación y mucho más.
+                </p>
+                <p>
+                    <a type="button" class="btn btn-primary text-light mt-2"
+                        href="/add-invited/{{user.id}}/{{event.id}}?viewInvited=true"><i
+                            class="fa-solid fa-circle-plus"></i>
+                        Agregar invitado</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <div class="container container-content text-center p-5">
+        <div class="row">
+            <div class=" col-md-10 mx-auto">
+                <div class="container pt-5 p-5 bg-dark rounded-3">
+                    <table id="table-invited" class=" table table-dark table-hover">
+
+                        <div class="d-flex justify-content-between mb-3 text-dark">
+                            <h2 class="text-white">{{event.name}}🗓️</h2>
+                        </div>
+
+
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Apellido</td>
+                                <th>Usuario</td>
+                                <th>Respuesta</td>
+                                <th>Eliminar</td>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {{#each invitedUsers as |invited|}}
+                            {{#each invited.eventRequests as |receptor|}}
+                            <tr>
+                                <td>{{invited.name}}</td>
+                                <td>{{invited.lastName}}</td>
+                                <td>@{{invited.user}}</td>
+                                <td>{{#if receptor.dataValues.message}}{{receptor.dataValues.message}}{{else}}Sin
+                                    respuesta{{/if}}</td>
+                                <td>
+
+                                    <a type="submit" class="btn btn-danger"
+                                        onclick="DeleteConfirm({{receptor.dataValues.receptorId}}+'/'+{{receptor.dataValues.eventId}}+'/'+{{../../user.id}}, 'invited', 'Seguro que deseas eliminar este inivitado', 'Invitado eliminado satisfactoriamente')"><i
+                                            class='fa-solid fa-trash-can'></i> </a>
+
+                                </td>
+                                </td>
+                            </tr>
+                            {{/each}}
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

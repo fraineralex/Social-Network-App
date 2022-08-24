@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import './layout-styles';
+@import './img-styles'; // no la uses la voy a borrar en el futuro
+@import './notification';  
+
+// el centra todo XD
+.box-center{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+// for phone
+@media screen and (max-width: 415px) {
+    @import './phone';
+    @import './showFriend';
+    @import './searchNewFriend';
+    @include boxPost(5rem, 1rem, 34rem, 9rem, 10rem, 15rem);
+    @include showFriend(2);
+}
+
+// for desktop
+@media screen and (min-width: 416px) {
+    @import './desktop';
+    @import './showFriend';
+    @import './searchNewFriend';
+    @include boxPost(5rem, 1rem, 44rem, 9rem, 45rem, 15rem);
+    @include showFriend(3);
+}
+

@@ -1,2 +1,9 @@
 /node_modules
 package-lock.json
+/context
+/views/client/test.hbs
+*png
+*jpg
+*jpeg
+*gif
+*jfif

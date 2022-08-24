@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/assets/css/custom/styles.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+
+    <title>{{pageTitle}}</title>
+</head>
+
+<body class="dark">
+
+    {{#if loginActive}}
+
+    {{else}}
+
+    <nav class="sidebar close">
+        <header>
+            <div class="image-text">
+                <span class="image">
+                    <img src="{{user.imageProfile}}" alt="profile">
+                </span>
+
+                <div class="textDesign logo-text">
+                    <span class="name">{{user.name}}</span>
+                    <span class="profession text-center">{{user.user}}</span>
+                </div>
+            </div>
+
+            <i class='bx bx-chevron-right toggle'></i>
+        </header>
+
+        <div class="menu-bar">
+            <div class="menu pe-0">
+
+                <ul class="p-0">
+                    <li class="">
+                        <a href="/">
+                            <i class='bx bx-home-alt icon'></i>
+                            <span class="textDesign nav-text">Inicio</span>
+                        </a>
+                    </li>
+
+                    <li class="">
+                        <a href="/friend">
+                            <i class='bx bx-group icon'></i>
+                            <span class="textDesign nav-text">Amigos</span>
+                        </a>
+                    </li>
+
+                    <li class="">
+                        <a href="/Notifications" class="position-relative">
+                            <i class='bx bx-bell icon'>
+                                {{#if (notificationCount nCount1)}}
+
+                                {{else}} 
+                                <span class="position-absolute top-0 start-50 translate-middle badge rounded-5 bg-danger" id="nnSpan">
+                                    {{nCount1}}
+                                </span>
+                                {{/if}}
+                            </i>
+                            <span class="textDesign nav-text">Notificaciones</span>
+                        </a>
+                    </li>
+
+                    <li class="">
+                        <a href="/events">
+                            <i class='bx bx-calendar icon'></i>
+                            <span class="textDesign nav-text">Eventos</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+
+            <div class="bottom-content">
+                <li class="nav-item">
+                    <form action="/logout" method="POST">
+                    <input type="hidden" name="_csrf" value="{{csrfToken}}">
+                        <button class="btn-sm btn-dark" style="border: none;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                style="fill: rgba(255, 255, 255, 1);transform: ;msFilter:;">
+                                <path d="M16 13v-2H7V8l-5 4 5 4v-3z"></path>
+                                <path
+                                    d="M20 3h-9c-1.103 0-2 .897-2 2v4h2V5h9v14h-9v-4H9v4c0 1.103.897 2 2 2h9c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2z">
+                                </path>
+                            </svg> Logout
+                        </button>
+                    </form>
+                </li>
+
+                <li class="mode">
+                    <div class="sun-moon">
+                        <i class='bx bx-moon icon moon'></i>
+                        <i class='bx bx-sun icon sun'></i>
+                    </div>
+                    <span class="mode-text textDesign">Dark mode</span>
+
+                    <div class="toggle-switch">
+                        <span class="switch"></span>
+                    </div>
+                </li>
+            </div>
+        </div>
+    </nav>
+    {{/if}}
+
+    <main class="container">
+        {{#if hasErrorMessages}}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <ul>
+                {{#each errorMessages}}
+                <li>{{this}}</li>
+                {{/each}}
+            </ul>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {{/if}}
+
+        {{{body}}}
+    </main>
+
+
+    <!-- JavaScript Bundle with Popper -->
+    <script src="../../assets/js//lib/bootstrap/bootstrap.min.js"></script> 
+    <script src="/assets/js/custom/script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="/assets/js/custom/script_login.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        crossorigin="anonymous"></script>
+    <script src="/assets/js/custom/subscriptions.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</body>
+
+</html>

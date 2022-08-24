@@ -1,0 +1,22 @@
+<div class="notification-container">
+    {{#each friendS as |fs key|}}
+    <div class="container-body">
+        <div class="container-img">
+            <img src="{{notificationInfoImg ../userS key}}" alt="{{notificationInfoName ../userS key}} image">
+        </div>
+        <div class="container-text">
+            <p><span>{{notificationInfoUserName ../userS key}}</span> send you to friend request</p>
+        </div>
+        <div class="container-button">
+            <div class="dropdown show">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a href="/notifications/acceptFriend/{{fs.id}}" class="dropdown-item">accept</a>
+                    <a href="/notifications/deleteNotification/{{fs.id}}" class="dropdown-item">delete</a>
+                    <a href="/notifications/viewNotifications/{{fs.id}}" class="dropdown-item">viewed</a>
+                </div>
+            </div>
+        </div>          
+    </div>
+    {{/each}}
+</div>
