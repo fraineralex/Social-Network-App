@@ -135,7 +135,7 @@ exports.GetReset = (req, res, next) => {
 };
 
 exports.PostReset = (req, res, next) => {
-  const email = req.body.email;
+  const user = req.body.user;
 
   crypto.randomBytes(32, (err, buffer) => {
     if (err) {
@@ -150,10 +150,10 @@ exports.PostReset = (req, res, next) => {
 
     const token = buffer.toString("hex");
 
-    User.findOne({ where: { email: email } })
+    User.findOne({ where: { user: user } })
       .then((user) => {
         if (!user) {
-          req.flash("errors", "No existe una cuenta con este usuario.");
+          req.flash("errors", "No existe una cuenta con este nombre de usuario.");
           return null;
         }
 
@@ -164,17 +164,18 @@ exports.PostReset = (req, res, next) => {
       })
       .then((result) => {
         let urlRedirect = "/reset";
+        const userEmail = result.dataValues.email;
 
         if (result) {
           urlRedirect = "/login";
 
           transporter.sendMail({
             from: "alguien142015@gmail.com",
-            to: email,
+            to: userEmail,
             subject: `Password reset`,
             html: `<h3>Ha solicitado una actualizacion de contraseña</h3>
                
-          <p> Haga click en este <a href="http://localhost:5000/reset/${token}"> link </a> para actualizar su nueva contraseña </p>`,
+          <p> Haga click en este <a href="http://localhost:5000/reset/${token}"> enlace </a> para actualizar su contraseña </p>`,
           });
         }
 
