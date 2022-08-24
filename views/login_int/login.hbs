@@ -119,6 +119,8 @@ i {
     <div class="form-content">
       <form action="/login" method="POST">
 
+      <input type="hidden" name="_csrf" value="{{csrfToken}}">
+
         <div class="title">Login</div>
 
         <div class="input-box underline">

@@ -2,6 +2,7 @@
 
     <div class="items1">
         <form action="/searchNewFriend" method="post">
+        <input type="hidden" name="_csrf" value="{{csrfToken}}">
             <div>
                 <label for="search">New friend</label>
             </div>
@@ -21,6 +22,7 @@
                 {{#each us as |us key|}}
                 <div class="box-container">
                     <form action="/solicitude/friend/{{../userId}}/{{us.id}}" method="post">
+                    <input type="hidden" name="_csrf" value="{{../csrfToken}}">
                         <a href="User/{{us.id}}" class="">
                             <div class="container-img">
                                 <img src="{{us.imageProfile}}" alt="{{us.name}} profile image">

@@ -1,180 +1,267 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
-{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins',sans-serif;
-}
-html, body{
-  display: grid;
-  height: 500px;
-  width: 100%;
-  place-items: center;
-  background: linear-gradient(to right, #1b1919 0%, #3d4146 100%);
-}
-::selection{
-  background: #465fec;
 
-}
-  .container{
-  background: rgb(250, 248, 248);
-  max-width: 550px;
-  width: 100%;
-  padding: 30px 35px;
-  border-radius: 20px;
-  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.15);
-}
-.container form .title{
-  font-size: 30px;
-  font-weight: 600;
-  margin: 20px 0 10px 0;
-  position: relative;
-}
-.container form .title:before{
-  content: '';
-  position: absolute;
-  height: 4px;
-  width: 33px;
-  left: 0px;
-  bottom: 3px;
-  border-radius: 5px;
-  background: linear-gradient(to right, #413874 0%, #6375db 100%);
-}
-.container form .input-box{
-  width: 100%;
-  height: 45px;
-  border: 0;
-  margin: 0 0 15px;
-  position: relative;
-}
-.container form .input-box input{
-  width: 100%;
-  height: 100%;
-  outline: none;
-  font-size: 16px;
-  border: none;
-  background: rgb(250, 248, 248);
-}
-.container form .underline::before{
-  content: '';
-  position: absolute;
-  height: 2px;
-  width: 100%;
-  background: rgb(216, 214, 214);
-  left: 0;
-  bottom: 0;
-}
-.container form .underline::after{
-  content: '';
-  position: absolute;
-  height: 2px;
-  width: 100%;
-  background: linear-gradient(to right, #413874 0%, #6375db 100%);
-  left: 0;
-  bottom: 0;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: all 0.3s ease;
-}
-.container form .input-box input:focus ~ .underline::after,
-.container form .input-box input:valid ~ .underline::after{
-  transform: scaleX(1);
-  transform-origin: left;
-}
-.container form .button{
-  margin: 40px 0 20px 0;
-}
-.container .input-box input[type="submit"]{
-  background: linear-gradient(to right, #413874 0%, #6375db 100%);
-  font-size: 17px;
-  color: #fff;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-.container .input-box input[type="submit"]:hover{
-  letter-spacing: 1px;
-  background: linear-gradient(to left, #413874 0%, #6375db 100%);
-}
-.container .option{
-  font-size: 14px;
-  text-align: center;
-}
-i {
-  position: absolute;
-  right: 02%;
-  top: 35%;
-}
-.ic {
-  position: absolute;
-  right: 20%;
-  top: 35%;
-}
-</style> 
+    {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family:
+      'Poppins', sans-serif;
+  }
+
+  html,
+  body {
+    display: grid;
+    height: 500px;
+    width: 100%;
+    place-items: center;
+    background: linear-gradient(to right, #1b1919 0%, #3d4146 100%);
+  }
+
+  ::selection {
+    background: #465fec;
+  }
+
+  .container {
+    background: rgb(250,
+        248, 248);
+    max-width: 550px;
+    width: 100%;
+    padding: 30px 35px;
+    border-radius:
+      20px;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.15);
+  }
+
+  .container form .title {
+    font-size: 30px;
+    font-weight: 600;
+    margin: 20px 0 10px 0;
+    position: relative;
+  }
+
+  .container form .title:before {
+    content: '';
+    position: absolute;
+    height: 4px;
+    width: 33px;
+    left: 0px;
+    bottom: 3px;
+    border-radius: 5px;
+    background:
+      linear-gradient(to right, #413874 0%, #6375db 100%);
+  }
+
+  .container form .input-box {
+    width: 100%;
+    height: 45px;
+    border: 0;
+    margin: 0 0 15px;
+    position:
+      relative;
+  }
+
+  .container form .input-box input {
+    width: 100%;
+    height: 100%;
+    outline: none;
+    font-size: 16px;
+    border: none;
+    background: rgb(250, 248, 248);
+  }
+
+  .container form .underline::before {
+    content: '';
+    position: absolute;
+    height:
+      2px;
+    width: 100%;
+    background: rgb(216, 214, 214);
+    left: 0;
+    bottom: 0;
+  }
+
+  .container form .underline::after {
+    content: '';
+    position: absolute;
+    height:
+      2px;
+    width: 100%;
+    background: linear-gradient(to right, #413874 0%, #6375db 100%);
+    left: 0;
+    bottom: 0;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: all 0.3s ease;
+  }
+
+  .container form .input-box input:focus~.underline::after,
+  .container form .input-box input:valid~.underline::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  .container form .button {
+    margin: 40px 0 20px 0;
+  }
+
+  .container .input-box input[type="submit"] {
+    background: linear-gradient(to right, #413874 0%, #6375db 100%);
+    font-size:
+      17px;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .container .input-box input[type="submit"]:hover {
+    letter-spacing: 1px;
+    background: linear-gradient(to left, #413874 0%, #6375db 100%);
+  }
+
+  .container .option {
+    font-size: 14px;
+    text-align: center;
+  }
+
+  i {
+    position: absolute;
+    right:
+      02%;
+    top: 35%;
+  }
+
+  .ic {
+    position: absolute;
+    right: 20%;
+    top: 35%;
+  }
+
+  .contenedor-btn-file input[type="file"] {
+    appearance: none;
+    display: none;
+    visibility: hidden;
+    opacity: 0;
+    z-index: -1;
+  }
+
+  .contenedor-btn-file {
+    display:
+      inline-block;
+    position: relative;
+    background-color: #186CC3;
+    color: #fff;
+    border: 0;
+    padding: 02px 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, .15);
+    overflow: hidden;
+    transition: ease-out 120ms background-color;
+  }
+
+  .contenedor-btn-file:hover {
+    background-color: #16579B;
+  }
+
+  .contenedor-btn-file:active {
+    background-color: #114378;
+  }
+
+  .contenedor-btn-file>i {
+    margin-right: 15px;
+  }
+
+  .contenedor-btn-file label {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+  }
+
+  .contenedor-btn-file.bordeado {
+    background-color: #fff;
+    border: 2px solid #186CC3;
+    color: #186CC3;
+  }
+
+  .contenedor-btn-file.bordeado:hover {
+    background-color: #186CC3;
+    color: #fff;
+  }
+</style>
 
 <section class="container forms">
-<div class="form login">
-    
+  <div class="form login">
+
     <div class="form-content">
-        
-        <form action="/login_up " method="POST">
+
+      <form action="/login_up " method="POST" id="login" onsubmit="process(event)" >
+
+        <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+
         <div class="title">Registrate</div>
 
-            <div class="input-box underline">
-                <input name="name" type="name" placeholder="Name"  class="" autocomplete="off" required>
-                <div class="underline"></div>
-            </div>
-
-            <div class="input-box underline">
-                <input name="lastname" type="lastname" placeholder="Last Name" class="" autocomplete="off" required>
-                <div class="underline"></div>
-            </div>
-
-            <div class="input-box underline">
-                <!--<input name="number" type="number" placeholder="Phone" class="input">-->
-                <input  id="phone" name="number" class="col-12" maxlength="10" placeholder="000-000-0000" autocomplete="off" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" min="1" required>
-                <div class="underline"></div>
-            </div>
-
-            <div class="input-box underline">
-                <input name="image" accept="image/*" type="name" placeholder="Image Profile" autocomplete="off" class="" required>
-                <div class="underline"></div>
-            </div>
-
-            <div class="input-box underline">
-                <input name="email" type="email" placeholder="Email" class="" autocomplete="off" required>
-                <div class="underline"></div>
-            </div>
-
-            <div class="input-box underline">
-                <input name="username" type="user" placeholder="User name" class="input" autocomplete="off" required>
-                <div class="underline"></div>
-            </div>
-
-            <div class="input-box underline">
-                <input name="password" type="password" placeholder="Create password" class="password" required>
-                <div class="underline"></div>
-            </div>
-
-            <div class="input-box underline">
-                <input name="confirmPassword" type="password" placeholder="Confirm password" class="password" required>
-                <i class='bx bx-hide eye-icon'></i>
-                
-                <div class="underline"></div>
-            </div>
-
-            <div class="input-box button">
-                <input type="submit" name="" value="Registrarse">
-            </div>
-        </form>
-
-        <div class="form-link option">
-            <span>Already have an account? <a href="login" class="link">Login</a></span>
+        <div class="input-box underline">
+          <input name="name" type="name" placeholder="Name" class="" autocomplete="off" required />
+          <div class="underline"></div>
         </div>
-    </div>
-</div>
 
+        <div class="input-box underline">
+          <input name="lastname" type="lastname" placeholder="Last Name" class="" autocomplete="off" required />
+          <div class="underline"></div>
+        </div>
+
+        <div class="input-box underline">
+          {{!-- <input name="phone" id="phone" type="tel" placeholder="Phone" class="input" required> --}}
+          <input type="tel" id="phone" name="phone" class="col-12" maxlength="10" placeholder="000-000-0000" autocomplete="off"
+            onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" min="1" required />
+          <div class="underline"></div>
+        </div>
+
+        <div class="input-box underline">
+          <input name="image" accept="image/*" type="file" placeholder="Image Profile" autocomplete="off" class=""
+            required />
+          <div class="underline"></div>
+        </div>
+
+        <div class="input-box underline">
+          <input name="email" type="email" placeholder="Email" class="" autocomplete="off" required />
+          <div class="underline"></div>
+        </div>
+
+        <div class="input-box underline">
+          <input name="username" type="user" placeholder="User name" class="input" autocomplete="off" required />
+          <div class="underline"></div>
+        </div>
+
+        <div class="input-box underline">
+          <input name="password" type="password" placeholder="Create password" class="password" required />
+          <div class="underline"></div>
+        </div>
+
+        <div class="input-box underline">
+          <input name="confirmPassword" type="password" placeholder="Confirm password" class="password" required />
+          <i class="bx bx-hide eye-icon"></i>
+
+          <div class="underline"></div>
+        </div>
+
+        <div class="input-box button">
+          <input type="submit" name="" value="Registrarse" />
+        </div>
+      </form>
+
+      <div class="form-link option">
+        <span>Already have an account?
+          <a href="login" class="link">Login</a></span>
+      </div>
+    </div>
+  </div>
 
 </section>

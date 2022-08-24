@@ -123,6 +123,7 @@
                                         event.eventRequests}}</i></small>
                                 <div class="mt-2 pt-2 border-top text-center">
                                     <form class="d-inline" method="post" action="/delete-event">
+                                    <input type="hidden" name="_csrf" value="{{csrfToken}}">
                                         <input type="hidden" name="EventId" value="{{event.id}}">
                                         <button type="submit" class="btn btn-sm btn-danger">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -190,12 +191,14 @@
                                 {{#if (getEventDate event.date)}}
                                 <div class="mt-2 pt-2 border-top text-center ms-4 me-4">
                                     <form class="d-inline" method="post" action="/assist/yes">
+                                    <input type="hidden" name="_csrf" value="{{csrfToken}}">
                                         <input type="hidden" name="ReceptorId" value="{{../user.id}}">
                                         <input type="hidden" name="EventId" value="{{event.id}}">
                                         <button type="submit"
                                             class="btn btn-sm {{findAnswer event.eventRequests ../user.id 'yes'}}">Asistiré</button>
                                     </form>
                                     <form class="d-inline" method="post" action="/assist/maybe">
+                                    <input type="hidden" name="_csrf" value="{{csrfToken}}">
                                         <input type="hidden" name="ReceptorId" value="{{../user.id}}">
                                         <input type="hidden" name="EventId" value="{{event.id}}">
                                         <button type="submit"
@@ -203,6 +206,7 @@
                                             vez asista</button>
                                     </form>
                                     <form class="d-inline" method="post" action="/assist/not">
+                                    <input type="hidden" name="_csrf" value="{{csrfToken}}">
                                         <input type="hidden" name="ReceptorId" value="{{../user.id}}">
                                         <input type="hidden" name="EventId" value="{{event.id}}">
                                         <button type="submit"

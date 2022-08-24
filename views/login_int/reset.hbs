@@ -116,6 +116,7 @@ i {
   <div class="form login">
     <div class="form-content">
       <form action="/reset" method="POST">
+      <input type="hidden" name="_csrf" value="{{csrfToken}}">
         <div class="title">Recupera tu contraseña</div>
 
         <div class="input-box underline">

@@ -19,7 +19,7 @@ modeSwitch.addEventListener("click", () => {
   }
 });
 
-function ShowAlert(postId) {
+function ShowAlert(postId, csrfToken) {
   Swal.fire({
       title: '¿Seguro que quieres eliminar esta publicación?',
       text: "Una vez eliminada no podrás recuperla.",
@@ -42,6 +42,7 @@ function ShowAlert(postId) {
               form.action = '/delete-post';
               form.method = 'POST';
               form.innerHTML = `<input type="hidden" value="${postId}" name="PostId">`;
+              form.innerHTML = `<input type="hidden" name="_csrf" value="${csrfToken}">`;
               document.body.append(form);
               form.submit();
           }, 2000);

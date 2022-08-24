@@ -21,6 +21,8 @@ const friendRouter = require("./routes/FriendRoutes");
 const notificationRouter = require("./routes/NotificationRoutes");
 const eventRouter = require("./routes/EventRoutes");
 const login_intRouter = require("./routes/Login_int");
+const csurf = require('csurf');
+const csrfProtection = csurf();
 
 // Initialize express app
 const app = express();
@@ -68,6 +70,8 @@ app.use(
 );
 app.use(flash());
 
+app.use(csrfProtection);
+
 app.use((req, res, next) => {
   
   if (!req.session) {
@@ -93,7 +97,7 @@ app.use((req, res, next) => {
   res.locals.isAuthenticated = req.session.newSession;
   res.locals.errorMessages = errors;
   res.locals.hasErrorMessages = errors.length > 0;
-  res.locals.alerts = alerts;
+  res.locals.csrfToken = req.csrfToken();
   
   next();
 });
