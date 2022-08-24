@@ -1,34 +1,23 @@
 [
   {
-    "userId": "3",
+    "userId": "1",
     "subscriptions": {
-      "endpoint": "https://fcm.googleapis.com/fcm/send/d16zwQ1DgWg:APA91bGFusmSmRwoO8oxL4GnrJ1XPLE98ZCulAMvKXp6pwSbrcTQTxIj23mNb8fbHVh26z3tTh8PP3N_YdHJOalf8Tk0i319c7O7s4c6-Op8USGo0eVvd6lO-x-x7KklJ1Iv6_Iay0GX",
+      "endpoint": "https://fcm.googleapis.com/fcm/send/fvqMfjLNZ_s:APA91bGXuHuJhc-wdor2NZqai0CO4k3EQYo7GxmWlF-Pytv1wo23gd56hkAU8jHBNGNEW4hOAoMockaksyZ2ZbyZL9eAnQInGpIdwPLagkScGet6uW_2uYhraXQrCbS7hmgcjEoJePmK",
       "expirationTime": null,
       "keys": {
-        "p256dh": "BPBEmZLnSAyn10PeTAm3vEGHJyDAZaoAS7jDWuXotSD7GDwkvfbDa4WQOAqinTO1nP1Y2RO48aawUmt0loLjLzg",
-        "auth": "FK-2lSUWIWRHVc9awr8LAQ"
+        "p256dh": "BIQsaAzvhI2USyQjBlpNQp3JwgrBnxbffRUUnfGQKfUr1EddU7eAsqzVgkbFJ-JxAieE8T3XRyAKw4hBYOgHWdk",
+        "auth": "6p7YCp1Mr5-HTk6JNyiBRg"
       }
     }
   },
   {
     "userId": "2",
     "subscriptions": {
-      "endpoint": "https://fcm.googleapis.com/fcm/send/d16zwQ1DgWg:APA91bGFusmSmRwoO8oxL4GnrJ1XPLE98ZCulAMvKXp6pwSbrcTQTxIj23mNb8fbHVh26z3tTh8PP3N_YdHJOalf8Tk0i319c7O7s4c6-Op8USGo0eVvd6lO-x-x7KklJ1Iv6_Iay0GX",
+      "endpoint": "https://fcm.googleapis.com/fcm/send/eLZtIxb4kPw:APA91bEOVu8KcU3QDrLPY7nyWmYUSKM9aKNxTmj-f2mK5fB_I2y1DQitdH07SHWNWNqxeIdxZweOAaxct30pYXckKLP00OvcNVVYQe0UV4KeRMh4T5gHQJDsgE3VAEAqCxHNPrnF75RE",
       "expirationTime": null,
       "keys": {
-        "p256dh": "BPBEmZLnSAyn10PeTAm3vEGHJyDAZaoAS7jDWuXotSD7GDwkvfbDa4WQOAqinTO1nP1Y2RO48aawUmt0loLjLzg",
-        "auth": "FK-2lSUWIWRHVc9awr8LAQ"
-      }
-    }
-  },
-  {
-    "userId": "1",
-    "subscriptions": {
-      "endpoint": "https://fcm.googleapis.com/fcm/send/d16zwQ1DgWg:APA91bGFusmSmRwoO8oxL4GnrJ1XPLE98ZCulAMvKXp6pwSbrcTQTxIj23mNb8fbHVh26z3tTh8PP3N_YdHJOalf8Tk0i319c7O7s4c6-Op8USGo0eVvd6lO-x-x7KklJ1Iv6_Iay0GX",
-      "expirationTime": null,
-      "keys": {
-        "p256dh": "BPBEmZLnSAyn10PeTAm3vEGHJyDAZaoAS7jDWuXotSD7GDwkvfbDa4WQOAqinTO1nP1Y2RO48aawUmt0loLjLzg",
-        "auth": "FK-2lSUWIWRHVc9awr8LAQ"
+        "p256dh": "BPfmFadImus2ThwWauBmRaLkw7PZyXCf4J1wuWivrR3OAV-ocpqrBUBBivzwx71h2xMSIVz5VMgd7cpBYfWyP8s",
+        "auth": "tFpuLJvN331mwNfRjNOHrQ"
       }
     }
   }

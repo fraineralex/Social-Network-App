@@ -10,7 +10,7 @@ notificationRouter.post('/',isLogin, notificationController.getNotifications);
 notificationRouter.get('/solicitude/:friendRequestId/:userId/:friendID', isLogin, notificationController.solicitudeFriend);
 
 notificationRouter.get('/notifications/acceptFriend/:idNotification',isLogin, notificationController.acceptFriend);
-notificationRouter.get('/notifications/deleteNotification/:idNotification',isLogin, notificationController.deleteNotification);
+notificationRouter.get('/delete-Notifications/:idNotification',isLogin, notificationController.deleteNotification);
 notificationRouter.get('/notifications/viewNotifications/:idNotification',isLogin, notificationController.viewNotifications);
 
 

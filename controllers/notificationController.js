@@ -35,6 +35,7 @@ module.exports.getAllNotifications = async (req, res, next) => {
             friendS,
             userS,
             nCount1: await notiCount.countNotifications(userId),
+            ceroNotifications: await notiCount.countNotifications(userId) == 0 ? true : false,
           });
           
         }).catch((err) => console.log(err));
