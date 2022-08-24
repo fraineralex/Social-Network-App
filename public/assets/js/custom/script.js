@@ -19,10 +19,10 @@ modeSwitch.addEventListener("click", () => {
   }
 });
 
-function ShowAlert(url, title, message) {
+function ShowAlert(url, title, message, method = "GET", icon1 = "question", icon2 = "success") {
   Swal.fire({
     title: `${message}`,
-    icon: "question",
+    icon: `${icon1}`,
     reverseButtons: true,
     showCancelButton: true,
     confirmButtonColor: "#",
@@ -30,11 +30,11 @@ function ShowAlert(url, title, message) {
     confirmButtonText: "yes",
   }).then((result) => {
     if (result.isConfirmed) {
-      Swal.fire("Listo!", `${title}.`, "success");
+      Swal.fire("Listo!", `${title}.`, `${icon2}`);
       setTimeout(() => {
         let form = document.createElement("form");
         form.action = `${url}`;
-        form.method = "GET";
+        form.method = `${method}`;
         document.body.append(form);
         form.submit();
       }, 2000);
