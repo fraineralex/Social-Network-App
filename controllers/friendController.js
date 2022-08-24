@@ -87,7 +87,7 @@ module.exports.searchNewFriendHome = (req, res, next) => {
 };
 module.exports.searchNewFriend = (req, res, next) => {
   const userId = req.body.userId;
-
+  let noMoreUno;
   //user
   user.findAll({where: {[Op.or]: [{ name: { [Op.like]: req.body.userName } },{ user: { [Op.like]: req.body.userName } },{ lastName: { [Op.like]: req.body.userName } }]}})
   .then((nf) => nf.map((nf) => nf.dataValues))
@@ -97,18 +97,29 @@ module.exports.searchNewFriend = (req, res, next) => {
       const userF = us.map((uf) => uf.id);
       const userFriends = us;
 
-      friend.findAll({where: {[Op.or]: [{ [Op.and]: [{ senderID: userId }, { receptorID: userF }] },{ [Op.and]: [{ senderID: userF }, { receptorID: userId }]}]}}).then((f) => f.map((fr) => fr.dataValues.isAccepted)).then(async (ac) => {
+      friend.findAll({where: {[Op.or]: [{ [Op.and]: [{ senderID: userId }, { receptorID: userF }] },{ [Op.and]: [{ senderID: userF }, { receptorID: userId }]}]}})
+      .then((f) => f.map((fr) => {
+
+        !fr.dataValues.isAccepted? noMoreUno = true : noMoreUno;//mas de una solicitud de amistad
+        return fr.dataValues.isAccepted // si ya es amigo o no
+      }))
+      .then(async (ac) => {
+        user.findOne({ where: { id: userId } }).then(async (f) => {
+          const currentlyUser = f.dataValues;
 
           res.render("client/addNewFriendHome", {
             pageTitle: "Search new Friend",
             userId: userId,
-            user: userId,
+            user: currentlyUser,
             ac,
+            usLength: userFriends.length <= 0 ? true : false,
             us: userFriends,
             nCount1: await notiCount.countNotifications(userId),
+            noMoreUno
           });
 
-        });
+        }).catch((err) => console.log(err));
+      }).catch((err) => console.log(err));
     }).catch((err) => console.log(err));
 };
 
@@ -119,24 +130,18 @@ module.exports.CreateFriendRequest = (req, res, next) => {
 
   friend.findAll({where:{[Op.or]:[{ [Op.and]: [{ senderID: userId }, { receptorID: friendID }] },{ [Op.and]: [{ senderID: friendID }, { receptorID: userId }] }]}}).then(fc => {
 
-    const count = fc.map((f) => f.dataValues);
-    if (count.length > 0) {
-      res.send("ya has hecho una solicitud de amistad")/*we need to checking that later*/
-    }
-    else {
-      friend.create({ isAccepted: false, senderID: userId, receptorID: friendID }).then(() => {
-        friend.findOne({ 
-          where: 
-          { 
-            [Op.or]: [
-              { [Op.and]: [{ senderID: userId }, { receptorID: friendID }] }
-            ] 
-          } 
-        }).then((sf => {
-          res.redirect(`/solicitude/${sf.dataValues.id}/${userId}/${friendID}`)
-        })).catch((err) => console.log(err));
-      });
-    }
+    friend.create({ isAccepted: false, senderID: userId, receptorID: friendID }).then(() => {
+      friend.findOne({ 
+        where: 
+        { 
+          [Op.or]: [
+            { [Op.and]: [{ senderID: userId }, { receptorID: friendID }] }
+          ] 
+        } 
+      }).then((sf => {
+        res.redirect(`/solicitude/${sf.dataValues.id}/${userId}/${friendID}`)
+      })).catch((err) => console.log(err));
+    });
 
   }).catch((err) => console.log(err));
 }

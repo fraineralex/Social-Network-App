@@ -2,10 +2,10 @@
 
     <div class="grid-item0"> 
         <div class="">
-            <a href="#allFriends" class="SeeAllYourFriend">See All you friend</a>
+            <a href="#allFriends" class="SeeAllYourFriend">Todos mis amigos</a>
         </div>
         <div class="">
-            <a href="/searchNewFriendHome/{{userId}}" class="searchNewFriend">add new friend</a>
+            <a href="/searchNewFriendHome/{{userId}}" class="searchNewFriend">Agregar a un nuevo amigo</a>
         </div>
     </div>
     
@@ -18,7 +18,7 @@
                     <span class="d-image">
                         <img src="{{p.author.dataValues.imageProfile}}" class="image-post" alt="{{p.author.dataValues.name}}">
                     </span>
-                    <small class="me-auto fs-6"><strong>{{p.author.dataValues.name}}</strong></small>
+                    <small class="me-auto fs-6"><strong>{{p.author.dataValues.name}} {{p.author.dataValues.lastName}}</strong></small>
                     <small class="float-end fw-light text-muted">{{getDate p.createdAt}}</small>
                 </div>
                 <div class="box-body">
@@ -42,7 +42,7 @@
 
     
    <div class="grid-item2" id="allFriends">
-        <h1>Your Friends</h1>
+        <h1>Mis amigos</h1>
         <hr>
         <div class="friendList">
             <ul class="">
@@ -58,37 +58,15 @@
                             </div>
                         </a>
                         <div class="">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteF{{uf.id}}">
-                                <i class="bi bi-trash"></i>
-                            </button>
+                            <a type="submit" class="btn btn-info" onclick="ShowAlert('/delete/friend/{{../userId}}/{{uf.id}}', '{{uf.name}} ya no es tu amigo', 'Quieres eliminar a {{uf.name}} de tu lista de amigos?')"><i class="bi bi-trash"></i></a>
                         </div>
                     </div>      
                 </li>
-
-                <div class="modal fade" id="deleteF{{uf.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="btn close btn-danger" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <p>Estas seguro de que quieres borrar a <i>{{uf.name}} {{uf.lastName}}</i> de tu lista de amigos...?</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <a href="/delete/friend/{{../userId}}/{{uf.id}}" class="btn btn-danger">Delete</a>
-                        </div>
-                    </div>
-                </div>
-                </div> 
-
                 {{/each}}
             </ul>
         </div>    
         <div class="">
-            <a href="/searchNewFriendHome/{{userId}}" class="searchNewFriend">add new friend</a>
+            <a href="/searchNewFriendHome/{{userId}}" class="searchNewFriend">Agregar a un nuevo amigo</a>
         </div>
     </div>
 </div>
