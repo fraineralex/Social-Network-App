@@ -19,26 +19,34 @@ modeSwitch.addEventListener("click", () => {
   }
 });
 
-/* $(document).ready(function () {
-  $(".btn-delete-post").on("click", function (e) {
-    e.preventDefault();
+function ShowAlert(postId) {
+  Swal.fire({
+      title: '¿Seguro que quieres eliminar esta publicación?',
+      text: "Una vez eliminada no podrás recuperla.",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Eliminar',
+      reverseButtons: true
+  }).then((result) => {
+      if (result.isConfirmed) {
+          Swal.fire(
+              '¡Eliminada!',
+              'Tu publicación ha sido eliminada satisfactoriamente.',
+              'success'
+          )
 
-    swal({
-      title: "Are you sure?",
-      text: "Once deleted, you will not be able to recover this imaginary file!",
-      icon: "warning",
-      buttons: true,
-      dangerMode: true,
-    }).then((willDelete) => {
-      if (willDelete) {
-        swal("La publicación se ha eliminado satisfactriamente", {
-          icon: "success",
-        });
-        $(this).closest(".form-delete").submit();
-      } else {
+          setTimeout(() => {
+              let form = document.createElement('form');
+              form.action = '/delete-post';
+              form.method = 'POST';
+              form.innerHTML = `<input type="hidden" value="${postId}" name="PostId">`;
+              document.body.append(form);
+              form.submit();
+          }, 2000);
       }
-    });
-  });
-}); */
+  })
+}
 
 

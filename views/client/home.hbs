@@ -79,17 +79,16 @@
                             </svg>
                             Editar
                         </a>
-                        <form method="post" action="/delete-post" class="d-inline">
-                            <input type="hidden" value="{{post.id}}" name="PostId">
-                            <button type="submit" class="btn btn-sm btn-danger">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-trash-fill" viewBox="0 0 16 16">
-                                    <path
-                                        d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
-                                </svg>
-                                Eliminar
-                            </button>
-                        </form>
+
+                        <button type="button" class="btn btn-sm btn-danger" onclick='ShowAlert({{post.id}})'>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                            </svg>
+                            Eliminar
+                        </button>
+
                         <a type="button" class="btn btn-primary float-end" href="/new-comment/{{post.id}}">
                             <i class="bi bi-chat"></i>
                             Comentar
@@ -188,9 +187,8 @@
                             </svg>
                             Editar
                         </a>
-                        <form method="post" action="/delete-post" class="d-inline">
-                            <input type="hidden" value="{{post.id}}" name="PostId">
-                            <button type="submit" class="btn btn-sm btn-danger">
+
+                            <button type="button" id="test" class="btn btn-sm btn-danger" onclick='ShowAlert({{post.id}})'>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-trash-fill" viewBox="0 0 16 16">
                                     <path
@@ -198,7 +196,7 @@
                                 </svg>
                                 Eliminar
                             </button>
-                        </form>
+
                         <a type="button" class="btn btn-primary float-end" href="/new-comment/{{post.id}}">
                             <i class="bi bi-chat"></i>
                             Comentar
@@ -276,7 +274,4 @@
     {{/if}}
     {{/each}}
     {{/if}}
-
-    <script>
-    </script>
 </main>
