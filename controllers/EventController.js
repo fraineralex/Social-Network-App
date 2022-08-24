@@ -29,6 +29,7 @@ exports.GetAllEvents = (req, res, next) => {
             where: {
               receptorId: currentlyUser,
             },
+            order: [["createdAt", "DESC"]],
           },
         ],
       })
@@ -69,6 +70,7 @@ exports.GetCreatedEvents = (req, res, next) => {
           authorId: authorId,
         },
         include: [{ model: EventRequests }],
+        order: [["createdAt", "DESC"]],
       })
         .then( async (result) => {
           const events = result.map((result) => result.dataValues);

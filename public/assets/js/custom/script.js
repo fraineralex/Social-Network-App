@@ -61,11 +61,7 @@ function DeleteConfirm(id, item, title, successMessage) {
     reverseButtons: true,
   }).then((result) => {
     if (result.isConfirmed) {
-      Swal.fire(
-        "Listo!",
-        `${successMessage}.`,
-        "success"
-      );
+      Swal.fire("Listo!", `${successMessage}.`, "success");
 
       setTimeout(() => {
         let form = document.createElement("form");
@@ -83,8 +79,12 @@ function TDate() {
   var ToDate = new Date();
   console.log(ToDate.toISOString());
   if (new Date(UserDate).toISOString() <= ToDate.toISOString()) {
-      alert("Debe escoger una fecha y hora superior a la actual");
-      return false;
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Debe escoger una fecha y hora superior a la actual",
+    });
+    return false;
   }
   return true;
 }

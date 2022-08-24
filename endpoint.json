@@ -1,16 +1,5 @@
 [
   {
-    "userId": "3",
-    "subscriptions": {
-      "endpoint": "https://fcm.googleapis.com/fcm/send/d16zwQ1DgWg:APA91bGFusmSmRwoO8oxL4GnrJ1XPLE98ZCulAMvKXp6pwSbrcTQTxIj23mNb8fbHVh26z3tTh8PP3N_YdHJOalf8Tk0i319c7O7s4c6-Op8USGo0eVvd6lO-x-x7KklJ1Iv6_Iay0GX",
-      "expirationTime": null,
-      "keys": {
-        "p256dh": "BPBEmZLnSAyn10PeTAm3vEGHJyDAZaoAS7jDWuXotSD7GDwkvfbDa4WQOAqinTO1nP1Y2RO48aawUmt0loLjLzg",
-        "auth": "FK-2lSUWIWRHVc9awr8LAQ"
-      }
-    }
-  },
-  {
     "userId": "2",
     "subscriptions": {
       "endpoint": "https://fcm.googleapis.com/fcm/send/d16zwQ1DgWg:APA91bGFusmSmRwoO8oxL4GnrJ1XPLE98ZCulAMvKXp6pwSbrcTQTxIj23mNb8fbHVh26z3tTh8PP3N_YdHJOalf8Tk0i319c7O7s4c6-Op8USGo0eVvd6lO-x-x7KklJ1Iv6_Iay0GX",
@@ -23,6 +12,17 @@
   },
   {
     "userId": "1",
+    "subscriptions": {
+      "endpoint": "https://fcm.googleapis.com/fcm/send/d16zwQ1DgWg:APA91bGFusmSmRwoO8oxL4GnrJ1XPLE98ZCulAMvKXp6pwSbrcTQTxIj23mNb8fbHVh26z3tTh8PP3N_YdHJOalf8Tk0i319c7O7s4c6-Op8USGo0eVvd6lO-x-x7KklJ1Iv6_Iay0GX",
+      "expirationTime": null,
+      "keys": {
+        "p256dh": "BPBEmZLnSAyn10PeTAm3vEGHJyDAZaoAS7jDWuXotSD7GDwkvfbDa4WQOAqinTO1nP1Y2RO48aawUmt0loLjLzg",
+        "auth": "FK-2lSUWIWRHVc9awr8LAQ"
+      }
+    }
+  },
+  {
+    "userId": "3",
     "subscriptions": {
       "endpoint": "https://fcm.googleapis.com/fcm/send/d16zwQ1DgWg:APA91bGFusmSmRwoO8oxL4GnrJ1XPLE98ZCulAMvKXp6pwSbrcTQTxIj23mNb8fbHVh26z3tTh8PP3N_YdHJOalf8Tk0i319c7O7s4c6-Op8USGo0eVvd6lO-x-x7KklJ1Iv6_Iay0GX",
       "expirationTime": null,
