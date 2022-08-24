@@ -24,20 +24,20 @@ function ShowAlert(url, title, message) {
     title: `${message}`,
     icon: "question",
     reverseButtons: true,
-    showCancelButton: true, 
+    showCancelButton: true,
     confirmButtonColor: "#",
     cancelButtonColor: "#3085d6",
     confirmButtonText: "yes",
   }).then((result) => {
     if (result.isConfirmed) {
-      Swal.fire('Listo!', `${title}.`, 'success');
+      Swal.fire("Listo!", `${title}.`, "success");
       setTimeout(() => {
         let form = document.createElement("form");
         form.action = `${url}`;
         form.method = "GET";
         document.body.append(form);
         form.submit();
-      } , 2000);
+      }, 2000);
     }
   });
 }
@@ -80,4 +80,12 @@ function TDate() {
     return false;
   }
   return true;
+}
+
+function Alert(icon, title, text) {
+  Swal.fire({
+    icon: icon,
+    title: title,
+    text: text,
+  });
 }

@@ -47,7 +47,7 @@ exports.FindReply = (commentId, comments) => {
 exports.LengthValue = (array) => {
   if (array.length > 1) return "   " + array.length + " personas";
   else if (array.length == 1) return "   " + array.length + " persona";
-  else return " Nadie todavía";
+  else return false;
 };
 
 exports.FindAnswer = (eventRequests, currentlyUser, btnAnswer) => {

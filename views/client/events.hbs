@@ -49,8 +49,9 @@
                                     <small><strong> Lugar:</strong><i
                                             class="ms-2 font-monospace">{{event.place}}</i></small>
                                     <small class="ms-2 font-monospace"><br>
-                                        <strong>Inivitados:</strong><i class="font-monospace">{{lengthValue
-                                            event.eventRequests}}</i></small>
+                                        <strong>Inivitados:</strong><i class="font-monospace">{{#if (lengthValue
+                                            event.eventRequests)}}{{lengthValue
+                                            event.eventRequests}}{{else}} Nadie todavía{{/if}}</i></small>
                                     <div class="mt-2 pt-2 border-top text-center">
 
                                         <a type="submit" class="btn btn-sm btn-danger"
@@ -72,8 +73,9 @@
                                                     d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z" />
                                             </svg>
                                             Invitar</a>{{/if}}
-                                        <a type=" button" class="btn btn-sm btn-info"
-                                            href="/view-invited/{{../user.id}}/{{event.id}}">
+                                        <a type=" button" class="btn btn-sm btn-info" {{#if (lengthValue
+                                            event.eventRequests)}}
+                                            href="/view-invited/{{../user.id}}/{{event.id}}">{{else}}onclick="Alert('error', 'Oops...', 'Todavía no ha invitado a ningun amigo a este evento')"{{/if}}>
                                             <i class="bi bi-info-circle"></i> Ver invitados</a>
 
                                     </div>
