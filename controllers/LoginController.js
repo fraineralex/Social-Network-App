@@ -78,7 +78,7 @@ exports.PostLogin_up = (req, res, next) => {
   const name = req.body.name;
   const lastName = req.body.lastname;
   const phone = req.body.number;
-  const imageProfile = req.body.image;
+  const imageProfileUrl = req.file;
   const email = req.body.email;
   const user = req.body.username;
   const password = req.body.password;
@@ -103,7 +103,7 @@ exports.PostLogin_up = (req, res, next) => {
             name: name,
             lastName: lastName,
             phone: phone,
-            imageProfile: imageProfile,
+            imageProfile: '/' + imageProfileUrl.path,
             email: email,
             user: user,
             password: hashedPassword,
@@ -174,7 +174,7 @@ exports.PostReset = (req, res, next) => {
             subject: `Password reset`,
             html: `<h3>Ha solicitado una actualizacion de contraseña</h3>
                
-          <p> Haga click en este <a href="http://localhost:5000/reset/${token}"> link </a> para actualizar su nueva contrasenia </p>`,
+          <p> Haga click en este <a href="http://localhost:5000/reset/${token}"> link </a> para actualizar su nueva contraseña </p>`,
           });
         }
 
