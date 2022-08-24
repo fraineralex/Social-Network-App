@@ -5,6 +5,8 @@ const EventRequests = require("../models/EventRequests");
 const { Op } = require("sequelize");
 const notiCount = require("../util/countNotifications");
 const { asIs } = require("sequelize");
+const moment = require("moment");
+
 
 exports.GetAllEvents = (req, res, next) => {
   let currentlyUser = req.user.id;
@@ -102,6 +104,7 @@ exports.GetCreateEvent = (req, res, next) => {
         pageTitle: "Crear evento",
         eventActive: true,
         user: user,
+        dateTime: moment().format().slice(0, 16),
         nCount1: await notiCount.countNotifications(userId),
       });
     })

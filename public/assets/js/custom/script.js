@@ -77,3 +77,14 @@ function DeleteConfirm(id, item, title, successMessage) {
     }
   });
 }
+
+function TDate() {
+  var UserDate = document.getElementById("userdate").value;
+  var ToDate = new Date();
+  console.log(ToDate.toISOString());
+  if (new Date(UserDate).toISOString() <= ToDate.toISOString()) {
+      alert("Debe escoger una fecha y hora superior a la actual");
+      return false;
+  }
+  return true;
+}

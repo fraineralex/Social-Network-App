@@ -1,0 +1,10 @@
+.tabs {
+    max-height: 30rem;
+    padding: 20px 30px;
+    border-radius: 50px;
+    box-shadow: 5px 10px 5px rgb(70, 68, 68);
+}
+
+.tab-body {
+    overflow-y: scroll;
+}
