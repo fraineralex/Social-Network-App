@@ -130,8 +130,9 @@ exports.PostCreateEvent = (req, res, next) => {
     });
 };
 
-exports.PostDeleteEvent = (req, res, next) => {
-  const eventId = req.body.EventId;
+exports.GetDeleteEvent = (req, res, next) => {
+  const eventId = req.params.EventId;
+  console.log(eventId)
 
   Events.destroy({ where: { id: eventId } })
     .then(() => {
