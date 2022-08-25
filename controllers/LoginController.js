@@ -119,6 +119,8 @@ exports.PostLogin_up = (req, res, next) => {
                    
               <p> Haga click en el siguente enlace para activar su usuario <a href="http://localhost:5000/page-active-user/${user}">ACTIVAR</a></p>`,
               });
+              
+              req.flash("success","Se ha registrado correctamente, Porfavor revise su email para activar la cuenta.");
               res.redirect("/login");
             })
             .catch((err) => {
@@ -192,6 +194,8 @@ exports.PostReset = (req, res, next) => {
           });
         }
 
+        
+        req.flash("success","Se ha enviado la solicitud de recuperacion, Porfavor revise su email.");
         res.redirect(urlRedirect);
       })
       .catch((err) => {
@@ -266,6 +270,7 @@ exports.PostNewPassword = (req, res, next) => {
           console.log(err);
         });
 
+        req.flash("success","Se ha actualizado su contraseña"),
       res.redirect("/login");
     })
     .catch((err) => {
@@ -283,7 +288,7 @@ exports.GetPageActiveUser = (req, res, next) => {
   })
     .then((result) => {
       if (!result) {
-        req.flash("errors", "El usuario no se ha encontrado en el sistema.");
+        req.flash("success", "El usuario no se ha encontrado en el sistema.");
         return res.redirect("/login");
       }
 
