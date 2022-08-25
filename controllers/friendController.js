@@ -44,7 +44,7 @@ module.exports.getAllPublications = (req, res, next) => {
 
     }).then(async (p) => {
       
-      user.findAll({ where: { id: userFriends,/*[Op.and]: [{isActive: true}]*/}}).then((f) => { //get all friends
+      user.findAll({ where: { id: userFriends,[Op.and]: [{isActive: true}] }}).then((f) => { //get all friends
         const userF = f.map((uf) => uf.dataValues); // users friends information's
         userFriends = userFriends.filter((f) => f !== 0);
 

@@ -334,7 +334,6 @@ exports.GetDeletePost = (req, res, next) => {
 
 //subscription to web push notifications
 module.exports.getNotifications =  async (req, res, next) => {
- console.log("\n\n\n\n\n\n\n\n\n\n\n\n pase por aqui ")
   let endpoint = JSON.parse(fs.readFileSync(path.join(__dirname, "../endpoint.json"), 'utf8'));
   
   if (endpoint.find(x => x.userId === req.body.userId)) {
