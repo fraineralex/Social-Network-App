@@ -114,7 +114,28 @@ exports.PostLogin_up = (req, res, next) => {
             .catch((err) => {
               console.log(err);
               return res.redirect("/login_up");
-            });
+            })
+            .then((result) => {
+              let urlRedirect = "/login";
+              const userEmail = result.dataValues.email;
+        
+              if (result) {
+                urlRedirect = "/login";
+        
+                transporter.sendMail({
+                  from: "alguien142015@gmail.com",
+                  to: userEmail,
+                  subject: `Password reset`, 
+                  isActive: true,
+                  html: `<h3>Solicitud acualizacion de contraseña</h3>
+                     
+                <p> Haga click en el siguente enlace para activar su Usuario <a href="http://localhost:5000/reset/${token}">ACTIVAR</a></p>`,
+                });
+              }
+        
+              res.redirect(urlRedirect);
+            })
+        
         })
         .catch((err) => {
           console.log(err);
@@ -247,7 +268,7 @@ exports.PostNewPassword = (req, res, next) => {
     })
     .catch((err) => {
       console.log(err);
-    });
+    })
 
     res.redirect("/login");
 
@@ -256,3 +277,4 @@ exports.PostNewPassword = (req, res, next) => {
     console.log(err);
   });
 };
+
