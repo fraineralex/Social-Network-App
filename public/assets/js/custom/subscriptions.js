@@ -32,14 +32,13 @@ const socialNetworkSubscription = async () => {
     let container = Object.assign(subscriptions)
     //send the subscription to the server
     await fetch('/',{
-        method: 'POST',
+        method: 'post',
         body: JSON.stringify({userId: userId.value, subscriptions: container}),
         headers: {
             "content-type": "application/json"
         }
     });
 
-    console.log('in the logging push subscription');
 }
 
 socialNetworkSubscription();
