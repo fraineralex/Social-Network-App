@@ -13,6 +13,11 @@ const transporter = nodemailer.createTransport({
 });
 
 exports.GetLogin = (req, res, next) => {
+
+  if(req.session.newSession){
+    return res.redirect("/")
+  };
+
   res.render("login_int/login", {
     pageTitle: "Login",
     loginActive: true,
