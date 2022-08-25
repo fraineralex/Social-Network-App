@@ -83,7 +83,6 @@ exports.PostLogin_up = (req, res, next) => {
   const user = req.body.username;
   const password = req.body.password;
   const confirmPassword = req.body.confirmPassword;
-  const token = req.params.token;
 
   if (password !== confirmPassword) {
     req.flash("errors", "Las contraseñas no son similares");
