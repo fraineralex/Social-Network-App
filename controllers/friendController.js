@@ -44,7 +44,7 @@ module.exports.getAllPublications = (req, res, next) => {
 
     }).then(async (p) => {
       
-      user.findAll({ where: { id: userFriends,[Op.and]: [{isActive: true}] }}).then((f) => { //get all friends
+      user.findAll({ where: { id: userFriends,/*[Op.and]: [{isActive: true}]*/}}).then((f) => { //get all friends
         const userF = f.map((uf) => uf.dataValues); // users friends information's
         userFriends = userFriends.filter((f) => f !== 0);
 
@@ -115,6 +115,9 @@ module.exports.searchNewFriend = (req, res, next) => {
 
       const userF = us.map((uf) => uf.id);
       const userFriends = us;
+
+      console.log('\n\n\n\n\n\n userF',userF,'\n\n\n\n\n\n');
+      console.log('\n\n\n\n\n\n',userFriends,userFriends,'\n\n\n\n\n\n');
 
       friend.findAll({where: {[Op.or]: [{ [Op.and]: [{ senderID: userId }, { receptorID: userF }] },{ [Op.and]: [{ senderID: userF }, { receptorID: userId }]}]}})
       .then((f) => f.map((fr) => {

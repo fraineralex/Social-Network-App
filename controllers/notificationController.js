@@ -111,22 +111,3 @@ module.exports.viewNotifications = async (req, res, next) => {
   res.status(200).redirect(`/Notifications`);
 }
 
-//move this for loggin route and controller
-module.exports.getNotifications =  async (req, res, next) => {
- 
-  let endpoint = JSON.parse(fs.readFileSync(path.join(__dirname, "../endpoint.json"), 'utf8'));
-  
-  if (endpoint.find(x => x.userId === req.body.userId)) {
-    let endpointSave = endpoint.filter(x => x.userId != req.body.userId);
-    let concatenated = endpointSave.concat(req.body);
-    fs.writeFileSync(path.join(__dirname, "../endpoint.json"), JSON.stringify(concatenated, null, 2));
-    console.log("subscription updated");
-
-  } else {//add the subscription to the json file
-    endpoint.push(req.body);
-    fs.writeFileSync(path.join(__dirname, "../endpoint.json"), JSON.stringify(endpoint, null, 2));
-    console.log("subscription added");
-  }
-
-  res.status(200).json();
-}
