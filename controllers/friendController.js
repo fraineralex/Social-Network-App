@@ -12,8 +12,15 @@ module.exports.getAllPublications = (req, res, next) => {
   userId = req.user.id
   let userFriends;
 
-  friend.findAll({ where: { [Op.or]: [{ senderID: userId }, { receptorID: userId }], [Op.and]: [{ isAccepted: 1 }] } }).then((fs) => {
-
+  friend.findAll({ 
+    where: 
+    { 
+      [Op.or]: 
+      [
+        { senderID: userId }, { receptorID: userId }], [Op.and]: [{ isAccepted: 1 }
+      ] 
+    } 
+  }).then((fs) => {
     //mapping friends confirmation
     const senderID = fs.map((f) => f.dataValues.senderID !== userId ? f.dataValues.senderID : 0);
     const receptorID = fs.map((f) => f.dataValues.receptorID !== userId ? f.dataValues.receptorID : 0);
@@ -22,34 +29,36 @@ module.exports.getAllPublications = (req, res, next) => {
   }).then((friendS) => {
 
     //get all friends post
-    post.findAll({ include: [{ model: user, as: "author" }], where: { authorId: friendS }, order: [["createdAt", "DESC"]] }).then((p) => {
+    post.findAll({ 
+
+      include: [{ model: user, as: "author" }], 
+      where: { authorId: friendS}, 
+      order: [["createdAt", "DESC"]] 
+
+    })
+    .then((p) => {
+
       userFriends = friendS;
       const postF = p.map((post) => post.dataValues);
       return postF;
 
-    }).then((p) => {
+    }).then(async (p) => {
+      
+      user.findAll({ where: { id: userFriends,[Op.and]: [{isActive: true}] }}).then((f) => { //get all friends
+        const userF = f.map((uf) => uf.dataValues); // users friends information's
+        userFriends = userFriends.filter((f) => f !== 0);
 
-      //get all friends
-      userFriends = userFriends.filter((f) => f !== 0);
-      user.findAll({ where: { id: userFriends } }).then((f) => {
-        const userF = f.map((uf) => uf.dataValues);
-        user.findOne({ where: { id: userId } }).then(async (f) => {
-
-          const imgConfirmation = p.map(cf => cf.src !== null ? true : false);
-          const currentlyUser = f.dataValues;
-
-          const users = await user.findAll();
+        user.findOne({ where: { id: userId } }).then(async (fi) => {
 
           res.render("client/friend", {
             pageTitle: "Friend",
-            postF: p,
-            imgConfirmation,
+            postF: p,//filter inactive users
+            imgConfirmation: p.map(cf => cf.src !== null ? true : false),//image confirmation
             userF,
             userId,
-            users,
-            user: currentlyUser,
-            nCount1: await notiCount.countNotifications(userId),
-          });
+            user: fi.dataValues, // navbar data
+            nCount1: await notiCount.countNotifications(userId), // notification count
+          }); 
 
         }).catch((err) => console.log(err));
       }).catch((err) => console.log(err));
@@ -73,7 +82,7 @@ module.exports.deleteFriend = (req, res, next) => {
 // search friend
 module.exports.searchNewFriendHome = (req, res, next) => {
 
-  user.findOne({ where: { id: userId } }).then(async (f) => {
+  user.findOne({ where: { id: userId} }).then(async (f) => {
     const currentlyUser = f.dataValues;
 
     res.render("client/addNewFriendHome", {
@@ -85,11 +94,21 @@ module.exports.searchNewFriendHome = (req, res, next) => {
 
   }).catch((err) => console.log(err));
 };
+
 module.exports.searchNewFriend = (req, res, next) => {
   const userId = req.body.userId;
   let noMoreUno;
   //user
-  user.findAll({where: {[Op.or]: [{ name: { [Op.like]: req.body.userName } },{ user: { [Op.like]: req.body.userName } },{ lastName: { [Op.like]: req.body.userName } }]}})
+  user.findAll({
+    where: {
+      [Op.or]: 
+      [
+        { name: { [Op.like]: req.body.userName } },
+        { user: { [Op.like]: req.body.userName } },
+        { lastName: { [Op.like]: req.body.userName } }
+      ],
+      [Op.and]: [{ isActive: true }]
+    }})
   .then((nf) => nf.map((nf) => nf.dataValues))
   .then((nf) => nf.filter((nf) => nf.id != userId))
   .then((us) =>{
