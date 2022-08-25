@@ -89,11 +89,15 @@ app.use((req, res, next) => {
 
 app.use((req, res, next) => {
   const errors = req.flash("errors"); 
+  const success = req.flash("success");
   const alerts = req.flash("alerts");  
   res.locals.isAuthenticated = req.session.newSession;
   res.locals.errorMessages = errors;
   res.locals.hasErrorMessages = errors.length > 0;
   res.locals.alerts = alerts;
+  res.locals.successMessages = success;
+  res.locals.hasSuccessMessages = success.length > 0;
+
   
   next();
 });

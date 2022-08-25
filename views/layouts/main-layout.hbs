@@ -122,6 +122,17 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         {{/if}}
+        
+        {{#if hasSuccessMessages}}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <ul>
+                {{#each successMessages}}
+                <li>{{this}}</li>
+                {{/each}}
+            </ul>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {{/if}}
 
         {{{body}}}
     </main>
