@@ -23,10 +23,12 @@ exports.PostLogin = (req, res, next) => {
   const user = req.body.user;
   const password = req.body.password;
 
-  User.findOne({ where: { user: user } })
+  User.findOne({
+     [Op.and]: [{ user: user }, {isActive: true}],
+    })
     .then((user) => {
       if (!user) {
-        req.flash("errors", "El Usuario es incorrecto.");
+        req.flash("errors", "No se ha encontrado ningun usuario con ese nombre.");
         return res.redirect("/login");
       }
 
@@ -103,39 +105,26 @@ exports.PostLogin_up = (req, res, next) => {
             name: name,
             lastName: lastName,
             phone: phone,
-            imageProfile: '/' + imageProfileUrl.path,
+            imageProfile: "/" + imageProfileUrl.path,
             email: email,
             user: user,
             password: hashedPassword,
           })
             .then((result) => {
+              transporter.sendMail({
+                from: "alguien142015@gmail.com",
+                to: email,
+                subject: `Activar usuario`,
+                html: `<h3>Solicitud de activación para: ${name} ${lastName}.</h3>
+                   
+              <p> Haga click en el siguente enlace para activar su usuario <a href="http://localhost:5000/page-active-user/${user}">ACTIVAR</a></p>`,
+              });
               res.redirect("/login");
             })
             .catch((err) => {
               console.log(err);
               return res.redirect("/login_up");
-            })
-            .then((result) => {
-              let urlRedirect = "/login";
-              const userEmail = result.dataValues.email;
-        
-              if (result) {
-                urlRedirect = "/login";
-        
-                transporter.sendMail({
-                  from: "alguien142015@gmail.com",
-                  to: userEmail,
-                  subject: `Password reset`, 
-                  isActive: true,
-                  html: `<h3>Solicitud acualizacion de contraseña</h3>
-                     
-                <p> Haga click en el siguente enlace para activar su Usuario <a href="http://localhost:5000/reset/${token}">ACTIVAR</a></p>`,
-                });
-              }
-        
-              res.redirect(urlRedirect);
-            })
-        
+            });
         })
         .catch((err) => {
           console.log(err);
@@ -174,7 +163,10 @@ exports.PostReset = (req, res, next) => {
     User.findOne({ where: { user: user } })
       .then((user) => {
         if (!user) {
-          req.flash("errors", "No existe una cuenta con este nombre de usuario.");
+          req.flash(
+            "errors",
+            "No existe una cuenta con este nombre de usuario."
+          );
           return null;
         }
 
@@ -252,29 +244,77 @@ exports.PostNewPassword = (req, res, next) => {
       id: userId,
       resetTokenExpiration: { [Op.gte]: Date.now() },
     },
-  }).then((user)=>{
+  })
+    .then((user) => {
+      if (!user) {
+        req.flash(
+          "errors",
+          "No se pudo validar correctamente, vuelva a intentarlo"
+        );
+        return res.redirect("/reset");
+      }
 
-    if(!user){
-      req.flash("errors", "No se pudo validar correctamente, vuelva a intentarlo");
-      return res.redirect("/reset");
-    }
+      bcrypt
+        .hash(newPassword, 12)
+        .then((hashedPassword) => {
+          user.password = hashedPassword;
+          user.resetToken = null;
+          user.resetTokenExpiration = null;
+          return user.save();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
 
-    bcrypt.hash(newPassword,12)
-    .then((hashedPassword)=>{
-      user.password = hashedPassword;
-      user.resetToken = null;
-      user.resetTokenExpiration = null;
-      return user.save();
+      res.redirect("/login");
     })
     .catch((err) => {
       console.log(err);
-    })
-
-    res.redirect("/login");
-
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+    });
 };
 
+exports.GetPageActiveUser = (req, res, next) => {
+  const user = req.params.User;
+
+  User.findOne({
+    where: {
+    [Op.and]: [{user: user}, {isActive: false}],
+    }
+  })
+    .then((result) => {
+      if (!result) {
+        req.flash("errors", "El usuario no se ha encontrado en el sistema.");
+        return res.redirect("/login");
+      }
+
+      const user = result.dataValues;
+
+      res.render("login_int/active-user", {
+        pageTitle: "Activar usuario",
+        loginActive: true,
+        user: user.user,
+      });
+
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+exports.GetActiveUser = (req, res, next) => {
+  const user = req.params.User;
+
+  User.update(
+    {
+      isActive: true,
+    },
+
+    { where: { user: user } }
+  )
+    .then((result) => {
+      return res.redirect("/login");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};

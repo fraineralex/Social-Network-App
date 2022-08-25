@@ -89,3 +89,18 @@ function Alert(icon, title, text) {
     text: text,
   });
 }
+
+function Alert2(path, icon, title, text) {
+  Swal.fire({
+    icon: icon,
+    title: title,
+    text: text,
+  });
+  setTimeout(() => {
+    let form = document.createElement("form");
+    form.action = path;
+    form.method = "GET";
+    document.body.append(form);
+    form.submit();
+  }, 2000);
+}
