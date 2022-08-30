@@ -40,7 +40,7 @@ Social Network App is a project carried out in node js in order to create a web 
  <br><br>
  ## Project images
  
- ![image](https://user-images.githubusercontent.com/84060723/187008280-8f0a401a-ae86-4953-9653-2fb84a60b258.png)
+ [![Home-example.jpg](https://i.postimg.cc/SsDwk41n/Home-example.jpg)](https://postimg.cc/cgtDBpSW)
 
 <br><br>
 ## What do you need to run this project ?
