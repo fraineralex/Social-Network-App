@@ -28,10 +28,14 @@ exports.PostLogin = (req, res, next) => {
   const user = req.body.user;
   const password = req.body.password;
 
+  console.log("\n\n\n\nlogin: ",req.body);
+
   User.findOne({
-     [Op.and]: [{ user: user }, {isActive: true}],
+     where: { user: user },
     })
     .then((user) => {
+
+      console.log("\n\n\n\nuser: ",user);
       if (!user) {
         req.flash("errors", "No se ha encontrado ningun usuario con ese nombre.");
         return res.redirect("/login");
@@ -40,12 +44,10 @@ exports.PostLogin = (req, res, next) => {
       bcrypt
         .compare(password, user.password)
         .then((result) => {
-          console.log(result);
           if (result) {
             req.session.newSession = true;
             req.session.user = user;
-            return req.session.save((err) => {
-              console.log(err);
+            return req.session.save((err) => {           
               res.redirect("/");
             });
           }
@@ -53,7 +55,6 @@ exports.PostLogin = (req, res, next) => {
           res.redirect("/login");
         })
         .catch((err) => {
-          console.log(err);
           req.flash(
             "errors",
             "Ha ocurrido un error, porfavor vuelva a intentarlo y verifique que los campos esten correctos."
@@ -69,7 +70,6 @@ exports.PostLogin = (req, res, next) => {
 
 exports.PostLogout = (req, res, next) => {
   req.session.destroy((err) => {
-    console.log(err);
     res.redirect("/login");
   });
 };
