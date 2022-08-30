@@ -113,9 +113,20 @@
 
     <main class="container">
         {{#if hasErrorMessages}}
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <ul>
                 {{#each errorMessages}}
+                <li>{{this}}</li>
+                {{/each}}
+            </ul>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {{/if}}
+        
+        {{#if hasSuccessMessages}}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <ul>
+                {{#each successMessages}}
                 <li>{{this}}</li>
                 {{/each}}
             </ul>

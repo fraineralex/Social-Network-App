@@ -19,29 +19,22 @@ modeSwitch.addEventListener("click", () => {
   }
 });
 
-function ShowAlert(postId, csrfToken) {
+function ShowAlert(url, title, message, method = "GET", icon1 = "question", icon2 = "success") {
   Swal.fire({
-    title: "¿Seguro que quieres eliminar esta publicación?",
-    text: "Una vez eliminada no podrás recuperla.",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#d33",
-    cancelButtonColor: "#3085d6",
-    confirmButtonText: "Eliminar",
+    title: `${message}`,
+    icon: `${icon1}`,
     reverseButtons: true,
+    showCancelButton: true,
+    confirmButtonColor: "#",
+    cancelButtonColor: "#3085d6",
+    confirmButtonText: "yes",
   }).then((result) => {
     if (result.isConfirmed) {
-      Swal.fire(
-        "¡Eliminada!",
-        "Tu publicación ha sido eliminada satisfactoriamente.",
-        "success"
-      );
-
+      Swal.fire("Listo!", `${title}.`, `${icon2}`);
       setTimeout(() => {
         let form = document.createElement("form");
-        form.action = "/delete-post";
-        form.method = "POST";
-        form.innerHTML = `<input type="hidden" value="${postId}" name="PostId"> <input type="hidden" name="_csrf" value="${csrfToken}">`;
+        form.action = `${url}`;
+        form.method = `${method}`;
         document.body.append(form);
         form.submit();
       }, 2000);
@@ -61,11 +54,7 @@ function DeleteConfirm(id, item, title, successMessage) {
     reverseButtons: true,
   }).then((result) => {
     if (result.isConfirmed) {
-      Swal.fire(
-        "Listo!",
-        `${successMessage}.`,
-        "success"
-      );
+      Swal.fire("Listo!", `${successMessage}.`, "success");
 
       setTimeout(() => {
         let form = document.createElement("form");
@@ -76,4 +65,42 @@ function DeleteConfirm(id, item, title, successMessage) {
       }, 2000);
     }
   });
+}
+
+function TDate() {
+  var UserDate = document.getElementById("userdate").value;
+  var ToDate = new Date();
+  console.log(ToDate.toISOString());
+  if (new Date(UserDate).toISOString() <= ToDate.toISOString()) {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Debe escoger una fecha y hora superior a la actual",
+    });
+    return false;
+  }
+  return true;
+}
+
+function Alert(icon, title, text) {
+  Swal.fire({
+    icon: icon,
+    title: title,
+    text: text,
+  });
+}
+
+function Alert2(path, icon, title, text) {
+  Swal.fire({
+    icon: icon,
+    title: title,
+    text: text,
+  });
+  setTimeout(() => {
+    let form = document.createElement("form");
+    form.action = path;
+    form.method = "GET";
+    document.body.append(form);
+    form.submit();
+  }, 2000);
 }

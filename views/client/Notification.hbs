@@ -1,4 +1,10 @@
 <div class="notification-container">
+
+    <h1>Notifications</h1>
+
+    {{#if ceroNotifications}}
+        <h3 class="">You don't have new Notifications ;)</h3>
+    {{/if}}
     {{#each friendS as |fs key|}}
     <div class="container-body">
         <div class="container-img">
@@ -11,9 +17,12 @@
             <div class="dropdown show">
                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a href="/notifications/acceptFriend/{{fs.id}}" class="dropdown-item">accept</a>
-                    <a href="/notifications/deleteNotification/{{fs.id}}" class="dropdown-item">delete</a>
-                    <a href="/notifications/viewNotifications/{{fs.id}}" class="dropdown-item">viewed</a>
+
+                    <a type="submit" class="dropdown-item" onclick="ShowAlert('/notifications/acceptFriend/{{fs.id}}', 'Now {{notificationInfoUserName ../userS key}} and you are friend', 'do you want to accept this Friend Request?')">accept</a>
+
+                    <a type="submit" class="dropdown-item" onclick="DeleteConfirm({{fs.id}}, 'Notifications', 'Do you want to delete this notifications', 'Notification deleted ;)')">delete</a>
+
+                    <a type="submit" class="dropdown-item" onclick="ShowAlert('/notifications/viewNotifications/{{fs.id}}', '', 'Press yes to mark this notification as viewed')">viewed</a>
                 </div>
             </div>
         </div>          

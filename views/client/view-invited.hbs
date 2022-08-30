@@ -11,10 +11,10 @@
                     los amigos invitados junto con su información personal, sus respuestas a tu invitación y mucho más.
                 </p>
                 <p>
-                    <a type="button" class="btn btn-primary text-light mt-2"
-                        href="/add-invited/{{user.id}}/{{event.id}}?viewInvited=true"><i
-                            class="fa-solid fa-circle-plus"></i>
-                        Agregar invitado</a>
+                    <a type="button" class="btn btn-light mt-2"
+                        href="/events-created"><i
+                            class="bi bi-arrow-left-circle-fill"></i>
+                        Eventos creados</a>
                 </p>
             </div>
         </div>
@@ -28,6 +28,10 @@
 
                         <div class="d-flex justify-content-between mb-3 text-dark">
                             <h2 class="text-white">{{event.name}}🗓️</h2>
+                            <a type="button" class="btn btn-primary text-light mt-2 mb-2"
+                                href="/add-invited/{{user.id}}/{{event.id}}?viewInvited=true"><i
+                                    class="fa-solid fa-circle-plus"></i>
+                                Agregar invitado</a>
                         </div>
 
 

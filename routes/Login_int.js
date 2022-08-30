@@ -16,4 +16,7 @@ router.post("/reset", login_intController.PostReset);
 router.get("/reset/:token", login_intController.GetNewPassword);
 router.post("/new-password", login_intController.PostNewPassword);
 
+router.get("/page-active-user/:User", login_intController.GetPageActiveUser);
+router.get("/active-user/:User", login_intController.GetActiveUser);
+
 module.exports =router;

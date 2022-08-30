@@ -2,6 +2,8 @@ const Users = require("../models/Users");
 const Comments = require("../models/Comments");
 const Posts = require("../models/Posts");
 const notiCount = require("../util/countNotifications");
+const fs = require('fs');
+const path = require('path');
 
 exports.GetHome = (req, res, next) => {
   Posts.findAll({
@@ -34,6 +36,7 @@ exports.GetHome = (req, res, next) => {
                 users: users,
                 hasPost: posts.length > 0,
                 nCount1: await notiCount.countNotifications(userIdn),
+                userID: userIdn
               });
             })
             .catch((err) => {
@@ -327,3 +330,23 @@ exports.GetDeletePost = (req, res, next) => {
       console.log(err);
     });
 }; */
+
+
+//subscription to web push notifications
+module.exports.getNotifications =  async (req, res, next) => {
+  let endpoint = JSON.parse(fs.readFileSync(path.join(__dirname, "../endpoint.json"), 'utf8'));
+  
+  if (endpoint.find(x => x.userId === req.body.userId)) {
+    let endpointSave = endpoint.filter(x => x.userId != req.body.userId);
+    let concatenated = endpointSave.concat(req.body);
+    fs.writeFileSync(path.join(__dirname, "../endpoint.json"), JSON.stringify(concatenated, null, 2));
+    console.log("subscription updated");
+
+  } else {
+    endpoint.push(req.body);
+    fs.writeFileSync(path.join(__dirname, "../endpoint.json"), JSON.stringify(endpoint, null, 2));
+    console.log("subscription added");
+  }
+
+  res.status(200).json();
+}

@@ -2,14 +2,10 @@
     {{#if post.src}}
     <form enctype="multipart/form-data" method="POST" class="row g-3 needs-validation"
         action="{{#if editMode}}/edit-post{{else}}/new-post{{/if}}">
-<<<<<<< HEAD
         <input type="hidden" name="_csrf" value="{{csrfToken}}">
-        <div class="col-md-8 me-5 mt-0">
-            <div class="card bg-dark" style="width: 35rem;">
-=======
         <div class="col-md-8 me-5 mt-5">
             <div class="card bg-dark" style="width: 40rem;">
->>>>>>> a92dba502f14799ce028c5a3580b847d3ae87159
+
                 <div class="card-body">
                     <header>
                         <div class="c-image-text">
@@ -67,7 +63,7 @@
         </div>
     </form>
     {{else}}
-    <form method="POST" class="row g-3 needs-validation mt-5"
+    <form method="POST" class="row g-3 needs-validation mt-3"
         action="{{#if editMode}}/edit-post{{else}}/new-post{{/if}}">
         <input type="hidden" name="_csrf" value="{{csrfToken}}">
         <div class="col-md-8 mt-5 ms-4 px-5">

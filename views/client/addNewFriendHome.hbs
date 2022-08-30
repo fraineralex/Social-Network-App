@@ -4,43 +4,45 @@
         <form action="/searchNewFriend" method="post">
         <input type="hidden" name="_csrf" value="{{csrfToken}}">
             <div>
-                <label for="search">New friend</label>
+                <label for="search">Nuevo Amigo</label>
             </div>
             <div>
                 <input type="hidden" name="userId" id="userID" value="{{userId}}">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="search" name="userName" placeholder="User name..." aria-label="Recipient's username" aria-describedby="button-addon2" required>
-                    <button class="btn btn-outline-secondary" type="submit" id="button-addon2">search</button>
+                    <input type="text" class="form-control" id="search" name="userName" placeholder="Usuario..." aria-label="Recipient's username" aria-describedby="button-addon2" required>
+                    <button class="btn btn-outline-secondary" type="submit" id="button-addon2">BUSCAR</button>
                 </div>
             </div>
         </form>
-    </div>
-        
+    </div>  
+
     <div class="items2">
+        {{#if usLength}}<p>Lo sentimos, no pudimos encontrar el usuario que buscas :C</p>{{/if}}
+
         {{#if us}}
             <div class="search-box">
                 {{#each us as |us key|}}
                 <div class="box-container">
-                    <form action="/solicitude/friend/{{../userId}}/{{us.id}}" method="post">
                     <input type="hidden" name="_csrf" value="{{../csrfToken}}">
-                        <a href="User/{{us.id}}" class="">
-                            <div class="container-img">
-                                <img src="{{us.imageProfile}}" alt="{{us.name}} profile image">
-                            </div>
-                            <div class="container-text">
-                                <h1>{{us.name}}</h1>
-                                <h3>{{us.lastName}}</h3>
-                                <h3>{{us.user}}</h3>
-                            </div>
-                            <div class="container-button">
-                                {{#if (getConfirmationF ../ac key)}}
-                                    <a href="" class="btn btn-outline-success disabled">My friend :)</a>
-                                {{else}}
-                                    <button type="submit" class="">send</button>
-                                {{/if}}
-                            </div>
-                        </a>
-                    </form>
+                    <div class="container-img">
+                        <img src="{{us.imageProfile}}" alt="{{us.name}} profile image">
+                    </div>
+                    <div class="container-text">
+                        <h1>{{us.name}}</h1>
+                        <h3>{{us.lastName}}</h3>
+                        <h3>{{us.user}}</h3>
+                    </div>
+                    <div class="container-button">
+                        {{#if (getConfirmationF ../ac key)}}
+                            <a href="" class="btn btn-outline-success disabled">Mi amigo :)</a>
+                        {{else}}
+                            {{#if ../noMoreUno}}
+                                <a href="" class="btn btn-outline-warning disabled">Solicitud enviada</a>
+                            {{else}}
+                                <a type="submit" onclick="ShowAlert('/solicitude/friend/{{../userId}}/{{us.id}}', 'Solicitud enviada :)', 'Quieres envearle una solicitud de amistad a {{us.name}}', 'post')">Enviar Solicitud</a>
+                            {{/if}}
+                        {{/if}}
+                    </div>
                 </div>
                 {{/each}}
             </div>

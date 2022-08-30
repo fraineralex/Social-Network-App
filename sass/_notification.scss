@@ -8,6 +8,19 @@
     row-gap: 1rem;
     padding: 1rem;
 
+    h1{
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: rgb(19, 138, 27);
+        margin-bottom: 1rem;
+    }
+    h3{
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: rgb(63, 63, 63);
+        margin-bottom: 1rem;
+    }
+
     .container-body{
         display: flex;
         flex-direction: row;

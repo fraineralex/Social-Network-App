@@ -60,6 +60,7 @@
     margin: 0 0 15px;
     position:
       relative;
+    padding: 5px;
   }
 
   .container form .input-box input {
@@ -201,7 +202,7 @@
 
     <div class="form-content">
 
-      <form action="/login_up " method="POST" id="login" onsubmit="process(event)" >
+      <form enctype="multipart/form-data" action="/login_up " method="POST" id="login" onsubmit="process(event)">
 
         <input type="hidden" name="_csrf" value="{{csrfToken}}" />
 
@@ -218,14 +219,13 @@
         </div>
 
         <div class="input-box underline">
-          {{!-- <input name="phone" id="phone" type="tel" placeholder="Phone" class="input" required> --}}
-          <input type="tel" id="phone" name="number" class="col-12" maxlength="10" placeholder="000-000-0000" autocomplete="off"
-            onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" min="1" required />
+          <input type="text" id="phone" name="number" class="col-12" maxlength="10" placeholder="(000)-000-0000"
+            autocomplete="off" min="1" required />
           <div class="underline"></div>
         </div>
 
         <div class="input-box underline">
-          <input name="image" accept="image/*" type="file" placeholder="Image Profile" autocomplete="off" class=""
+          <input name="ImageFile" accept="image/*" type="file" placeholder="Image Profile" autocomplete="off" class=""
             required />
           <div class="underline"></div>
         </div>
@@ -264,4 +264,5 @@
     </div>
   </div>
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </section>

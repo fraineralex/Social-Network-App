@@ -27,6 +27,12 @@
         grid-column: 1/4;
         row-gap: 1rem;
         column-gap: 1rem;
+        p{
+            text-align: center;
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: #ccc;
+        }
         .search-box{
             display: grid;
             justify-items: center;
@@ -38,7 +44,8 @@
                 flex-direction: column;
                 max-width: 20rem;
                 min-width: 15rem;
-                max-height: 20rem;
+                max-height: 25rem;
+                min-height: 20rem;
                 padding: 1rem;
                 background-color: rgb(38, 38, 38);
                 border: solid 1px rgb(38, 38, 38);
@@ -76,18 +83,19 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                button{
+                a{
                     width: 100%;
-                    background-color: rgb(44, 61, 45);
+                    background-color: rgb(10, 15, 10);
                     border: solid 1px rgb(44, 61, 45);
                     border-radius: 3%;
                     color: #ccc;
                     font-size: 1rem;
                     font-weight: bold;
+                    text-align: center;
                     padding: 2px;
                     transition: 0.5s;
                     &:hover{
-                        background-color: rgb(37, 37, 37);
+                        background-color: rgb(44, 61, 45) 0px 0px 10px;
                         box-shadow: rgb(44, 61, 45) 0px 0px 10px;
                     }
                 }
