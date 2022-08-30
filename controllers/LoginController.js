@@ -28,10 +28,11 @@ exports.PostLogin = (req, res, next) => {
   const user = req.body.user;
   const password = req.body.password;
 
-  console.log("\n\n\n\nlogin: ",req.body);
-
   User.findOne({
-     where: { user: user },
+     where: {
+      user: user,
+      [Op.and]: [{isActive: true}],
+    },
     })
     .then((user) => {
 
