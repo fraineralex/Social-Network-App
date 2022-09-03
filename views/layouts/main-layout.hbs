@@ -28,8 +28,8 @@
                 </span>
 
                 <div class="textDesign logo-text">
-                    <span class="name">{{user.name}}</span>
-                    <span class="profession text-center">{{user.user}}</span>
+                    <span class="name"><small>{{user.name}} {{user.lastName}}</small></span>
+                    <span class="profession text-center">@{{user.user}}</span>
                 </div>
             </div>
 
@@ -43,14 +43,14 @@
                     <li class="">
                         <a href="/">
                             <i class='bx bx-home-alt icon'></i>
-                            <span class="textDesign nav-text">Inicio</span>
+                            <span class="textDesign nav-text">Home</span>
                         </a>
                     </li>
 
                     <li class="">
                         <a href="/friend">
                             <i class='bx bx-group icon'></i>
-                            <span class="textDesign nav-text">Amigos</span>
+                            <span class="textDesign nav-text">Friends</span>
                         </a>
                     </li>
 
@@ -65,14 +65,14 @@
                                 </span>
                                 {{/if}}
                             </i>
-                            <span class="textDesign nav-text">Notificaciones</span>
+                            <span class="textDesign nav-text">Notifications</span>
                         </a>
                     </li>
 
                     <li class="">
                         <a href="/events">
                             <i class='bx bx-calendar icon'></i>
-                            <span class="textDesign nav-text">Eventos</span>
+                            <span class="textDesign nav-text">Events</span>
                         </a>
                     </li>
 

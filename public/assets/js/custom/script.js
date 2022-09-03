@@ -30,7 +30,7 @@ function ShowAlert(url, title, message, method = "GET", icon1 = "question", icon
     confirmButtonText: "yes",
   }).then((result) => {
     if (result.isConfirmed) {
-      Swal.fire("Listo!", `${title}.`, `${icon2}`);
+      Swal.fire("Done!", `${title}.`, `${icon2}`);
       setTimeout(() => {
         let form = document.createElement("form");
         form.action = `${url}`;
@@ -44,17 +44,17 @@ function ShowAlert(url, title, message, method = "GET", icon1 = "question", icon
 
 function DeleteConfirm(id, item, title, successMessage) {
   Swal.fire({
-    title: `¿${title}?`,
-    text: "Una vez se ha eliminado no se podrá recuperar.",
+    title: `${title}?`,
+    text: "Once it has been deleted it cannot be recovered.",
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: "#d33",
     cancelButtonColor: "#3085d6",
-    confirmButtonText: "Eliminar",
+    confirmButtonText: "Delete",
     reverseButtons: true,
   }).then((result) => {
     if (result.isConfirmed) {
-      Swal.fire("Listo!", `${successMessage}.`, "success");
+      Swal.fire("Deleted!", `${successMessage}.`, "success");
 
       setTimeout(() => {
         let form = document.createElement("form");
@@ -75,7 +75,7 @@ function TDate() {
     Swal.fire({
       icon: "error",
       title: "Oops...",
-      text: "Debe escoger una fecha y hora superior a la actual",
+      text: "You must choose a date and time greater than the current one",
     });
     return false;
   }

@@ -8,21 +8,21 @@
     {{#if user}}
 
     <div class="col-md-6 ms-3">
-        <div class="post-box mb-5" aria-live="assertive" aria-atomic="true" style="max-width: 35rem;">
+        <div class="post-box mb-5 bg-dark" aria-live="assertive" aria-atomic="true" style="max-width: 35rem;">
             <form method="POST" class="needs-validation" action="/new-post">
                 <input type="hidden" name="_csrf" value="{{csrfToken}}">
                 <div class="box-header">
                     <span class="d-image">
                         <img src="{{user.imageProfile}}" alt="profile {{user.name}}">
                     </span>
-                    <small class="me-auto fs-6"><strong>{{user.name}}</strong></small>
+                    <small class="me-auto fs-6"> <strong>{{user.name}} {{user.lastName}}</strong></small>
                 </div>
                 <div class="box-body">
                     <div class="">
                         <input type="hidden" name="AuthorId" value="{{user.id}}">
                         <label for="post" class="form-label text-white"></label>
                         <textarea type="text" class="form-control bg-dark text-white border-primary" id="post"
-                            name="Content" placeholder="¿Qué estás pensando?" rows="4" required></textarea>
+                            name="Content" placeholder="What're you thinking?" rows="4" required></textarea>
                     </div>
                 </div>
                 <div class="box-footer">
@@ -62,7 +62,7 @@
                     <span class="d-image">
                         <img src="{{post.author.dataValues.imageProfile}}" class=" me-2" alt="profile">
                     </span>
-                    <small class="me-auto fs-6 text-white"><strong>{{post.author.dataValues.name}}</strong></small>
+                    <small class="me-auto fs-6 text-white"><strong>{{post.author.dataValues.user}}</strong></small>
                     <small class="float-end fw-light text-white mt-2">{{getDate post.createdAt}}</small>
                 </div>
                 <div class="card-body">
@@ -81,22 +81,22 @@
                                     d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z">
                                 </path>
                             </svg>
-                            Editar
+                            Update
                         </a>
 
                         <a type="button" class="btn btn-sm btn-danger"
-                            onclick="DeleteConfirm({{post.id}}, 'post', 'Seguro que deseas eliminar esta publicación', 'Publicación eliminada satisfactoriamente')">
+                            onclick="DeleteConfirm({{post.id}}, 'post', 'Are you sure you want to delete this post?', 'Post deleted successfully')">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-trash-fill" viewBox="0 0 16 16">
                                 <path
                                     d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
                             </svg>
-                            Eliminar
+                            Delete
                         </a>
 
                         <a type="button" class="btn btn-primary float-end" href="/new-comment/{{post.id}}">
                             <i class="bi bi-chat"></i>
-                            Comentar
+                            Comment
                         </a>
                     </div>
                     {{#if post.comments}}
@@ -156,8 +156,7 @@
                     {{/each}}
 
                     <p class="text-white float-end mt-3">
-                        <small><a href="/new-comment/{{post.id}}" class="text-reset">Ver todos los
-                                comentarios</a></small>
+                        <small><a href="/new-comment/{{post.id}}" class="text-reset">View all comments</a></small>
                     </p>
                     {{/if}}
                 </div>
