@@ -207,7 +207,7 @@ exports.PostAddInvited = (req, res, next) => {
       })
         .then(async (result) => {
           if (result) {
-            req.flash("errors", "Este usuario ya ha sido invitado");
+            req.flash("errors", "This user has been invited");
             return res.redirect("/add-invited/" + authorId + "/" + eventId);
           }
 
@@ -251,7 +251,7 @@ exports.PostAddInvited = (req, res, next) => {
               } else {
                 req.flash(
                   "errors",
-                  "Este usuario no se ha encontrado en su lista de amigos."
+                  "This user could not be found in your friends list"
                 );
                 return res.redirect("/add-invited/" + authorId + "/" + eventId);
               }
@@ -292,7 +292,7 @@ exports.GetViewInvited = (req, res, next) => {
       })
         .then((result) => {
           if (result.length < 1) {
-            req.flash("errors", "Aún no has invitado a nadie a este evento");
+            req.flash("errors", "You haven't invited anyone to this event yet");
             return res.redirect("/events-created");
           }
 
@@ -332,9 +332,9 @@ exports.PostMessageReceptor = (req, res, next) => {
   const message = req.params.Message;
 
   let contentMessage;
-  if (message == "yes") contentMessage = "Asistiré";
-  else if (message == "not") contentMessage = "No asistiré";
-  else if (message == "maybe") contentMessage = "Tal vez asista";
+  if (message == "yes") contentMessage = "I'll attend";
+  else if (message == "maybe") contentMessage = "Maybe I'll attend";
+  else if (message == "not") contentMessage = "I won't attend";
   else return res.redirect("/events");
 
   EventRequests.update(

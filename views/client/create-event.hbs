@@ -4,25 +4,25 @@
             <input type="hidden" name="_csrf" value="{{csrfToken}}">
             <div class="card mb-5 mt-0 bg-dark" style="width: 38rem;">
                 <div class="card-header bg-primary text-light">
-                    <h4 class="text-center">Creando nuevo evento</h4>
+                    <h4 class="text-center">Creating a new event</h4>
                 </div>
-                <h4 class="text-center mb-4 text-white mt-4">Rellene todos los campos a continuación</h4>
+                <h4 class="text-center mb-4 text-white mt-4">Fill in all the fields below</h4>
                 <div class="card-body">
 
                     <div class="mb-3">
-                        <label for="name" class="form-label text-white"><strong>Nombre</strong></label>
+                        <label for="name" class="form-label text-white"><strong>Name</strong></label>
                         <input type="text" class="form-control bg-dark text-white border-primary" id="name" name="Name"
                             required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="place" class="form-label text-white"><strong>Lugar de encuentro</strong></label>
+                        <label for="place" class="form-label text-white"><strong>Meeting place</strong></label>
                         <input type="text" class="form-control bg-dark text-white border-primary" id="place"
                             name="Place" required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="date" class="form-label text-white"><strong>Fecha y hora</strong></label>
+                        <label for="date" class="form-label text-white"><strong>Date and time</strong></label>
                         <input id="userdate" type="datetime-local"
                             class="form-control bg-dark text-white border-primary" id="date" name="Date"
                             min="{{dateTime}}" onchange="TDate()" required>
@@ -30,10 +30,10 @@
 
                     <input type="hidden" value="{{user.id}}" name="AuthorId">
 
-                    <button type="submit" class="btn btn-primary float-end mt-2">Crear evento</button>
+                    <button type="submit" class="btn btn-primary float-end mt-2">Create event</button>
 
                     <a type="button" href="/events" class="btn btn-light float-end mt-2 me-2"><i
-                            class="bi bi-arrow-left-circle-fill"></i> Regresar</a>
+                            class="bi bi-arrow-left-circle-fill"></i> Go back</a>
                 </div>
             </div>
         </form>

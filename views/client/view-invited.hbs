@@ -6,15 +6,14 @@
     <section class="text-center container">
         <div class="row">
             <div class="col-lg-6 col-md-8 mx-auto">
-                <h1 class="fw-bold text-primary mt-4">Lista de invitados</h1>
-                <p class="lead text-white">Te damos la bienvenida a la lista de invitados de este evento, donde puedes
-                    los amigos invitados junto con su información personal, sus respuestas a tu invitación y mucho más.
+                <h1 class="fw-bold text-primary mt-4">Guests List</h1>
+                <p class="lead text-white">Welcome to the guest list for this event, where you can see the invited
+                    friends along with their personal information, their responses to your invitation, and much more.
                 </p>
                 <p>
-                    <a type="button" class="btn btn-light mt-2"
-                        href="/events-created"><i
+                    <a type="button" class="btn btn-light mt-2" href="/events-created"><i
                             class="bi bi-arrow-left-circle-fill"></i>
-                        Eventos creados</a>
+                        Events created</a>
                 </p>
             </div>
         </div>
@@ -31,17 +30,17 @@
                             <a type="button" class="btn btn-primary text-light mt-2 mb-2"
                                 href="/add-invited/{{user.id}}/{{event.id}}?viewInvited=true"><i
                                     class="fa-solid fa-circle-plus"></i>
-                                Agregar invitado</a>
+                                Add guest</a>
                         </div>
 
 
                         <thead>
                             <tr>
-                                <th>Nombre</th>
-                                <th>Apellido</td>
-                                <th>Usuario</td>
-                                <th>Respuesta</td>
-                                <th>Eliminar</td>
+                                <th>Name</th>
+                                <th>Las Name</td>
+                                <th>User</td>
+                                <th>Answer</td>
+                                <th>Delete</td>
                             </tr>
                         </thead>
 
@@ -52,12 +51,12 @@
                                 <td>{{invited.name}}</td>
                                 <td>{{invited.lastName}}</td>
                                 <td>@{{invited.user}}</td>
-                                <td>{{#if receptor.dataValues.message}}{{receptor.dataValues.message}}{{else}}Sin
-                                    respuesta{{/if}}</td>
+                                <td>{{#if receptor.dataValues.message}}{{receptor.dataValues.message}}{{else}}unanswered
+                                    {{/if}}</td>
                                 <td>
 
                                     <a type="submit" class="btn btn-danger"
-                                        onclick="DeleteConfirm({{receptor.dataValues.receptorId}}+'/'+{{receptor.dataValues.eventId}}+'/'+{{../../user.id}}, 'invited', 'Seguro que deseas eliminar este inivitado', 'Invitado eliminado satisfactoriamente')"><i
+                                        onclick="DeleteConfirm({{receptor.dataValues.receptorId}}+'/'+{{receptor.dataValues.eventId}}+'/'+{{../../user.id}}, 'invited', 'Are you sure you want to remove this guest', 'Guest successfully deleted')"><i
                                             class='fa-solid fa-trash-can'></i> </a>
 
                                 </td>

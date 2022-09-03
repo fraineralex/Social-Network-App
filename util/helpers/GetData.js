@@ -1,5 +1,4 @@
 const moment = require("moment");
-moment.locale("es-do");
 
 exports.FindUser = (authorId, users) => {
   const user = users.find((user) => user.id == authorId);
@@ -11,8 +10,7 @@ exports.GetDate = (date) => {
   const time = moment(date, "YYYYMMDD, h:mm:ss")
     .startOf("second")
     .fromNow()
-    .replace("h", "H");
-  return time;
+  return time.charAt(0).toUpperCase() + time.slice(1);
 };
 
 exports.GetEventDate = (date) => {
@@ -45,8 +43,8 @@ exports.FindReply = (commentId, comments) => {
 };
 
 exports.LengthValue = (array) => {
-  if (array.length > 1) return "   " + array.length + " personas";
-  else if (array.length == 1) return "   " + array.length + " persona";
+  if (array.length > 1) return "   " + array.length + " person";
+  else if (array.length == 1) return "   " + array.length + " people";
   else return false;
 };
 
@@ -57,13 +55,13 @@ exports.FindAnswer = (eventRequests, currentlyUser, btnAnswer) => {
   );
   if (row) {
     if (btnAnswer == "yes") {
-      if (row.dataValues.message == "Asistiré") return "btn-primary";
+      if (row.dataValues.message == "I'll attend") return "btn-primary";
       else return "btn-light";
     } else if (btnAnswer == "not") {
-      if (row.message == "No asistiré") return "btn-primary";
+      if (row.message == "I won't attend") return "btn-primary";
       else return "btn-light";
     } else if (btnAnswer == "maybe") {
-      if (row.message == "Tal vez asista") return "btn-primary";
+      if (row.message == "Maybe I'll attend") return "btn-primary";
       else return "btn-light";
     } else {
       return "btn-light";

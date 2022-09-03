@@ -2,13 +2,13 @@
     <section class="text-center container">
         <div class="row">
             <div class="col-lg-6 col-md-8 mx-auto">
-                <h1 class="fw-bold text-primary mt-4">Buzón de Eventos</h1>
-                <p class="lead text-white">Te damos la bienvenida a tu buzon de eventos, donde puedes revisar
-                    los eventos a los que te invitaron tus amigos, crear nuevos eventos y mucho más.
+                <h1 class="fw-bold text-primary mt-4">Event Mailbox</h1>
+                <p class="lead text-white">Welcome to your event mailbox, where you can review the events your friends
+                    have invited you to, create new events, and much more.
                 </p>
                 <p>
-                    <a href="/create-event" class="btn btn-primary mt-1"><i class="bi bi-calendar-plus"></i> Nuevo
-                        evento</a>
+                    <a href="/create-event" class="btn btn-primary mt-1"><i class="bi bi-calendar-plus"></i> Create new
+                        event</a>
                 </p>
             </div>
         </div>
@@ -19,9 +19,9 @@
             <div class="card-header bg-dark">
                 <nav class="nav nav-pills flex-column flex-sm-row">
                     <a class="flex-sm-fill text-center nav-link fa fa-code fs-4 fw-bold text-white text-decoration-none {{#if createdMode}}{{else}}border-bottom border-4 border-primary{{/if}}"
-                        aria-current="page" href="/events">RECIBIDOS</a>
+                        aria-current="page" href="/events">RECEIVED</a>
                     <a class="flex-sm-fill text-center nav-link fa fa-code fs-4 fw-bold text-white text-decoration-none {{#if createdMode}}border-bottom border-4 border-primary{{/if}}"
-                        aria-current="page" href="/events-created">CREADOS</a>
+                        aria-current="page" href="/events-created">CREATED</a>
                 </nav>
             </div>
             {{#if createdMode}}
@@ -42,25 +42,25 @@
                                 </div>
 
                                 <div class="card-body ">
-                                    <small><strong>Fecha:</strong>{{#if (getEventDate event.date)}}<i
+                                    <small><strong>Date:</strong>{{#if (getEventDate event.date)}}<i
                                             class="ms-1 font-monospace">{{getEventDate
-                                            event.date}}{{else}}<i class="ms-2">Evento finalizado
+                                            event.date}}{{else}}<i class="ms-2">Finished event
                                                 ❌{{/if}}</i></small><br>
-                                    <small><strong> Lugar:</strong><i
+                                    <small><strong> Place:</strong><i
                                             class="ms-2 font-monospace">{{event.place}}</i></small>
                                     <small class="ms-2 font-monospace"><br>
-                                        <strong>Inivitados:</strong><i class="font-monospace">{{#if (lengthValue
+                                        <strong>Guests:</strong><i class="font-monospace">{{#if (lengthValue
                                             event.eventRequests)}}{{lengthValue
-                                            event.eventRequests}}{{else}} Nadie todavía{{/if}}</i></small>
+                                            event.eventRequests}}{{else}} No one yet{{/if}}</i></small>
                                     <div class="mt-2 pt-2 border-top text-center">
 
                                         <a type="submit" class="btn btn-sm btn-danger"
-                                            onclick="DeleteConfirm({{event.id}}, 'event', 'Seguro que deseas eliminar este evento', 'Evento eliminado satisfactoriamente')">
+                                            onclick="DeleteConfirm({{event.id}}, 'event', 'Are you sure you want to delete this event?', 'Event deleted successfully')">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                 fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
                                                 <path
                                                     d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
-                                            </svg>Eliminar
+                                            </svg>Delete
                                         </a>
                                         {{#if (getEventDate event.date)}}
                                         <a type="button" class="btn btn-sm btn-light"
@@ -72,11 +72,12 @@
                                                 <path fill-rule="evenodd"
                                                     d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z" />
                                             </svg>
-                                            Invitar</a>{{/if}}
+                                            Invite</a>{{/if}}
                                         <a type=" button" class="btn btn-sm btn-info" {{#if (lengthValue
                                             event.eventRequests)}}
-                                            href="/view-invited/{{../user.id}}/{{event.id}}">{{else}}onclick="Alert('error', 'Oops...', 'Todavía no ha invitado a ningun amigo a este evento')"{{/if}}>
-                                            <i class="bi bi-info-circle"></i> Ver invitados</a>
+                                            href="/view-invited/{{../user.id}}/{{event.id}}"    s{{else}}onclick="Alert('error',
+                                            'Oops!', 'You have not invited any friends to this event yet.')"{{/if}}>
+                                            <i class="bi bi-info-circle"> View guests</i></a>
 
                                     </div>
                                 </div>
@@ -87,7 +88,7 @@
                     </div>
                     {{else}}
                     <h1 class="text-center fw-light mb-3 mt-5 text-primary">Oops! :(</h1>
-                    <h4 class="text-center text-white mb-5">Aún no has creado ningun evento</h4>
+                    <h4 class="text-center text-white mb-5">You haven't created any event yet</h4>
                     <hr class="text-dark mt-5 mb-5">
                     <hr class="text-dark mt-5 mb-5">
                     <hr class="text-dark mt-5 mb-5">
@@ -111,13 +112,13 @@
                                 </div>
 
                                 <div class="card-body">
-                                    <small><strong>Fecha:</strong>{{#if (getEventDate event.date)}}<i
+                                    <small><strong>Date:</strong>{{#if (getEventDate event.date)}}<i
                                             class="ms-1 font-monospace">{{getEventDate
-                                            event.date}}{{else}}<i class="ms-2">Evento finalizado
+                                            event.date}}{{else}}<i class="ms-2">Finished event
                                                 ❌{{/if}}</i></small><br>
-                                    <small><strong> Lugar:</strong><i
+                                    <small><strong> Place:</strong><i
                                             class="ms-2 font-monospace">{{event.place}}</i></small>
-                                    <small class="ms-2"><br><strong>Inivitados:</strong><i
+                                    <small class="ms-2"><br><strong>Guests:</strong><i
                                             class="font-monospace">{{lengthValue
                                             event.eventRequests}}</i></small>
                                     {{#if (getEventDate event.date)}}
@@ -127,23 +128,21 @@
                                             <input type="hidden" name="ReceptorId" value="{{../user.id}}">
                                             <input type="hidden" name="EventId" value="{{event.id}}">
                                             <button type="submit"
-                                                class="btn btn-sm {{findAnswer event.eventRequests ../user.id 'yes'}}">Asistiré</button>
+                                                class="btn btn-sm {{findAnswer event.eventRequests ../user.id 'yes'}}">I'll attend</button>
                                         </form>
                                         <form class="d-inline" method="post" action="/assist/maybe">
                                             <input type="hidden" name="_csrf" value="{{csrfToken}}">
                                             <input type="hidden" name="ReceptorId" value="{{../user.id}}">
                                             <input type="hidden" name="EventId" value="{{event.id}}">
                                             <button type="submit"
-                                                class="btn btn-sm {{findAnswer event.eventRequests ../user.id 'maybe'}}">Tal
-                                                vez asista</button>
+                                                class="btn btn-sm {{findAnswer event.eventRequests ../user.id 'maybe'}}">Maybe I'll attend</button>
                                         </form>
                                         <form class="d-inline" method="post" action="/assist/not">
                                             <input type="hidden" name="_csrf" value="{{csrfToken}}">
                                             <input type="hidden" name="ReceptorId" value="{{../user.id}}">
                                             <input type="hidden" name="EventId" value="{{event.id}}">
                                             <button type="submit"
-                                                class="btn btn-sm {{findAnswer event.eventRequests ../user.id 'not'}}">No
-                                                asistiré</button>
+                                                class="btn btn-sm {{findAnswer event.eventRequests ../user.id 'not'}}">I won't attend</button>
                                         </form>
                                     </div>
                                     {{/if}}
@@ -154,8 +153,8 @@
                         <hr class="text-dark mt-5">
                     </div>
                     {{else}}
-                    <h1 class="text-center fw-light mb-3 mt-5 text-primary">Oops! :(</h1>
-                    <h4 class="text-center text-white mb-5">No has recibido ninguna invitación todavía.</h4>
+                    <h1 class="text-center fw-light mb-3 mt-5 text-primary">Oops!</h1>
+                    <h4 class="text-center text-white mb-5">You have not received any invitation yet.</h4>
                     <hr class="text-dark mt-5 mb-5">
                     <hr class="text-dark mt-5 mb-5">
                     <hr class="text-dark mt-5 mb-5">
