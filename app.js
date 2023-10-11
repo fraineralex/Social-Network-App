@@ -68,6 +68,7 @@ app.use(
 );
 app.use(flash());
 
+//middleware to pass user info to views
 app.use((req, res, next) => {
   
   if (!req.session) {
@@ -87,6 +88,7 @@ app.use((req, res, next) => {
     });
 });
 
+// middleware to pass errors and success messages to views
 app.use((req, res, next) => {
   const errors = req.flash("errors"); 
   const success = req.flash("success");
