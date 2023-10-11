@@ -1,5 +1,5 @@
 const post = require("../models/Posts");
-const friend = require("../models/friends");
+const friend = require("../models/Friends");
 const user = require("../models/Users");
 const { Op } = require("sequelize");
 const notiCount = require("../util/countNotifications");
